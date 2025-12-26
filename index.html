@@ -3836,6 +3836,8 @@ let tariffSelections = {};
 let defaultTariffSelections = {};
 let tariffSnapshots = {};
 let currentSearchQuery = '';
+let apiFallbackTimer = null;
+const API_FALLBACK_TIMEOUT = 8000;
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let motionAllowed = !prefersReducedMotion.matches;
@@ -3870,6 +3872,21 @@ function copyOrderText() {
         }
         showCopyToast(true);
     }).catch(() => showCopyToast(false));
+}
+
+function startApiFallbackTimer() {
+    clearTimeout(apiFallbackTimer);
+    apiFallbackTimer = setTimeout(() => {
+        if (raw.length > 0) return;
+        const area = document.getElementById('area');
+        if (!area || area.dataset.fallbackShown === 'true') return;
+
+        area.innerHTML = '<div class="empty-album">Не удалось загрузить работы из VK. Проверьте подключение или попробуйте позже.</div>';
+        area.dataset.fallbackShown = 'true';
+
+        const subtitle = document.getElementById('subtitle');
+        if (subtitle) subtitle.textContent = '· загрузка не удалась';
+    }, API_FALLBACK_TIMEOUT);
 }
 
 function debounce(fn, delay = 250) {
@@ -5034,6 +5051,7 @@ function loadAlb(id,t){ window.scrollTo(0,0); document.getElementById("header-pr
       placeholders[i % colCount].appendChild(div);
   }
 
+  startApiFallbackTimer();
   api('photos.get',`owner_id=${OWNER}&album_id=${id}&rev=${rev}&extended=1&count=1000`,'setPhotos');
 }
 
@@ -5186,6 +5204,7 @@ window.addEventListener('resize', () => {
 });
 
 window.setPhotos = d => {
+  clearTimeout(apiFallbackTimer);
   if(!d.response) {
     document.getElementById('area').innerHTML = '<div class="empty-album">В этом альбоме пока нет работ</div>';
     return;
