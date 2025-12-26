@@ -1194,7 +1194,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .tariffs-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:30px; max-width:1200px; margin:0 auto 80px; padding:0 20px; align-items:flex-start; }
 
 .tariff-wrapper { display:flex; flex-direction:column; gap:30px; }
-.tariff-card { background:#1f1f21; border:1px solid rgba(255,255,255,0.05); border-radius:24px; padding:40px 30px; display:flex; flex-direction:column; transition:.3s; }
+.tariff-card { background:#1f1f21; border:1px solid rgba(255,255,255,0.05); border-radius:24px; padding:40px 30px; display:flex; flex-direction:column; transition:.3s; text-align:left; }
 .tariff-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5); background:#252527; }
 
 .tariff-note { margin-top:14px; color:var(--text-sec); font-size:14px; line-height:1.5; padding:0; border-radius:0; border:none; background:transparent; display:block; box-shadow:none; }
@@ -1210,10 +1210,10 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .discount-badge { background: rgba(255, 255, 255, 0.12); color:#fff; font-size:12px; font-weight:800; padding:4px 10px; border-radius:8px; margin-left:auto; display:inline-flex; align-items:center; }
 .tariffs-grid > :nth-child(3) .discount-badge { background: rgba(0,0,0,0.18); color:#1a1a1a; }
 
-.tariff-features { list-style:none; padding:0; margin:0 0 24px; flex-grow:1; }
+.tariff-features { list-style:none; padding:0; margin:0 0 24px; flex-grow:1; text-align:left; }
 
 /* rows */
-.tariff-feature-item { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:text; }
+.tariff-feature-item { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:text; text-align:left; }
 .tariff-feature-item.excluded { opacity:0.5; text-decoration: line-through; }
 .tariff-feature-item.excluded .qty-control { opacity:0.5; pointer-events:none; }
 .item-left { display:flex; align-items:flex-start; gap:10px; flex-grow:1; }
