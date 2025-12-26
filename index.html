@@ -1119,25 +1119,25 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .tariff-features { list-style:none; padding:0; margin:0 0 24px; flex-grow:1; }
 
 /* rows */
-.tariff-feature-item { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:none; }
+.tariff-feature-item { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:none; }
 .tariff-feature-item.excluded { opacity:0.5; text-decoration: line-through; }
 .tariff-feature-item.excluded .qty-control { opacity:0.5; pointer-events:none; }
-.item-left { display:flex; align-items:flex-start; gap:10px; flex-grow:1; }
+.item-left { display:flex; align-items:center; gap:10px; flex-grow:1; }
 
 /* Minimal checkbox (smaller) */
-.feature-checkbox { appearance:none; width:12px; height:12px; border:1px solid rgba(255,255,255,0.22); border-radius:3px; background:rgba(255,255,255,0.03); cursor:pointer; position:relative; transition:.2s; flex-shrink:0; margin-top:4px; }
-.feature-checkbox:hover { border-color: rgba(255,255,255,0.45); }
-.feature-checkbox:checked { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.06); }
-.feature-checkbox:checked::after { content:''; position:absolute; left:3px; top:2px; width:2px; height:6px; border: solid rgba(255,255,255,0.82); border-width:0 2px 2px 0; transform: rotate(45deg); }
+.feature-checkbox { appearance:none; width:14px; height:14px; border:1px solid rgba(255,255,255,0.18); border-radius:4px; background:rgba(255,255,255,0.02); cursor:pointer; position:relative; transition:.18s ease; flex-shrink:0; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04); }
+.feature-checkbox:hover { border-color: rgba(255,255,255,0.35); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+.feature-checkbox:checked { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); box-shadow: none; }
+.feature-checkbox:checked::after { content:''; position:absolute; inset:3px; border-radius:2px; background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.65) 100%); box-shadow: 0 4px 8px rgba(0,0,0,0.25); }
 
 /* qty control */
-.qty-control { display:flex; align-items:center; background: rgba(255,255,255,0.05); border-radius: 8px; padding:2px; gap:2px; height:28px; }
-.qty-btn { width:26px; height:26px; border:none; background:transparent; color:#fff; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; border-radius:6px; }
-.qty-btn:hover { background: rgba(255,255,255,0.10); }
-.qty-val { width:30px; text-align:center; font-size:13px; font-weight:800; color:#fff; }
+.qty-control { display:flex; align-items:center; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; padding:0 6px; gap:6px; height:30px; color:#d7d7db; }
+.qty-btn { width:24px; height:24px; border:none; background:transparent; color:inherit; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; border-radius:6px; transition:.18s ease; }
+.qty-btn:hover { background: rgba(255,255,255,0.08); color:#fff; }
+.qty-val { min-width:28px; text-align:center; font-size:13px; font-weight:800; color:inherit; letter-spacing:0.5px; }
 
 /* addons */
-.addon-section { margin-top:15px; border-top: 1px dashed rgba(255,255,255,0.12); padding-top:15px; }
+.addon-section { margin-top:18px; border-top: 1px dashed rgba(255,255,255,0.12); padding-top:18px; }
 .addon-toggle { background:none; border:none; color: var(--vk); font-size:14px; font-weight:800; cursor:pointer; padding:0; display:flex; align-items:center; gap:6px; }
 .addon-list { display:none; margin-top:10px; list-style:none; padding:0; }
 .addon-list.open { display:block; }
@@ -1152,9 +1152,11 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .tariffs-grid > :nth-child(3) .tariff-name .info-icon { border-color: rgba(0,0,0,0.30); color: rgba(0,0,0,0.65); }
 .tariffs-grid > :nth-child(3) .tariff-name .info-icon:hover { border-color:#000; color:#000; }
 
-.tariff-price { font-size:34px; font-weight:900; margin: 12px 0 25px; color:#fff; letter-spacing: 0.5px; }
+.tariff-price { font-size:34px; font-weight:900; margin: 12px 0 6px; color:#fff; letter-spacing: 0.5px; }
+.price-note { color: var(--text-sec); font-size:12px; font-weight:700; margin-bottom:18px; }
 
-.speed-badge { margin-top:6px; margin-bottom:24px; padding:14px 14px; background: rgba(240,198,116,0.10); border: 1px solid var(--gold); border-radius: 12px; color: var(--gold); font-size:13px; font-weight:800; display:flex; align-items:center; gap:12px; }
+.speed-badge { margin-top:18px; margin-bottom:24px; padding:14px 14px; background: rgba(240,198,116,0.10); border: 1px solid var(--gold); border-radius: 12px; color: var(--gold); font-size:13px; font-weight:800; display:flex; align-items:center; gap:12px; }
+.duration-note { display:block; color: inherit; opacity:0.85; font-weight:600; line-height:1.2; margin-left:0; }
 
 .tariff-btn { width:100%; padding:16px; background:transparent; border:1px solid rgba(255,255,255,0.10); color:#fff; border-radius: 12px; font-weight:900; font-size:16px; cursor:pointer; transition:.3s; margin-top:auto; }
 .tariff-btn:hover { background:#fff; color:#000; border-color:#fff; }
@@ -2370,14 +2372,25 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="1" data-label="Варианты дизайна">
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="1" data-label="Варианты дизайна десктопной обложки">
       <div class="item-left">
-        <span>Варианты дизайна <span class="info-icon" data-tooltip="Сколько концепций оформления подготовить на выбор.">?</span></span>
+        <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 6)">−</button>
         <span class="qty-val">1</span>
         <button class="qty-btn" type="button" onclick="changeQty(this, 1, 1, 6)">+</button>
+      </div>
+    </li>
+
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="700" data-base-qty="3" data-label="Плитки виджета">
+      <div class="item-left">
+        <span>Плитки виджета <span class="info-icon" data-tooltip="Минимум 3 плитки включено: можно добавить больше для витрины.">?</span></span>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 3, 12)">−</button>
+        <span class="qty-val">3</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 3, 12)">+</button>
       </div>
     </li>
     
@@ -2397,17 +2410,6 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 3)">−</button>
         <span class="qty-val">0</span>
         <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 3)">+</button>
-      </div>
-    </li>
-    
-    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="700" data-base-qty="0" data-label="Плитки виджета">
-      <div class="item-left">
-        <span>Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (добавьте нужное количество).">?</span></span>
-      </div>
-      <div class="qty-control">
-        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
-        <span class="qty-val">0</span>
-        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
       </div>
     </li>
     
@@ -2436,7 +2438,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="3500" value="Анимированная мобильная обложка (до 15 сек)"  onchange="updatePrice(this)">
-        <span>Анимированная мобильная обложка (до 15 сек) <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) для мобильной версии.">?</span></span>
+        <span>Анимированная мобильная обложка <span class="duration-note">(до 15 сек)</span> <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) для мобильной версии.">?</span></span>
       </label>
     </li>
     
@@ -2461,9 +2463,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек">
+    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет) + обложки">
       <div class="item-left">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек <span class="info-icon" data-tooltip="Сколько вариантов сниппетов и обложек нужно: можно убрать или добавить любое количество.">?</span></span>
+        <span>Шаблон изображений к постам со ссылкой (сниппет) + обложки <span class="info-icon" data-tooltip="Сколько вариантов сниппетов и обложек нужно: можно убрать или добавить любое количество.">?</span></span>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
@@ -2486,7 +2488,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       
 <div class="tariff-note">
   <div class="tariff-note-title"><span>*</span> Важный момент:</div>
-  <div>Используйте галочки, чтобы включать/выключать элементы, и счетчики, чтобы менять количество (в том числе в блоках с несколькими позициями вроде баннеров или шаблонов). Цена пересчитывается автоматически — добавляйте или убирайте элементы, чтобы сразу видеть, как это влияет на итог, и отправляйте настроенный комплект мне.</div>
+  <div>Отмечайте галочкой нужные позиции, количество меняйте счётчиками (в том числе в блоках с несколькими позициями). Цена обновляется сразу — уберите или добавьте блоки и отправьте собранный комплект.</div>
 </div>
 
     </div>
@@ -2512,13 +2514,13 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="3500" value="Анимированная мобильная обложка (до 15 сек)" checked onchange="updatePrice(this)">
-        <span>Анимированная мобильная обложка (до 15 сек) <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) для мобильной версии.">?</span></span>
+        <span>Анимированная мобильная обложка <span class="duration-note">(до 15 сек)</span> <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) для мобильной версии.">?</span></span>
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="2" data-label="Варианты дизайна">
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="2" data-label="Варианты дизайна десктопной обложки">
       <div class="item-left">
-        <span>Варианты дизайна <span class="info-icon" data-tooltip="Сколько концепций оформления подготовить на выбор.">?</span></span>
+        <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 6)">−</button>
@@ -2539,9 +2541,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <span>Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить).">?</span></span>
       </div>
       <div class="qty-control">
-        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 3, 12)">−</button>
         <span class="qty-val">3</span>
-        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 3, 12)">+</button>
       </div>
     </li>
     
@@ -2582,7 +2584,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="2000" value="Анимированная мобильная обложка (до 30 сек)"  onchange="updatePrice(this)">
-        <span>Анимированная мобильная обложка (до 30 сек) <span class="info-icon" data-tooltip="Увеличение длительности/сложности анимации.">?</span></span>
+        <span>Анимированная мобильная обложка <span class="duration-note">(до 30 сек)</span> <span class="info-icon" data-tooltip="Увеличение длительности/сложности анимации.">?</span></span>
       </label>
     </li>
     
@@ -2607,9 +2609,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек">
+    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет) + обложки">
       <div class="item-left">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек <span class="info-icon" data-tooltip="Сколько вариантов сниппетов и обложек нужно: можно убрать или добавить любое количество.">?</span></span>
+        <span>Шаблон изображений к постам со ссылкой (сниппет) + обложки <span class="info-icon" data-tooltip="Сколько вариантов сниппетов и обложек нужно: можно убрать или добавить любое количество.">?</span></span>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
@@ -2627,6 +2629,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     </ul></div>
         
         <div class="tariff-price">20 000 ₽</div>
+        <div class="price-note">Выгода по пакету: 15%</div>
         <button class="tariff-btn" type="button" onclick="sendOrder(this, 'Премиум')">Выбрать</button>
       </div>
       
@@ -2643,9 +2646,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="3" data-label="Варианты дизайна">
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="3" data-label="Варианты дизайна десктопной обложки">
       <div class="item-left">
-        <span>Варианты дизайна <span class="info-icon" data-tooltip="Сколько концепций оформления подготовить на выбор.">?</span></span>
+        <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 10)">−</button>
@@ -2657,7 +2660,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="5500" value="Анимированная мобильная обложка (до 30 сек)" checked onchange="updatePrice(this)">
-        <span>Анимированная мобильная обложка (до 30 сек) <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) до 30 сек.">?</span></span>
+        <span>Анимированная мобильная обложка <span class="duration-note">(до 30 сек)</span> <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) до 30 сек.">?</span></span>
       </label>
     </li>
     
@@ -2673,9 +2676,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <span>Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить).">?</span></span>
       </div>
       <div class="qty-control">
-        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 20)">−</button>
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 3, 20)">−</button>
         <span class="qty-val">3</span>
-        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 20)">+</button>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 3, 20)">+</button>
       </div>
     </li>
     
@@ -2722,9 +2725,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек">
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Шаблон изображений к постам со ссылкой (сниппет) + обложки">
       <div class="item-left">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек <span class="info-icon" data-tooltip="Можно добавить больше вариантов сниппетов и обложек или убрать лишние — цена сразу изменится.">?</span></span>
+        <span>Шаблон изображений к постам со ссылкой (сниппет) + обложки <span class="info-icon" data-tooltip="Можно добавить больше вариантов сниппетов и обложек или убрать лишние — цена сразу изменится.">?</span></span>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
@@ -2759,6 +2762,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         </div>
         
         <div class="tariff-price">30 000 ₽</div>
+        <div class="price-note">Выгода по пакету: 25%</div>
         <button class="tariff-btn" type="button" onclick="sendOrder(this, 'VIP')">Выбрать</button>
       </div>
       
