@@ -3837,6 +3837,7 @@ let defaultTariffSelections = {};
 let tariffSnapshots = {};
 let currentSearchQuery = '';
 let apiFallbackTimer = null;
+let initialAlbumsFallbackTimer = null;
 const API_FALLBACK_TIMEOUT = 8000;
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -3885,6 +3886,15 @@ function startApiFallbackTimer() {
     }, API_FALLBACK_TIMEOUT);
 }
 
+function startInitialAlbumsFallback() {
+    clearTimeout(initialAlbumsFallbackTimer);
+    initialAlbumsFallbackTimer = setTimeout(() => {
+        if (initialStateApplied) return;
+        loadFallbackPortfolio('Не удалось загрузить работы из VK. Перехожу в офлайн-режим.');
+        applyStateFromUrl();
+    }, API_FALLBACK_TIMEOUT);
+}
+
 const FALLBACK_PORTFOLIO = [
     {
         id: 101,
@@ -3916,6 +3926,7 @@ const FALLBACK_PORTFOLIO = [
 ];
 
 function loadFallbackPortfolio(message = '') {
+    clearTimeout(initialAlbumsFallbackTimer);
     const area = document.getElementById('area');
     if (!area || area.dataset.fallbackShown === 'true') return;
 
@@ -4462,6 +4473,7 @@ window.setGroup = d => {
 api('groups.getById', `group_id=dsgnjr&fields=members_count,photo_200,photo_100,photo_50,description,status`, 'setGroup');
 
 window.saveCovers = d => {
+  clearTimeout(initialAlbumsFallbackTimer);
   if (d.error) {
     loadFallbackPortfolio('Не удалось обратиться к VK API, показываю офлайн-портфолио.');
     if (!initialStateApplied) applyStateFromUrl();
@@ -5568,6 +5580,7 @@ document.addEventListener('keydown', e => {
     }
 });
 
+startInitialAlbumsFallback();
 api('photos.getAlbums',`owner_id=${OWNER}&need_covers=1`,'saveCovers');
 
 function toggleRef(id, url) {
