@@ -1320,6 +1320,95 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 
 @media (max-width: 900px) { .tariffs-grid { grid-template-columns: 1fr; } }
 
+
+/* Исправление выравнивания в тарифах */
+.service-item {
+    align-items: center !important;
+}
+.service-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.service-name span {
+    line-height: 1.2;
+    padding-top: 1px;
+}
+
+/* Исправление ширины блока количества */
+.quantity-control {
+    width: auto !important;
+    min-width: 80px !important;
+    max-width: 90px !important;
+    padding: 2px !important;
+    gap: 2px !important;
+}
+.quantity-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    padding: 0 !important; 
+}
+.quantity-val {
+    min-width: 16px !important;
+    font-size: 14px !important;
+}
+
+/* Новая кнопка закрыть для модального окна заказа */
+.order-close-btn-fixed {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    z-index: 10005;
+}
+.order-close-btn-fixed:hover {
+    background: rgba(255,255,255,0.2);
+}
+@media (max-width: 600px) {
+    .order-close-btn-fixed {
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        background: rgba(0,0,0,0.5);
+    }
+}
+
+/* Стили для заголовка заказа и кнопки копирования */
+.order-total-header {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+.copy-btn:hover {
+    color: #fff;
+}
+
 </style>
 <link rel="icon" type="image/png" href="https://vk.com/images/camera_50.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -1431,6 +1520,95 @@ body { cursor: none; }
 #scroll-top { opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s; }
 #scroll-top.visible { opacity: 1; visibility: visible; pointer-events: auto; }
 
+
+/* Исправление выравнивания в тарифах */
+.service-item {
+    align-items: center !important;
+}
+.service-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.service-name span {
+    line-height: 1.2;
+    padding-top: 1px;
+}
+
+/* Исправление ширины блока количества */
+.quantity-control {
+    width: auto !important;
+    min-width: 80px !important;
+    max-width: 90px !important;
+    padding: 2px !important;
+    gap: 2px !important;
+}
+.quantity-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    padding: 0 !important; 
+}
+.quantity-val {
+    min-width: 16px !important;
+    font-size: 14px !important;
+}
+
+/* Новая кнопка закрыть для модального окна заказа */
+.order-close-btn-fixed {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    z-index: 10005;
+}
+.order-close-btn-fixed:hover {
+    background: rgba(255,255,255,0.2);
+}
+@media (max-width: 600px) {
+    .order-close-btn-fixed {
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        background: rgba(0,0,0,0.5);
+    }
+}
+
+/* Стили для заголовка заказа и кнопки копирования */
+.order-total-header {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+.copy-btn:hover {
+    color: #fff;
+}
+
 </style>
 
 
@@ -1499,6 +1677,95 @@ body { cursor: none; }
 
 #scroll-top { opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s; }
 #scroll-top.visible { opacity: 1; visibility: visible; pointer-events: auto; }
+
+
+/* Исправление выравнивания в тарифах */
+.service-item {
+    align-items: center !important;
+}
+.service-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.service-name span {
+    line-height: 1.2;
+    padding-top: 1px;
+}
+
+/* Исправление ширины блока количества */
+.quantity-control {
+    width: auto !important;
+    min-width: 80px !important;
+    max-width: 90px !important;
+    padding: 2px !important;
+    gap: 2px !important;
+}
+.quantity-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    padding: 0 !important; 
+}
+.quantity-val {
+    min-width: 16px !important;
+    font-size: 14px !important;
+}
+
+/* Новая кнопка закрыть для модального окна заказа */
+.order-close-btn-fixed {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    z-index: 10005;
+}
+.order-close-btn-fixed:hover {
+    background: rgba(255,255,255,0.2);
+}
+@media (max-width: 600px) {
+    .order-close-btn-fixed {
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        background: rgba(0,0,0,0.5);
+    }
+}
+
+/* Стили для заголовка заказа и кнопки копирования */
+.order-total-header {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+.copy-btn:hover {
+    color: #fff;
+}
 
 </style>
 
@@ -2384,6 +2651,95 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 #scroll-top { opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s; }
 #scroll-top.visible { opacity: 1; visibility: visible; pointer-events: auto; }
 
+
+/* Исправление выравнивания в тарифах */
+.service-item {
+    align-items: center !important;
+}
+.service-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.service-name span {
+    line-height: 1.2;
+    padding-top: 1px;
+}
+
+/* Исправление ширины блока количества */
+.quantity-control {
+    width: auto !important;
+    min-width: 80px !important;
+    max-width: 90px !important;
+    padding: 2px !important;
+    gap: 2px !important;
+}
+.quantity-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    padding: 0 !important; 
+}
+.quantity-val {
+    min-width: 16px !important;
+    font-size: 14px !important;
+}
+
+/* Новая кнопка закрыть для модального окна заказа */
+.order-close-btn-fixed {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    z-index: 10005;
+}
+.order-close-btn-fixed:hover {
+    background: rgba(255,255,255,0.2);
+}
+@media (max-width: 600px) {
+    .order-close-btn-fixed {
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        background: rgba(0,0,0,0.5);
+    }
+}
+
+/* Стили для заголовка заказа и кнопки копирования */
+.order-total-header {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+.copy-btn:hover {
+    color: #fff;
+}
+
 </style>
 <style>
 .profile-avatar { transition: transform 0.3s ease; } .profile-main-link:hover .profile-avatar { transform: scale(1.05); }
@@ -2391,6 +2747,95 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 a.profile-meta { display: flex; align-items: center; justify-content: center; gap: 8px; }
 ::selection { background: #e54643; color: white; } ::-moz-selection { background: #e54643; color: white; }
 .iframe-container { -webkit-overflow-scrolling: touch; overflow-y: auto; }
+
+/* Исправление выравнивания в тарифах */
+.service-item {
+    align-items: center !important;
+}
+.service-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.service-name span {
+    line-height: 1.2;
+    padding-top: 1px;
+}
+
+/* Исправление ширины блока количества */
+.quantity-control {
+    width: auto !important;
+    min-width: 80px !important;
+    max-width: 90px !important;
+    padding: 2px !important;
+    gap: 2px !important;
+}
+.quantity-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    padding: 0 !important; 
+}
+.quantity-val {
+    min-width: 16px !important;
+    font-size: 14px !important;
+}
+
+/* Новая кнопка закрыть для модального окна заказа */
+.order-close-btn-fixed {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    z-index: 10005;
+}
+.order-close-btn-fixed:hover {
+    background: rgba(255,255,255,0.2);
+}
+@media (max-width: 600px) {
+    .order-close-btn-fixed {
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        background: rgba(0,0,0,0.5);
+    }
+}
+
+/* Стили для заголовка заказа и кнопки копирования */
+.order-total-header {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+.copy-btn:hover {
+    color: #fff;
+}
+
 </style>
 </head>
 <body><div id="modal-progress-bar"></div>
@@ -2433,7 +2878,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
   <div id="tab-tariffs" class="tab-content" style="display:none;">
     <div class="tariff-header">
       <h2 class="section-title">Перейдем <span>к тарифам</span></h2>
-      <p class="section-subtitle">Для Вас я подготовил их несколько, выберите необходимый</p>
+      <p class="section-subtitle">Для Вас я подготовил 3 тарифа, выберите необходимый</p>
     </div>
     <div class="tariffs-grid">
     <div class="tariff-wrapper" data-base-price="10000">
@@ -2460,7 +2905,10 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       <div class="item-left">
         <div class="choice-label">
           <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-          <span>Мобильная обложка</span>
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <span>Мобильная обложка</span>
+            <span style="font-size: 11px; opacity: 0.5; font-weight: 400; line-height: 1;">Статичная/Анимированная</span>
+          </div>
         </div>
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill active" title="Статичная мобильная обложка">
@@ -2622,7 +3070,10 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       <div class="item-left">
         <div class="choice-label">
           <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-          <span>Мобильная обложка</span>
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <span>Мобильная обложка</span>
+            <span style="font-size: 11px; opacity: 0.5; font-weight: 400; line-height: 1;">Статичная/Анимированная</span>
+          </div>
         </div>
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill" title="Статичная мобильная обложка">
@@ -2799,7 +3250,10 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       <div class="item-left">
         <div class="choice-label">
           <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-          <span>Мобильная обложка</span>
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <span>Мобильная обложка</span>
+            <span style="font-size: 11px; opacity: 0.5; font-weight: 400; line-height: 1;">Статичная/Анимированная</span>
+          </div>
         </div>
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill" title="Статичная мобильная обложка">
@@ -3099,19 +3553,30 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 </div>
 
 <div id="order-modal" onclick="closeOrder(event)">
-    <div class="order-choice">
-        <button class="order-close" type="button" aria-label="Закрыть" onclick="closeOrder(event)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="order-choice" style="position: relative; overflow: visible;" onclick="event.stopPropagation()">
+        <!-- Кнопка закрыть -->
+        <button class="order-close-btn-fixed" type="button" onclick="closeOrder(event)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
-        <h2>Связаться со мной</h2>
-        <p>Выберите удобный способ для связи и обсуждения проекта</p>
+        <p style="text-align:center; opacity:0.7; margin-top:0;">Скопируйте состав и отправьте мне:</p>
+
+        <!-- Сюда скрипт может вставить textarea, если нужно -->
+        <div id="order-text-container" style="margin-top: 10px;">
+        <textarea id="order-text" readonly style="width:100%; height:120px; background:#222; border:1px solid #333; color:#fff; border-radius:8px; padding:10px; margin-top:10px; resize:none;"></textarea>
+        <button class="copy-btn" onclick="copyOrderText()" title="Скопировать состав заказа" style="margin-top:8px; margin-left:auto; display:flex; align-items:center; gap:6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Скопировать</span>
+        </button>
+    </div>
+
+        <h2 style="font-size: 16px; opacity: 0.7; margin-top: 20px; margin-bottom: 15px;">Связаться со мной</h2>
         <div class="contact-list">
             <a href="https://vk.com/im?sel=-163936790" target="_blank" class="contact-link link-vk">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M15.013 19.43c-5.83 0-9.138-3.99-9.278-10.645H8.62c.1 4.88 2.25 6.944 3.955 7.37V8.785h2.75v4.209c1.683-.18 3.44-2.09 4.037-4.21h2.75a8.77 8.77 0 01-3.71 5.378 8.875 8.875 0 014.288 5.268h-3.023a5.55 5.55 0 00-4.04-3.614v3.614h-1.874z"/></svg>
                 ВКонтакте
             </a>
             <a href="https://t.me/zhegulyaev" target="_blank" class="contact-link link-tg">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.91-1.27 4.85-2.11 5.82-2.52 2.77-1.16 3.35-1.36 3.72-1.37.08 0 .27.02 .39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-1.16-1.55-1.55-.47-.36-1.11-.64-1.93-.83-.81-.2-1.83-.22-2.86.13-.53.18-1.01.44-1.43.79-.42.34-.78.77-1.06 1.28-.56 1.03-.68 2.25-.33 3.32.17.53.47 1 .86 1.38.39.38.86.68 1.38.89 1.03.42 2.19.49 3.28.2.53-.14 1.03-.39 1.48-.74.45-.34.84-.78 1.13-1.28.08-.14.15-.29.21-.45.06-.15.1-.31.13-.47.03-.16.03-.32.01-.48-.03-.16-.08-.31-.15-.45a.92.92 0 00-.28-.32 1.06 1.06 0 00-.42-.2c-.15-.03-.31-.02-.46.02-.15.04-.29.11-.42.21-.26.2-.45.49-.55.8-.1.31-.1.65-.01.97.05.16.14.3.25.42.12.11.26.2.42.26.16.06.33.08.5.06.17-.02.33-.08.47-.17z"/></svg>
                 Telegram
             </a>
         </div>
@@ -3124,6 +3589,25 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
 <script>
 let scrollBeforeModal = 0;
+
+window.currentOrderText = '';
+function copyOrderText() {
+    const ta = document.getElementById("order-text");
+    if (!ta) return;
+    const text = ta.value || ta.textContent || "";
+    if (!text) return;
+
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector(".copy-btn");
+        if (!btn) return;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#4CAF50\" stroke-width=\"2\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg>";
+        setTimeout(() => btn.innerHTML = originalHtml, 2000);
+    });
+}
+);
+}
+
 const TOKEN = 'vk1.a.tOSblOYWMeA4uLbJ9r07EnvpkA9cTBfz9uHD0aUBxQGRhjXkVh1B6ir4IGgcXnPb6n-IP4I-tNP5m_hKAivnDbn1rjQZtDRj-9-kPiK6CLO1YupE1qWL2e9GhnO9uxscgv-AhchfWy-VgYcR8V2oCeHmBX9g_LpZ-YUF2d21zO6NvGUDeyc-T6gVgvCo8HwKC3F3hQYpftnfQQ-xspyVQA';
 const OWNER = '-163936790';
 const REVIEW_TOPIC_ID = '37742383';
@@ -4262,8 +4746,12 @@ modalContent.addEventListener('touchend', (e) => {
 
 
 function openOrder(){ document.getElementById('order-modal').classList.add('open'); }
-function closeOrder(e){
-  const target = e?.target || {};
+function closeOrder(e) {
+  if (e) e.stopPropagation();
+  const modal = document.getElementById("order-modal");
+  if (modal) modal.style.display = "none";
+}
+;
   const closeBtn = target.classList?.contains('order-close') || target.closest?.('.order-close');
   if(target.id==='order-modal' || closeBtn) document.getElementById('order-modal').classList.remove('open');
 }
@@ -5344,6 +5832,8 @@ function recalcPrice(wrapper){
       appliedQty = 0;
       const valEl = li.querySelector('.qty-val');
       if(valEl) valEl.textContent = '0';
+      const diff = 0 - baseQty;
+      total += diff * unit;
     }
 
     if(li.dataset.type === 'base') {
@@ -5401,8 +5891,8 @@ function recalcPrice(wrapper){
 
     const modal = document.getElementById('order-modal');
     if(modal){
-      const h2 = modal.querySelector('h2');
-      if(h2) h2.textContent = 'Ваш заказ: ' + total;
+      
+      // Старое дублирование заголовка удалено
       const p = modal.querySelector('p');
       if(p) p.innerHTML = `Скопируйте состав и отправьте мне:<br><br><textarea style="width:100%;min-width:100%;max-width:100%;height:130px;background:#111;color:#fff;border:1px solid #333;padding:10px;border-radius:8px;resize:vertical;">${text}</textarea>`;
       modal.style.display = 'flex';
