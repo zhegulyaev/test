@@ -27,6 +27,10 @@ body{
     cursor: none; /* Скрываем стандартный курсор */
 }
 
+body.reduced-motion {
+    cursor: auto;
+}
+
 
 /* HEADER PROGRESS BAR */
 #header-progress {
@@ -76,6 +80,34 @@ body:hover .cursor-outline.hovered {
 @media (hover: none) and (pointer: coarse) {
     .cursor-dot, .cursor-outline { display: none; }
     body { cursor: auto; }
+}
+
+body.reduced-motion .cursor-dot,
+body.reduced-motion .cursor-outline {
+    display: none !important;
+}
+
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+}
+
+body.reduced-motion #header-progress {
+    display: none;
+    transition: none;
+}
+
+body.reduced-motion .card:hover,
+body.reduced-motion .photo-item:hover,
+body.reduced-motion .market-card:hover,
+body.reduced-motion .scroll-top:hover,
+body.reduced-motion .scroll-top.visible,
+body.reduced-motion .message-bubble:hover {
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 .container{max-width:1440px;margin:auto;padding:20px;}
@@ -216,6 +248,44 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .tag-chip:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .tag-chip.active { background: var(--vk); color: #fff; border-color: var(--vk); }
 
+.portfolio-search {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 5px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.portfolio-search.visible {
+    display: flex;
+}
+
+.portfolio-search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+.portfolio-search button {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.portfolio-search button:hover { background: rgba(255,255,255,0.15); }
+.portfolio-search input::placeholder { color: var(--text-sec); }
+
 /* GRID LAYOUTS */
 .grid{
     display:grid;
@@ -313,6 +383,27 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     width: 100%;
 }
 .photo-item:hover { filter: brightness(1.1); transform: translateY(-4px); }
+
+.photo-item .search-highlight {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #f4f4f5;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+.photo-item .search-highlight mark {
+    background: rgba(0,119,255,0.2);
+    color: #fff;
+    padding: 0 3px;
+    border-radius: 4px;
+}
 
 .img-container {
     position: relative;
@@ -2838,6 +2929,10 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <button class="tab-btn" onclick="switchTab('tariffs', this)">Тарифы & Услуги</button>
   </div>
   <div id="tab-portfolio" class="tab-content" style="display:block;">
+<div id="portfolio-search-bar" class="portfolio-search" aria-hidden="true">
+  <input id="portfolio-search" type="search" placeholder="Поиск по названию, описанию или тегам" aria-label="Поиск по работам">
+  <button type="button" onclick="clearPortfolioSearch()">Очистить</button>
+</div>
 <div id="years-bar"></div>
 <div id="months-bar"></div>
 <div id="tags-bar" class="tags-container" style="display:none;"></div>
@@ -3577,17 +3672,37 @@ let currentFolderId = null;
 let currentSection = 'main';
 let tariffDefaults = null;
 let restoringTariffs = false;
+const SEARCH_KEY = 'portfolio_search_query_v1';
+let searchQuery = '';
+let searchInput = null;
 
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function applyReducedMotionPreference(event) {
+    document.body.classList.toggle('reduced-motion', !!event.matches);
+}
+
+applyReducedMotionPreference(prefersReducedMotion);
+prefersReducedMotion.addEventListener('change', applyReducedMotionPreference);
+
+function isReducedMotion() {
+    return document.body.classList.contains('reduced-motion');
+}
+
 window.addEventListener('mousemove', (e) => {
+    if (isReducedMotion()) return;
     const posX = e.clientX;
     const posY = e.clientY;
     cursorDot.style.left = `${posX}px`;
     cursorDot.style.top = `${posY}px`;
-    // cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
 });
 document.addEventListener('mouseover', (e) => {
+    if (isReducedMotion()) {
+        cursorOutline.classList.remove('hovered');
+        return;
+    }
     if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.card') || e.target.closest('.photo-item') || e.target.closest('.cursor-pointer')) {
         cursorOutline.classList.add('hovered');
     } else {
@@ -3601,6 +3716,81 @@ function debounce(fn, delay = 250) {
     clearTimeout(t);
     t = setTimeout(() => fn(...args), delay);
   };
+}
+
+function escapeRegExp(text) {
+  return (text || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function buildSearchField(p) {
+  const tags = ((p.text || '').match(/#[\p{L}\d_]+/gu) || []).join(' ');
+  const albumTitle = p.albumTitle || '';
+  return `${albumTitle} ${p.text || ''} ${tags}`.toLowerCase();
+}
+
+function matchesSearch(p, query) {
+  if (!query) return true;
+  const normalized = query.toLowerCase();
+  if (!p.searchField) p.searchField = buildSearchField(p);
+  return p.searchField.includes(normalized);
+}
+
+function getMatchSnippet(p) {
+  if (!searchQuery) return '';
+  const source = `${p.albumTitle || ''} ${p.text || ''}`.trim();
+  if (!source) return '';
+  const normalized = searchQuery.toLowerCase();
+  const lower = source.toLowerCase();
+  const idx = lower.indexOf(normalized);
+  if (idx === -1) return '';
+  const start = Math.max(0, idx - 30);
+  const end = Math.min(source.length, idx + normalized.length + 30);
+  const snippet = source.slice(start, end);
+  const safe = snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const reg = new RegExp(escapeRegExp(searchQuery), 'ig');
+  return safe.replace(reg, '<mark>$&</mark>');
+}
+
+function persistSearchQuery(value) {
+  try {
+    if (value) localStorage.setItem(SEARCH_KEY, value);
+    else localStorage.removeItem(SEARCH_KEY);
+  } catch(e) {}
+}
+
+function restoreSearchQuery() {
+  try {
+    return localStorage.getItem(SEARCH_KEY) || '';
+  } catch(e) { return ''; }
+}
+
+function toggleSearchBar(visible) {
+  const bar = document.getElementById('portfolio-search-bar');
+  if (!bar) return;
+  bar.classList.toggle('visible', !!visible);
+  bar.setAttribute('aria-hidden', visible ? 'false' : 'true');
+  if (searchInput) searchInput.disabled = !visible;
+}
+
+function handleSearchChange(value) {
+  searchQuery = value.trim();
+  persistSearchQuery(searchQuery);
+  if (alb) renderPhotosFromData();
+}
+
+function initPortfolioSearch() {
+  searchInput = document.getElementById('portfolio-search');
+  if (!searchInput) return;
+  const saved = restoreSearchQuery();
+  if (saved) { searchQuery = saved; searchInput.value = saved; }
+  const debounced = debounce(v => handleSearchChange(v), 250);
+  searchInput.addEventListener('input', (e) => debounced(e.target.value));
+  searchInput.addEventListener('keydown', (e) => { if (e.key === 'Escape') clearPortfolioSearch(); });
+}
+
+function clearPortfolioSearch() {
+  if (searchInput) searchInput.value = '';
+  handleSearchChange('');
 }
 
 function slugify(text) {
@@ -3682,6 +3872,10 @@ function startBackgroundPreload() {
 window.addEventListener('scroll', () => {
     // Progress Bar Logic
     const bar = document.getElementById('header-progress');
+    if (isReducedMotion()) {
+        if (bar) bar.style.opacity = 0;
+        return;
+    }
     if (alb && bar) {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -3872,6 +4066,7 @@ function openReviewsSection(skipUrlUpdate = false) {
     switchTab('portfolio');
     if (!skipUrlUpdate) hist.push({l: currentMenu, t: document.getElementById('title').innerText, b: true});
     if (!skipUrlUpdate) updateUrl(null, null, null, null, 'reviews');
+    toggleSearchBar(false);
     loadReviews();
 }
 
@@ -3890,6 +4085,7 @@ function loadServices(skipUrlUpdate = false) { window.scrollTo(0,0); document.ge
     document.getElementById('back').classList.add('active');
     document.getElementById('sort').classList.remove('active');
     document.getElementById('tags-bar').style.display = 'none';
+    toggleSearchBar(false);
 
     api('market.get', `owner_id=${OWNER}&count=200&extended=1`, 'renderServicesList');
 }
@@ -4231,6 +4427,7 @@ function menuShow(l,t,b=false){ document.getElementById("header-progress").style
   document.getElementById('subtitle').innerText = b ? '' : `· ${totalWorks} работ${totalWorks % 10 === 1 && totalWorks % 100 !== 11 ? 'а' : 'ы'}`;
   document.getElementById('back').classList.toggle('active',b);
   document.getElementById('tags-bar').style.display = 'none';
+  toggleSearchBar(false);
   
   document.getElementById('sort').classList.add('active');
   document.getElementById('sort').classList.toggle('active', rev === 0);
@@ -4376,9 +4573,11 @@ function loadAlb(id,t){ window.scrollTo(0,0); document.getElementById("header-pr
   document.getElementById('sort').classList.add('active');
   document.getElementById('sort').classList.toggle('active', rev === 0);
   document.getElementById('sort').title = "Сменить порядок";
-  
+
   document.getElementById('tags-bar').style.display = 'none';
   activeTag = null; activeYear = null;
+  toggleSearchBar(true);
+  if (searchInput) searchInput.value = searchQuery;
 
   const colCount = getColCount();
   for(let i=0; i<colCount; i++){
@@ -4471,6 +4670,9 @@ function renderPhotosFromData() {
 
   
     let filteredPhotos = raw;
+    if (searchQuery) {
+        filteredPhotos = filteredPhotos.filter(p => matchesSearch(p, searchQuery));
+    }
     if (activeTag) {
         filteredPhotos = filteredPhotos.filter(p => (p.text || '').includes(activeTag));
     }
@@ -4509,12 +4711,21 @@ function renderPhotosFromData() {
 
     div.onclick = () => openModal(originalIndex);
 
+    const highlight = getMatchSnippet(p);
+    if (highlight) {
+        const badge = document.createElement('div');
+        badge.className = 'search-highlight';
+        badge.innerHTML = highlight;
+        div.appendChild(badge);
+    }
+
     columns[index % colCount].appendChild(div);
     observer.observe(div);
   });
-  
+
   if(filteredPhotos.length === 0) {
-      r.innerHTML = '<div class="empty-album">Нет работ с таким тегом</div>';
+      const reason = searchQuery ? `по запросу «${searchQuery}»` : (activeTag ? 'с таким тегом' : 'в этом альбоме');
+      r.innerHTML = `<div class="empty-album">Нет работ ${reason}</div>`;
   }
   
   startBackgroundPreload();
@@ -4533,6 +4744,7 @@ window.setPhotos = d => {
     document.getElementById('area').innerHTML = '<div class="empty-album">В этом альбоме пока нет работ</div>';
     return;
   }
+  const albumTitle = document.getElementById('title').dataset.original || '';
   raw = d.response.items;
   photos = raw.map(p => {
     const sizes = p.sizes || [];
@@ -4553,6 +4765,8 @@ window.setPhotos = d => {
   raw.forEach((p, i) => {
       p.width = photos[i].width;
       p.height = photos[i].height;
+      p.albumTitle = albumTitle;
+      p.searchField = buildSearchField(p);
   });
 
   if (raw.length === 0) {
@@ -5261,6 +5475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const i = document.getElementById('menu-icon');
     const n = document.querySelector('.navbar');
     if(i && n) i.onclick = () => n.classList.toggle('active');
+    initPortfolioSearch();
 });
 </script>
 
@@ -5431,6 +5646,7 @@ window.renderPhotosFromData = function() {
   }, {rootMargin: '100px'});
 
   let filteredPhotos = raw;
+  if (searchQuery) { filteredPhotos = filteredPhotos.filter(p => matchesSearch(p, searchQuery)); }
   if (activeTag) { filteredPhotos = filteredPhotos.filter(p => (p.text || '').includes(activeTag)); }
   if (activeYear) {
       filteredPhotos = filteredPhotos.filter(p => p.date && new Date(p.date*1000).getFullYear() === activeYear);
@@ -5463,13 +5679,26 @@ window.renderPhotosFromData = function() {
     imgContainer.appendChild(refBtn);
 
     div.appendChild(imgContainer);
-    div.onclick = () => openAlbumById(alb, index); 
+    div.onclick = () => openAlbumById(alb, index);
+
+    const highlight = getMatchSnippet(p);
+    if (highlight) {
+        const badge = document.createElement('div');
+        badge.className = 'search-highlight';
+        badge.innerHTML = highlight;
+        div.appendChild(badge);
+    }
 
     let shortestCol = columns[0];
     for(let c of columns) { if(c.offsetHeight < shortestCol.offsetHeight) shortestCol = c; }
     shortestCol.appendChild(div);
     observer.observe(div);
   });
+
+  if(filteredPhotos.length === 0) {
+      const reason = searchQuery ? `по запросу «${searchQuery}»` : (activeTag ? 'с таким тегом' : 'в этом альбоме');
+      r.innerHTML = `<div class="empty-album">Нет работ ${reason}</div>`;
+  }
 };
 
 // 5. REST OF LOGIC
