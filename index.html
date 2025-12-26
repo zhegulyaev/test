@@ -1141,8 +1141,8 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .item-icon { display:none; }
 
 /* qty control */
-.qty-control { display:flex; align-items:center; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; padding:0 4px; gap:4px; height:30px; color:#d7d7db; min-width:92px; }
-.qty-btn { width:24px; height:24px; border:none; background:transparent; color:inherit; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; border-radius:6px; transition:.18s ease; }
+.qty-control { display:flex; align-items:center; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; padding:0 4px; gap:4px; height:30px; color:#d7d7db; min-width:78px; }
+.qty-btn { width:22px; height:22px; border:none; background:transparent; color:inherit; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; border-radius:6px; transition:.18s ease; }
 .qty-btn:hover { background: rgba(255,255,255,0.08); color:#fff; }
 .qty-val { min-width:28px; text-align:center; font-size:13px; font-weight:800; color:inherit; letter-spacing:0.5px; }
 
@@ -1171,7 +1171,16 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 @keyframes hint-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 
 .speed-badge { margin-top:18px; margin-bottom:24px; padding:14px 14px; background: rgba(240,198,116,0.10); border: 1px solid var(--gold); border-radius: 12px; color: var(--gold); font-size:13px; font-weight:800; display:flex; align-items:center; gap:12px; }
-.duration-note { display:block; color: inherit; opacity:0.85; font-weight:600; line-height:1.2; margin-left:0; }
+.duration-note { display:inline-flex; color: inherit; opacity:0.7; font-weight:600; line-height:1.2; margin-left:6px; font-size:12px; letter-spacing:0.2px; }
+.count-note { opacity:0.7; font-weight:600; font-size:12px; letter-spacing:0.2px; }
+.muted-construct-note { opacity:0.65; font-weight:500; }
+.choice-pills { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.choice-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor:pointer; font-weight:700; color:#e5e5e8; transition: .18s ease; }
+.choice-pill:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); }
+.choice-pill.active { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.45); color:#fff; box-shadow: 0 8px 18px rgba(255,51,51,0.2); }
+.choice-pill input { display:none; }
+.choice-label { font-weight:800; color:#fff; min-width:140px; }
+.choice-row { flex-direction:column; align-items:flex-start; gap:10px; }
 
 .tariff-btn { width:100%; padding:16px; background:transparent; border:1px solid rgba(255,255,255,0.10); color:#fff; border-radius: 12px; font-weight:900; font-size:16px; cursor:pointer; transition:.3s; margin-top:auto; }
 .tariff-btn:hover { background:#fff; color:#000; border-color:#fff; }
@@ -2401,22 +2410,10 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </div>
     </li>
 
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="700" data-base-qty="3" data-label="Плитки виджета" data-min="3">
-      <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
-        <span>Плитки виджета <span class="info-icon" data-tooltip="Минимум 3 плитки включено: можно добавить больше для витрины.">?</span></span>
-      </div>
-      <div class="qty-control">
-        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 3, 12)">−</button>
-        <span class="qty-val">3</span>
-        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 3, 12)">+</button>
-      </div>
-    </li>
-
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
+        <span>Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
       </label>
     </li>
     </ul>
@@ -2523,7 +2520,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
 <div class="tariff-note">
   <div class="tariff-note-title">Важный момент:</div>
-  <div class="tariff-note-text"><span class="note-accent">*</span>Отмечайте галочкой нужные позиции, количество меняйте счётчиками (в том числе в блоках с несколькими позициями). Цена обновляется сразу — соберите комплект как в конструкторе и отправьте, ничего не потеряется.</div>
+    <div class="tariff-note-text"><span class="note-accent">*</span>Отмечайте галочкой нужные позиции, количество меняйте счётчиками (в том числе в блоках с несколькими позициями). <span class="muted-construct-note">Цена обновляется сразу — соберите комплект как в конструкторе и отправьте, ничего не потеряется.</span></div>
 </div>
 
     </div>
@@ -2549,16 +2546,25 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="0" value="Мобильная анимированная обложка (до 15 сек)" checked disabled>
-        <span>Мобильная анимированная обложка <span class="duration-note">(до 15 сек)</span> <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) для мобильной версии.">?</span></span>
-      </label>
+    <li class="tariff-feature-item choice-row" data-type="base">
+      <div class="item-left">
+        <div class="choice-label">Мобильная обложка</div>
+        <div class="choice-pills" data-label="Мобильная обложка">
+          <label class="choice-pill active">
+            <input type="radio" name="mobile-cover-premium" value="Мобильная статичная обложка" checked onchange="handleChoiceChange(this)">
+            <span>Статичная</span>
+          </label>
+          <label class="choice-pill">
+            <input type="radio" name="mobile-cover-premium" value="Мобильная анимированная обложка (до 15 сек)" onchange="handleChoiceChange(this)">
+            <span>Анимированная <span class="duration-note">(до 15 сек)</span></span>
+          </label>
+        </div>
+      </div>
     </li>
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="2" data-label="Варианты дизайна десктопной обложки" data-min="2">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2571,13 +2577,13 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок "Доп. иконки меню".">?</span></span>
+        <span>Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="700" data-base-qty="3" data-label="Плитки виджета" data-min="3">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить).">?</span></span>
       </div>
       <div class="qty-control">
@@ -2589,7 +2595,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="500" data-base-qty="5" data-label="Карточки товаров" data-min="5">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Карточки товаров <span class="info-icon" data-tooltip="Оформление карточек товаров (можно уменьшить/увеличить).">?</span></span>
       </div>
       <div class="qty-control">
@@ -2601,7 +2607,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Баннер для закрепа" data-min="1">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Баннер для закрепа <span class="info-icon" data-tooltip="Креатив под закрепленный пост, входит в пакет.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2613,7 +2619,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Баннеры для рекламы" data-min="1">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Баннеры для рекламы <span class="info-icon" data-tooltip="Готовые баннеры для рекламных размещений.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2709,7 +2715,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="3" data-label="Варианты дизайна десктопной обложки" data-min="3">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2719,23 +2725,32 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </div>
     </li>
     
-    <li class="tariff-feature-item" data-type="base">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="0" value="Мобильная анимированная обложка (до 30 сек)" checked disabled>
-        <span>Мобильная анимированная обложка <span class="duration-note">(до 30 сек)</span> <span class="info-icon" data-tooltip="Живая обложка (анимация/видео) до 30 сек.">?</span></span>
-      </label>
+    <li class="tariff-feature-item choice-row" data-type="base">
+      <div class="item-left">
+        <div class="choice-label">Мобильная обложка</div>
+        <div class="choice-pills" data-label="Мобильная обложка">
+          <label class="choice-pill active">
+            <input type="radio" name="mobile-cover-vip" value="Мобильная статичная обложка" checked onchange="handleChoiceChange(this)">
+            <span>Статичная</span>
+          </label>
+          <label class="choice-pill">
+            <input type="radio" name="mobile-cover-vip" value="Мобильная анимированная обложка (до 30 сек)" onchange="handleChoiceChange(this)">
+            <span>Анимированная <span class="duration-note">(до 30 сек)</span></span>
+          </label>
+        </div>
+      </div>
     </li>
     
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок "Доп. иконки меню".">?</span></span>
+        <span>Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="700" data-base-qty="3" data-label="Плитки виджета" data-min="3">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить).">?</span></span>
       </div>
       <div class="qty-control">
@@ -2747,7 +2762,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="500" data-base-qty="5" data-label="Карточки товаров" data-min="5">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Карточки товаров <span class="info-icon" data-tooltip="Оформление карточек товаров (до 5 в базе).">?</span></span>
       </div>
       <div class="qty-control">
@@ -2759,7 +2774,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Баннер для закрепа" data-min="1">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+          <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
         <span>Баннер для закрепа <span class="info-icon" data-tooltip="Креатив под закрепленный пост, входит в пакет.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2771,7 +2786,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="2" data-label="Баннеры для рекламы" data-min="2">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+          <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
         <span>Баннеры для рекламы <span class="info-icon" data-tooltip="Готовые баннеры для рекламных размещений.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2804,7 +2819,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Шаблон изображений к постам со ссылкой (сниппет)" data-min="1">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
         <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Можно добавить больше вариантов сниппетов или убрать лишние — цена сразу изменится.">?</span></span>
       </div>
       <div class="qty-control">
@@ -4948,13 +4963,21 @@ window.addEventListener('load', function(){
   document.querySelectorAll('.tariff-wrapper').forEach(w => recalcPrice(w));
 });
 
-function toggleAddons(btn) {
-  const list = btn.nextElementSibling;
-  if(!list) return;
-  list.classList.toggle('open');
-  const sp = btn.querySelector('span');
-  if(sp) sp.textContent = list.classList.contains('open') ? '−' : '+';
-}
+  function toggleAddons(btn) {
+    const list = btn.nextElementSibling;
+    if(!list) return;
+    list.classList.toggle('open');
+    const sp = btn.querySelector('span');
+    if(sp) sp.textContent = list.classList.contains('open') ? '−' : '+';
+  }
+
+  function handleChoiceChange(input){
+    const group = input.closest('.choice-pills');
+    const pill = input.closest('.choice-pill');
+    if(!group || !pill) return;
+    group.querySelectorAll('.choice-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  }
 
 function toggleQtyState(cb){
   const li = cb.closest('li[data-mode="qty"]');
@@ -5047,49 +5070,59 @@ function recalcPrice(wrapper){
   if(priceEl) priceEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
 }
 
-function sendOrder(btn, tariffName){
-  const wrapper = btn.closest('.tariff-wrapper');
-  if(!wrapper) return;
+  function sendOrder(btn, tariffName){
+    const wrapper = btn.closest('.tariff-wrapper');
+    if(!wrapper) return;
 
-  let lines = [];
+    let lines = [];
 
-  // checked checkboxes
-  wrapper.querySelectorAll('input.feature-checkbox:checked').forEach(cb => {
-    const li = cb.closest('li');
-    const txt = (li && li.innerText) ? li.innerText.trim() : '';
-    // keep only first line before tooltip artifacts
-    const clean = txt.split('\n')[0].replace(/\s+\?\s*$/, '').trim();
-    if(clean) lines.push(clean);
-  });
+    // checked checkboxes
+    wrapper.querySelectorAll('input.feature-checkbox:checked').forEach(cb => {
+      const li = cb.closest('li');
+      const txt = (li && li.innerText) ? li.innerText.trim() : '';
+      // keep only first line before tooltip artifacts
+      const clean = txt.split('\n')[0].replace(/\s+\?\s*$/, '').trim();
+      if(clean) lines.push(clean);
+    });
 
-  // qty rows
-  wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
-    const cb = li.querySelector('.qty-checkbox');
-    const active = !cb || cb.checked || cb.disabled;
-    const qty = parseInt((li.querySelector('.qty-val')||{}).textContent || '0', 10);
-    if(active && qty > 0){
-      const label = li.dataset.label || (li.querySelector('.item-left')||{}).innerText || 'Позиция';
-      lines.push(label.trim() + ' — ' + qty + ' шт');
+    // choice pills
+    wrapper.querySelectorAll('.choice-pills').forEach(group => {
+      const active = group.querySelector('input:checked');
+      if(!active) return;
+      const pill = active.closest('.choice-pill');
+      const text = pill && pill.innerText ? pill.innerText.trim() : (active.value || '');
+      const label = group.dataset.label || 'Выбор';
+      if(text) lines.push(`${label}: ${text}`);
+    });
+
+    // qty rows
+    wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
+      const cb = li.querySelector('.qty-checkbox');
+      const active = !cb || cb.checked || cb.disabled;
+      const qty = parseInt((li.querySelector('.qty-val')||{}).textContent || '0', 10);
+      if(active && qty > 0){
+        const label = li.dataset.label || (li.querySelector('.item-left')||{}).innerText || 'Позиция';
+        lines.push(label.trim() + ' — ' + qty + ' шт');
+      }
+    });
+
+    const total = (wrapper.querySelector('.tariff-price')||{}).textContent || '';
+    const text = `Заявка на тариф: ${tariffName}\n\nСостав:\n- ${lines.join('\n- ')}\n\nИтого: ${total}`;
+
+    const modal = document.getElementById('order-modal');
+    if(modal){
+      const h2 = modal.querySelector('h2');
+      if(h2) h2.textContent = 'Ваш заказ: ' + total;
+      const p = modal.querySelector('p');
+      if(p) p.innerHTML = `Скопируйте состав и отправьте мне:<br><br><textarea style="width:100%;min-width:100%;max-width:100%;height:130px;background:#111;color:#fff;border:1px solid #333;padding:10px;border-radius:8px;resize:vertical;">${text}</textarea>`;
+      modal.style.display = 'flex';
+      setTimeout(()=>{ modal.style.opacity = '1'; }, 10);
     }
-  });
-
-  const total = (wrapper.querySelector('.tariff-price')||{}).textContent || '';
-  const text = `Заявка на тариф: ${tariffName}\n\nСостав:\n- ${lines.join('\n- ')}\n\nИтого: ${total}`;
-
-  const modal = document.getElementById('order-modal');
-  if(modal){
-    const h2 = modal.querySelector('h2');
-    if(h2) h2.textContent = 'Ваш заказ: ' + total;
-    const p = modal.querySelector('p');
-    if(p) p.innerHTML = `Скопируйте состав и отправьте мне:<br><br><textarea style="width:100%;height:130px;background:#111;color:#fff;border:1px solid #333;padding:10px;border-radius:8px;">${text}</textarea>`;
-    modal.style.display = 'flex';
-    setTimeout(()=>{ modal.style.opacity = '1'; }, 10);
   }
-}
 
-// close modal on overlay click
-document.addEventListener('click', function(e){
-  if(e.target && e.target.id === 'order-modal'){
+  // close modal on overlay click
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.id === 'order-modal'){
     const modal = document.getElementById('order-modal');
     if(!modal) return;
     modal.style.opacity = '0';
