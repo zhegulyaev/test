@@ -4323,6 +4323,7 @@ function getUrlParams() {
 }
 
 function applyStateFromUrl() {
+  initialStateApplied = true;
   const {album, photo, service, folder, section, config} = getUrlParams();
   hist = [];
   currentSection = 'main';
@@ -4463,6 +4464,7 @@ api('groups.getById', `group_id=dsgnjr&fields=members_count,photo_200,photo_100,
 window.saveCovers = d => {
   if (d.error) {
     loadFallbackPortfolio('Не удалось обратиться к VK API, показываю офлайн-портфолио.');
+    if (!initialStateApplied) applyStateFromUrl();
     return;
   }
 
@@ -4476,6 +4478,9 @@ window.saveCovers = d => {
     });
     api('execute', 'code=' + encodeURIComponent('var o=Args.owner_id; return [API.photos.get({"owner_id":o,"album_id":270856221,"count":7}),API.photos.get({"owner_id":o,"album_id":269040903,"offset":6,"count":1}),API.photos.get({"owner_id":o,"album_id":309328278,"offset":69,"count":1}),API.photos.get({"owner_id":o,"album_id":279127223,"offset":0,"count":1}),API.photos.get({"owner_id":o,"album_id":284187693,"offset":2,"count":1}),API.photos.get({"owner_id":o,"album_id":264642934,"offset":14,"count":1}),API.photos.get({"owner_id":o,"album_id":269062586,"offset":12,"count":1}),API.photos.get({"owner_id":o,"album_id":278088695,"offset":2,"count":1}),API.photos.get({"owner_id":o,"album_id":282455381,"offset":24,"count":1})];') + '&owner_id=' + OWNER, 'saveCustomCovers');
     api('board.getTopics', `group_id=${Math.abs(OWNER)}&topic_ids=${REVIEW_TOPIC_ID}&preview=1`, 'saveReviewsCount');
+    setTimeout(() => {
+      if (!initialStateApplied) applyStateFromUrl();
+    }, API_FALLBACK_TIMEOUT);
   }
 };
 
@@ -5965,6 +5970,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 var activeMonth = null;
 var globalReviewsCount = 0;
+let initialStateApplied = false;
 const MY_OWNER_ID = '163936790'; 
 const MY_TOPIC_ID = '37742383';
 const monthNamesList = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
