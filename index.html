@@ -242,7 +242,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .card{
     background:var(--card-bg);
     border-radius:24px;
-    overflow:hidden;
+    overflow:visible;
     cursor:none;
     border:1px solid var(--border);
     box-shadow:0 4px 20px rgba(0,0,0,0.2);
@@ -304,7 +304,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 /* PHOTO ITEMS */
 .photo-item{
     border-radius:16px;
-    overflow:hidden;
+    overflow:visible;
     cursor:none;
     box-shadow:0 4px 15px rgba(0,0,0,0.2);
     transition:.3s;
@@ -342,6 +342,9 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     gap: 15px;
     transition: transform 0.2s;
     cursor: none;
+    break-inside: avoid;
+    width: 100%;
+    box-sizing: border-box;
 }
 .review-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.2); background: #262629; }
 .review-avatar {
@@ -396,14 +399,20 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     transform: translateY(-2px);
 }
 .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    column-count: 3;
+    column-gap: 20px;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto 40px auto;
     padding: 0 20px;
-    align-items: start;
+}
+
+@media (max-width: 1100px) {
+    .reviews-grid { column-count: 2; }
+}
+
+@media (max-width: 700px) {
+    .reviews-grid { column-count: 1; }
 }
 
 /* SKELETONS */
@@ -457,7 +466,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     display:flex;
     background:#1c1c1e;
     border-radius:24px;
-    overflow:hidden;
+    overflow:visible;
     position:relative;
     height:85vh;
     box-shadow:0 30px 80px rgba(0,0,0,0.8);
@@ -612,23 +621,33 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 /* SINGLE CLOSE BUTTON */
 .close-in-modal{
     position:absolute;
-    top: 20px;
-    right: 20px;
-    background:rgba(255,255,255,0.1);
+    top: 14px;
+    right: -56px;
+    background:transparent;
     border-radius:50%;
-    width:36px;
-    height:36px;
+    width:44px;
+    height:44px;
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:none;
     color:#fff;
-    border:none;
-    z-index:20; 
+    border:1px solid rgba(255,255,255,0.25);
+    z-index:20;
     transition: .2s;
+    opacity: 0.7;
 }
-.close-in-modal:hover{background: rgba(255,255,255,0.25);}
+.close-in-modal:hover{background: rgba(255,255,255,0.12); opacity: 1;}
 .close-in-modal svg {width: 20px; height: 20px; stroke: currentColor; stroke-width: 2.5;}
+
+@media (max-width: 1100px) {
+  .close-in-modal {
+    right: 16px;
+    top: 12px;
+    background: rgba(255,255,255,0.1);
+    opacity: 1;
+  }
+}
 
 /* CONTACT MODAL */
 .order-choice{background:#1c1c1e;padding:40px;border-radius:30px;max-width:380px;width:100%;text-align:center;position:relative; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5);}
@@ -1162,10 +1181,10 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .tariff-features { list-style:none; padding:0; margin:0 0 24px; flex-grow:1; }
 
 /* rows */
-.tariff-feature-item { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:text; }
+.tariff-feature-item { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:text; }
 .tariff-feature-item.excluded { opacity:0.5; text-decoration: line-through; }
 .tariff-feature-item.excluded .qty-control { opacity:0.5; pointer-events:none; }
-.item-left { display:flex; align-items:center; gap:10px; flex-grow:1; }
+.item-left { display:flex; align-items:flex-start; gap:10px; flex-grow:1; }
 .item-left > span { display:inline-flex; align-items:center; gap:6px; }
 
 /* Minimal checkbox (smaller) */
@@ -1182,7 +1201,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .item-icon { display:none; }
 
 /* qty control */
-.qty-control { display:flex; align-items:center; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; padding:0 4px; gap:4px; height:30px; color:#d7d7db; min-width:78px; }
+.qty-control { display:flex; align-items:center; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; padding:0 4px; gap:4px; height:30px; color:#d7d7db; min-width:78px; align-self:center; }
 .qty-btn { width:22px; height:22px; border:none; background:transparent; color:inherit; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; border-radius:6px; transition:.18s ease; }
 .qty-btn:hover { background: rgba(255,255,255,0.08); color:#fff; }
 .qty-val { min-width:28px; text-align:center; font-size:13px; font-weight:800; color:inherit; letter-spacing:0.5px; user-select:text; }
@@ -1232,7 +1251,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .speed-badge { margin-top:18px; margin-bottom:24px; padding:14px 14px; background: rgba(240,198,116,0.10); border: 1px solid var(--gold); border-radius: 12px; color: var(--gold); font-size:13px; font-weight:800; display:flex; align-items:center; gap:12px; }
 .duration-note { display:inline-flex; color: inherit; opacity:0.7; font-weight:600; line-height:1.2; margin-left:6px; font-size:12px; letter-spacing:0.2px; }
 .count-note { opacity:0.7; font-weight:500; font-size:12px; letter-spacing:0.2px; }
-.muted-construct-note { opacity:0.5; font-weight:400; color: var(--text-sec); font-size:13px; letter-spacing:0.1px; }
+.muted-construct-note { opacity:0.38; font-weight:400; color: var(--text-sec); font-size:13px; letter-spacing:0.1px; }
 .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 .choice-pills { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
 .choice-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor:pointer; font-weight:700; color:#e5e5e8; transition: .18s ease; user-select:text; }
@@ -2016,23 +2035,33 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 /* SINGLE CLOSE BUTTON */
 .close-in-modal{
     position:absolute;
-    top: 20px;
-    right: 20px;
-    background:rgba(255,255,255,0.1);
+    top: 14px;
+    right: -56px;
+    background:transparent;
     border-radius:50%;
-    width:36px;
-    height:36px;
+    width:44px;
+    height:44px;
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:none;
     color:#fff;
-    border:none;
-    z-index:20; 
+    border:1px solid rgba(255,255,255,0.25);
+    z-index:20;
     transition: .2s;
+    opacity: 0.7;
 }
-.close-in-modal:hover{background: rgba(255,255,255,0.25);}
+.close-in-modal:hover{background: rgba(255,255,255,0.12); opacity: 1;}
 .close-in-modal svg {width: 20px; height: 20px; stroke: currentColor; stroke-width: 2.5;}
+
+@media (max-width: 1100px) {
+  .close-in-modal {
+    right: 16px;
+    top: 12px;
+    background: rgba(255,255,255,0.1);
+    opacity: 1;
+  }
+}
 
 /* CONTACT MODAL */
 .order-choice{background:#1c1c1e;padding:40px;border-radius:30px;max-width:380px;width:100%;text-align:center;position:relative; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5);}
@@ -2510,16 +2539,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
 
-    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет)" data-min="0">
-      <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить сниппеты">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Сколько вариантов сниппетов нужно: можно убрать или добавить любое количество.">?</span></span>
-      </div>
-      <div class="qty-control">
-        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
-        <span class="qty-val">0</span>
-        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
-      </div>
+    <li class="tariff-feature-item" data-type="addon">
+      <label class="item-left" style="cursor:pointer;">
+        <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон изображений к постам со ссылкой (сниппет)" onchange="updatePrice(this)">
+        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон для постов со ссылкой без привязки к количеству.">?</span></span>
+      </label>
     </li>
 
     <li class="tariff-feature-item" data-type="addon">
@@ -2689,16 +2713,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет)" data-min="0">
-      <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить сниппеты">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Сколько вариантов сниппетов нужно: можно убрать или добавить любое количество.">?</span></span>
-      </div>
-      <div class="qty-control">
-        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
-        <span class="qty-val">0</span>
-        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
-      </div>
+    <li class="tariff-feature-item" data-type="addon">
+      <label class="item-left" style="cursor:pointer;">
+        <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон изображений к постам со ссылкой (сниппет)" onchange="updatePrice(this)">
+        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон для постов со ссылкой без подсчета количества.">?</span></span>
+      </label>
     </li>
     
     <li class="tariff-feature-item" data-type="addon">
@@ -2846,16 +2865,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Шаблон изображений к постам со ссылкой (сниппет)" data-min="1">
-      <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Можно добавить больше вариантов сниппетов или убрать лишние — цена сразу изменится.">?</span></span>
-      </div>
-      <div class="qty-control">
-        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
-        <span class="qty-val">1</span>
-        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
-      </div>
+    <li class="tariff-feature-item" data-type="base">
+      <label class="item-left" style="cursor:pointer;">
+        <input type="checkbox" class="feature-checkbox" data-price="0" value="Шаблон изображений к постам со ссылкой (сниппет)" checked onchange="updatePrice(this)">
+        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Сниппет включён в комплект, без учета количества вариантов.">?</span></span>
+      </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base">
@@ -5244,6 +5258,9 @@ function recalcPrice(wrapper){
     // checked checkboxes
     wrapper.querySelectorAll('input.feature-checkbox:checked').forEach(cb => {
       const li = cb.closest('li');
+      const choice = li?.querySelector?.('.choice-pills input:checked');
+      const choiceVal = choice?.value?.toLowerCase() || '';
+      if (choiceVal.includes('анимир')) return;
       const txt = (li && li.innerText) ? li.innerText.trim() : '';
       // keep only first line before tooltip artifacts
       const clean = txt.split('\n')[0].replace(/\s+\?\s*$/, '').trim();
