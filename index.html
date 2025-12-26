@@ -697,62 +697,6 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .comments-loader svg{width:32px;height:32px;animation:spin 1s linear infinite; stroke: var(--text-sec);}
 @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
-/* FLOATING MESSAGE BUBBLE - DARK STYLE */
-.message-bubble {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: var(--card-bg);
-    color: var(--text-main);
-    border-radius: 20px;
-    padding: 16px 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    max-width: 320px;
-    z-index: 95;
-    cursor: pointer;
-    transition: transform 0.3s, opacity 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    border: 1px solid var(--border);
-}
-.message-bubble:hover {
-    transform: translateY(-5px);
-}
-.message-bubble img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.message-bubble-text {
-    flex: 1;
-}
-.message-bubble-title {
-    font-weight: 700;
-    font-size: 15px;
-    margin-bottom: 4px;
-}
-.message-bubble-desc {
-    font-size: 14px;
-    color: var(--text-sec);
-}
-.message-bubble-btn {
-    background: var(--vk);
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-@media(max-width:1000px){
-  .message-bubble {bottom: 90px; right: 20px; max-width: 280px;}
-}
 @keyframes fadeIn {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 .skel { margin-bottom: 15px; }
@@ -870,34 +814,6 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     transition: width 0.1s linear;
     box-shadow: 0 0 8px #0077FF;
 }
-.message-bubble {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    /* ensure relative for absolute child if not fixed? But fixed works too for child absolute */
-    /* Wait, message-bubble is already defined in base css. I should just append specific overrides. */
-    /* To be safe, I won't redefine .message-bubble main props, just position context if needed. */
-    /* Actually, fixed element can contain absolute elements relative to it. */
-}
-.message-bubble-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-sec);
-    opacity: 0.5;
-    cursor: pointer;
-    transition: 0.2s;
-    border-radius: 50%;
-    background: transparent;
-}
-.message-bubble-close:hover { opacity: 1; background: rgba(255,255,255,0.1); color: #fff; }
-
-
 /* GRID & MOBILE */
 @media (max-width: 768px) {
     .navbar { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #000; padding: 20px; box-sizing:border-box; }
@@ -2441,22 +2357,40 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     font-size: 14px;
     color: var(--text-sec);
 }
-.message-bubble-btn {
-    background: var(--vk);
-    color: #fff;
-    padding: 8px 16px;
+  .message-bubble-btn {
+      background: var(--vk);
+      color: #fff;
+      padding: 8px 16px;
     border-radius: 30px;
     font-size: 14px;
     font-weight: 600;
     margin-top: 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+  }
 
-@media(max-width:1000px){
-  .message-bubble {bottom: 90px; right: 20px; max-width: 280px;}
-}
+  .message-bubble-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-sec);
+      opacity: 0.5;
+      cursor: pointer;
+      transition: 0.2s;
+      border-radius: 50%;
+      background: transparent;
+  }
+  .message-bubble-close:hover { opacity: 1; background: rgba(255,255,255,0.1); color: #fff; }
+
+  @media(max-width:1000px){
+    .message-bubble {bottom: 90px; right: 20px; max-width: 280px;}
+  }
 @keyframes fadeIn {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 .skel { margin-bottom: 15px; }
@@ -2574,34 +2508,6 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     transition: width 0.1s linear;
     box-shadow: 0 0 8px #0077FF;
 }
-.message-bubble {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    /* ensure relative for absolute child if not fixed? But fixed works too for child absolute */
-    /* Wait, message-bubble is already defined in base css. I should just append specific overrides. */
-    /* To be safe, I won't redefine .message-bubble main props, just position context if needed. */
-    /* Actually, fixed element can contain absolute elements relative to it. */
-}
-.message-bubble-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-sec);
-    opacity: 0.5;
-    cursor: pointer;
-    transition: 0.2s;
-    border-radius: 50%;
-    background: transparent;
-}
-.message-bubble-close:hover { opacity: 1; background: rgba(255,255,255,0.1); color: #fff; }
-
-
 /* GRID & MOBILE */
 @media (max-width: 768px) {
     .navbar { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #000; padding: 20px; box-sizing:border-box; }
@@ -2954,6 +2860,195 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Portfolio search */
+.portfolio-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 20px 18px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+}
+
+.portfolio-search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+}
+
+.portfolio-search button {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    border-radius: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.portfolio-search button:hover {
+    background: rgba(255,255,255,0.16);
+}
+
+.photo-match {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 10px;
+    padding: 8px 10px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.4;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.photo-match mark {
+    background: rgba(0,119,255,0.2);
+    color: #fff;
+    padding: 0 2px;
+    border-radius: 4px;
+}
+
+/* Tariff cart & sharing */
+.tariff-tools {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cart-summary {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.cart-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    color: #fff;
+    font-weight: 700;
+}
+
+.cart-total {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.cart-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+}
+
+.cart-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cart-item-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.cart-item ul {
+    margin: 0;
+    padding-left: 16px;
+    color: var(--text-sec);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cart-actions button {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.cart-actions button.primary {
+    background: var(--vk);
+    border-color: var(--vk);
+}
+
+.cart-actions button:hover { opacity: 0.9; }
+
+.empty-cart-hint {
+    color: var(--text-sec);
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+    .cart-list { grid-template-columns: 1fr; }
+}
+
+/* Quick send buttons */
+.quick-send-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.send-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.send-btn.send-vk { background: var(--vk); border-color: var(--vk); }
+.send-btn.send-tg { background: #24A1DE; border-color: #24A1DE; }
+.send-btn:hover { opacity: 0.92; }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    body { cursor: auto; }
+    .cursor-dot, .cursor-outline { display: none !important; }
+    #header-progress { opacity: 0 !important; transition: none !important; }
+    .profile-header { animation: none !important; }
+}
 </style>
 </head>
 <body><div id="modal-progress-bar"></div>
@@ -2985,21 +3080,32 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <button class="tab-btn" onclick="switchTab('tariffs', this)">Тарифы & Услуги</button>
   </div>
   <div id="tab-portfolio" class="tab-content" style="display:block;">
+<div class="portfolio-search" id="portfolio-search-bar">
+  <input type="search" id="portfolio-search-input" placeholder="Быстрый поиск по названию, описанию или тегам" aria-label="Поиск по портфолио">
+  <button type="button" id="portfolio-search-clear">Очистить</button>
+</div>
 <div id="years-bar"></div>
 <div id="months-bar"></div>
 <div id="tags-bar" class="tags-container" style="display:none;"></div>
-  
+
   <div id="area">Загрузка...</div>
 
 <!-- VK VIDEO EMBEDS -->
   </div>
   <div id="tab-tariffs" class="tab-content" style="display:none;">
+    <div class="tariff-tools">
+      <div class="cart-summary" id="cart-summary"></div>
+      <div class="cart-actions">
+        <button class="primary" type="button" id="share-config-btn">Скопировать ссылку на конфигурацию</button>
+        <button type="button" id="reset-config-btn">Сбросить выбранные опции</button>
+      </div>
+    </div>
     <div class="tariff-header">
       <h2 class="section-title">Перейдем <span>к тарифам</span></h2>
       <p class="section-subtitle">Для Вас я подготовил 3 тарифа, выберите необходимый</p>
     </div>
     <div class="tariffs-grid">
-    <div class="tariff-wrapper" data-base-price="10000">
+    <div class="tariff-wrapper" data-base-price="10000" data-tariff-id="standard">
       <div class="tariff-card">
         <div class="tariff-name">
           <div class="tariff-title">Стандарт <span class="info-icon" data-tooltip="Для старта или небольшого проекта: базовая упаковка сообщества/страницы без лишних опций.">?</span></div>
@@ -3163,7 +3269,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
     </div>
     
-    <div class="tariff-wrapper" data-base-price="20000">
+    <div class="tariff-wrapper" data-base-price="20000" data-tariff-id="premium">
       <div class="tariff-card">
         <div class="tariff-name">
           <div class="tariff-title">Премиум <span class="info-icon" data-tooltip="Для активных продаж и продвижения: усиленная упаковка с доп. графикой и вариативностью.">?</span></div>
@@ -3338,7 +3444,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
     </div>
     
-    <div class="tariff-wrapper" data-base-price="30000">
+    <div class="tariff-wrapper" data-base-price="30000" data-tariff-id="vip">
       <div class="tariff-card">
         <div class="tariff-name">
           <div class="tariff-title">VIP <span class="info-icon" data-tooltip="Для масштабных запусков и премиум-задач: максимум материалов + приоритет по срокам.">?</span></div>
@@ -3694,6 +3800,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <textarea id="order-text" readonly style="width:100%; height:120px; background:#222; border:1px solid #333; color:#fff; border-radius:8px; padding:10px; margin-top:10px; resize:none;"></textarea>
     </div>
 
+        <div class="quick-send-row">
+          <button type="button" class="send-btn send-vk" onclick="sendOrderTo('vk')">Отправить в VK</button>
+          <button type="button" class="send-btn send-tg" onclick="sendOrderTo('tg')">Отправить в Telegram</button>
+        </div>
+
         <h2 style="font-size: 16px; opacity: 0.7; margin-top: 20px; margin-bottom: 15px;">Связаться со мной</h2>
         <div class="contact-list">
             <a href="https://vk.com/im?sel=-163936790" target="_blank" class="contact-link link-vk">
@@ -3719,6 +3830,15 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 let scrollBeforeModal = 0;
 
 window.currentOrderText = '';
+const TARIFF_STORAGE_KEY = 'tariff-config-v1';
+const SEARCH_STORAGE_KEY = 'portfolio-search-query';
+let tariffSelections = {};
+let defaultTariffSelections = {};
+let tariffSnapshots = {};
+let currentSearchQuery = '';
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let motionAllowed = !prefersReducedMotion.matches;
 
 function showCopyToast(success = true) {
     const toast = document.getElementById('copy-toast');
@@ -3752,6 +3872,328 @@ function copyOrderText() {
     }).catch(() => showCopyToast(false));
 }
 
+function debounce(fn, delay = 250) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(null, args), delay);
+    };
+}
+
+function slugify(text = '') {
+    return text.toString().trim().toLowerCase()
+        .replace(/[^a-zа-я0-9\s_-]+/gi, '')
+        .replace(/\s+/g, '-');
+}
+
+function getTariffId(wrapper) {
+    if (!wrapper) return '';
+    if (!wrapper.dataset.tariffId) {
+        const title = wrapper.querySelector('.tariff-title')?.textContent || 'tariff';
+        wrapper.dataset.tariffId = slugify(title);
+    }
+    return wrapper.dataset.tariffId;
+}
+
+
+
+
+function captureTariffSelections(wrapper) {
+    const state = { checkboxes: {}, qty: {}, choices: {} };
+    if (!wrapper) return state;
+    wrapper.querySelectorAll('input.feature-checkbox').forEach(cb => {
+        const li = cb.closest('li');
+        const key = cb.dataset.optionKey || slugify(cb.value || li?.dataset.label || (li?.innerText || '').split(/\n/)[0] || 'checkbox');
+        cb.dataset.optionKey = key;
+        state.checkboxes[key] = cb.checked;
+    });
+
+    wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
+        const key = li.dataset.optionKey || slugify(li.dataset.label || (li.innerText || '').split(/\n/)[0] || 'qty');
+        li.dataset.optionKey = key;
+        const valEl = li.querySelector('.qty-val');
+        state.qty[key] = parseInt(valEl?.textContent || '0', 10);
+    });
+
+    wrapper.querySelectorAll('.choice-pills').forEach(group => {
+        const key = group.dataset.optionKey || slugify(group.dataset.label || group.querySelector('.choice-state')?.textContent|| 'choice');
+        group.dataset.optionKey = key;
+        const active = group.querySelector('input:checked');
+        if (active) state.choices[key] = active.value || active.name;
+    });
+
+    return state;
+}
+
+function applyTariffSelections(wrapper, state) {
+    if (!wrapper || !state) return;
+    wrapper.querySelectorAll('input.feature-checkbox').forEach(cb => {
+        const li = cb.closest('li');
+        const key = cb.dataset.optionKey || slugify(cb.value || li?.dataset.label || (li?.innerText || '').split(/\n/)[0] || 'checkbox');
+        cb.dataset.optionKey = key;
+        if (state.checkboxes && Object.prototype.hasOwnProperty.call(state.checkboxes, key) && !cb.disabled) {
+            cb.checked = state.checkboxes[key];
+        }
+    });
+
+    wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
+        const key = li.dataset.optionKey || slugify(li.dataset.label || (li.innerText || '').split(/\n/)[0] || 'qty');
+        li.dataset.optionKey = key;
+        const valEl = li.querySelector('.qty-val');
+        if (state.qty && Object.prototype.hasOwnProperty.call(state.qty, key) && valEl) {
+            valEl.textContent = state.qty[key];
+        }
+    });
+
+    wrapper.querySelectorAll('.choice-pills').forEach(group => {
+        const key = group.dataset.optionKey || slugify(group.dataset.label || group.querySelector('.choice-state')?.textContent|| 'choice');
+        group.dataset.optionKey = key;
+        const saved = state.choices ? state.choices[key] : null;
+        if (saved) {
+            const input = Array.from(group.querySelectorAll('input')).find(inp => inp.value === saved);
+            if (input) {
+                input.checked = true;
+                handleChoiceChange(input);
+            }
+        }
+    });
+}
+
+function captureDefaultTariffs() {
+    document.querySelectorAll('.tariff-wrapper').forEach(w => {
+        const id = getTariffId(w);
+        defaultTariffSelections[id] = captureTariffSelections(w);
+    });
+}
+
+function restoreTariffFromStorage() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(TARIFF_STORAGE_KEY) || '{}');
+        if (saved && typeof saved === 'object') {
+            tariffSelections = saved;
+            document.querySelectorAll('.tariff-wrapper').forEach(w => {
+                const id = getTariffId(w);
+                if (saved[id]) applyTariffSelections(w, saved[id]);
+            });
+        }
+    } catch (e) {
+        console.warn('Cannot restore saved tariffs', e);
+    }
+}
+
+
+function collectTariffLines(wrapper) {
+    const lines = [];
+    if (!wrapper) return lines;
+
+    wrapper.querySelectorAll('input.feature-checkbox:checked').forEach(cb => {
+      const li = cb.closest('li');
+      const choice = li?.querySelector?.('.choice-pills input:checked');
+      const choiceVal = choice?.value?.toLowerCase() || '';
+      if (choiceVal.includes('анимир')) return;
+      const txt = (li && li.innerText) ? li.innerText.trim() : '';
+      const clean = txt.split(/\n/)[0].replace(/\s+\?\s*$/, '').trim();
+      if(clean) lines.push(clean);
+    });
+
+    wrapper.querySelectorAll('.choice-pills').forEach(group => {
+      const active = group.querySelector('input:checked');
+      if(!active) return;
+      const pill = active.closest('.choice-pill');
+      const text = pill && pill.innerText ? pill.innerText.trim() : (active.value || '');
+      const label = group.dataset.label || 'Выбор';
+      if(text) lines.push(`${label}: ${text}`);
+    });
+
+    wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
+      const cb = li.querySelector('.qty-checkbox');
+      const active = !cb || cb.checked || cb.disabled;
+      const qty = parseInt((li.querySelector('.qty-val')||{}).textContent || '0', 10);
+      if(active && qty > 0){
+        const label = li.dataset.label || (li.querySelector('.item-left')||{}).innerText || 'Позиция';
+        lines.push(label.trim() + ' — ' + qty + ' шт');
+      }
+    });
+
+    return lines;
+}
+
+function buildTariffText(tariffName, lines, total) {
+    const totalText = typeof total === 'number' ? total.toLocaleString('ru-RU') + ' ₽' : (total || '—');
+    const list = lines.length ? `- ${lines.join('\n- ')}` : '- Без дополнительных опций';
+    return `Заявка на тариф: ${tariffName}\n\nСостав:\n${list}\n\nИтого: ${totalText}`;
+}
+
+function updateOrderPreview(text, total) {
+    const ta = document.getElementById('order-text');
+    if (ta) ta.value = text;
+    const totalEl = document.getElementById('order-total-amount');
+    if (totalEl && typeof total !== 'undefined') {
+        totalEl.textContent = typeof total === 'number' ? total.toLocaleString('ru-RU') + ' ₽' : (total || '—');
+    }
+    window.currentOrderText = text;
+}
+
+function buildTariffSnapshot(wrapper, total) {
+    const name = wrapper?.querySelector('.tariff-title')?.textContent?.trim() || 'Тариф';
+    const lines = collectTariffLines(wrapper);
+    return { id: getTariffId(wrapper), name, total, lines };
+}
+
+function updateTariffState(wrapper, total) {
+    if (!wrapper) return;
+    const id = getTariffId(wrapper);
+    tariffSelections[id] = captureTariffSelections(wrapper);
+    tariffSnapshots[id] = buildTariffSnapshot(wrapper, total);
+    try { localStorage.setItem(TARIFF_STORAGE_KEY, JSON.stringify(tariffSelections)); } catch (e) {}
+    renderCartSummary();
+}
+
+function buildAggregateText(states) {
+    if (!states.length) return '';
+    return states.map(s => {
+        const list = s.lines.length ? `- ${s.lines.join('\n- ')}` : '- Без дополнительных опций';
+        return `${s.name}:\n${list}\nИтого: ${typeof s.total === 'number' ? s.total.toLocaleString('ru-RU') + ' ₽' : s.total}`;
+    }).join('\n\n');
+}
+
+function renderCartSummary() {
+    const container = document.getElementById('cart-summary');
+    if (!container) return;
+  const items = Object.values(tariffSnapshots);
+  if (!items.length) {
+      container.innerHTML = '<div class="cart-header"><span>Корзина пуста</span><span class="empty-cart-hint">Выберите опции в тарифах, чтобы увидеть итог</span></div>';
+      updateOrderPreview('', '—');
+      return;
+  }
+    const total = items.reduce((sum, item) => sum + (typeof item.total === 'number' ? item.total : 0), 0);
+    const listHtml = items.map(item => {
+        const list = item.lines.length ? `<ul>${item.lines.map(line => `<li>${line}</li>`).join('')}</ul>` : '<div class="empty-cart-hint">Без дополнительных опций</div>';
+        const totalText = typeof item.total === 'number' ? item.total.toLocaleString('ru-RU') + ' ₽' : item.total;
+        return `<div class="cart-item"><div class="cart-item-title"><span>${item.name}</span><span>${totalText}</span></div>${list}</div>`;
+    }).join('');
+    container.innerHTML = `<div class="cart-header"><span>Итоговая корзина</span><span class="cart-total">${total.toLocaleString('ru-RU')} ₽</span></div><div class="cart-list">${listHtml}</div>`;
+    const combinedText = buildAggregateText(items);
+    updateOrderPreview(combinedText, total);
+}
+
+function resetTariffs() {
+    document.querySelectorAll('.tariff-wrapper').forEach(w => {
+        const id = getTariffId(w);
+        applyTariffSelections(w, defaultTariffSelections[id]);
+        recalcPrice(w);
+    });
+    tariffSelections = JSON.parse(JSON.stringify(defaultTariffSelections));
+    try { localStorage.setItem(TARIFF_STORAGE_KEY, JSON.stringify(tariffSelections)); } catch (e) {}
+}
+
+function getShareLink() {
+    const payload = { selections: tariffSelections };
+    let encoded = '';
+    try { encoded = btoa(encodeURIComponent(JSON.stringify(payload))); } catch (e) { encoded = ''; }
+    const url = new URL(window.location.href);
+    url.searchParams.set('section', 'tariffs');
+    if (encoded) url.searchParams.set('config', encoded);
+    url.hash = 'tariffs';
+    return url.toString();
+}
+
+function copyShareLink() {
+    const link = getShareLink();
+    navigator.clipboard.writeText(link).then(() => showCopyToast(true)).catch(() => showCopyToast(false));
+}
+
+function applyConfigPayload(config) {
+    if (!config) return;
+    try {
+        const decoded = JSON.parse(decodeURIComponent(atob(config)) || '{}');
+        if (decoded?.selections) {
+            tariffSelections = decoded.selections;
+            document.querySelectorAll('.tariff-wrapper').forEach(w => {
+                const id = getTariffId(w);
+                if (decoded.selections[id]) applyTariffSelections(w, decoded.selections[id]);
+            });
+        }
+    } catch (e) {
+        console.warn('Не удалось применить конфигурацию из ссылки', e);
+    }
+}
+
+function getOrderTextValue() {
+    const ta = document.getElementById('order-text');
+    return (ta?.value || window.currentOrderText || '').trim();
+}
+
+function sendOrderTo(target) {
+    const text = getOrderTextValue();
+    if (!text) { copyOrderText(); return; }
+    let link = '';
+    if (target === 'vk') {
+        link = `https://vk.com/im?sel=-163936790&message=${encodeURIComponent(text)}`;
+    } else {
+        link = `https://t.me/share/url?url=${encodeURIComponent(location.href)}&text=${encodeURIComponent(text)}`;
+    }
+    try {
+        const opened = window.open(link, '_blank');
+        if (!opened) copyOrderText();
+    } catch (e) {
+        copyOrderText();
+    }
+}
+
+function initShareButtons() {
+    const shareBtn = document.getElementById('share-config-btn');
+    const resetBtn = document.getElementById('reset-config-btn');
+    if (shareBtn) shareBtn.addEventListener('click', copyShareLink);
+    if (resetBtn) resetBtn.addEventListener('click', resetTariffs);
+}
+
+function initTariffState(configFromUrl) {
+    document.querySelectorAll('.tariff-wrapper').forEach(wrapper => getTariffId(wrapper));
+    captureDefaultTariffs();
+    restoreTariffFromStorage();
+    if (configFromUrl) applyConfigPayload(configFromUrl);
+    document.querySelectorAll('.tariff-wrapper').forEach(w => recalcPrice(w));
+    renderCartSummary();
+}
+
+function buildMatchSnippet(text, query) {
+    if (!text || !query) return '';
+    const normalizedQuery = query.toLowerCase();
+    const idx = text.toLowerCase().indexOf(normalizedQuery);
+    if (idx === -1) return '';
+    const start = Math.max(0, idx - 20);
+    const end = Math.min(text.length, idx + normalizedQuery.length + 30);
+    const snippet = text.substring(start, end);
+    const escaped = normalizedQuery.replace(/[.*+?^${}()|[\]\]/g, '\$&');
+    return `${start > 0 ? '…' : ''}${snippet.replace(new RegExp(`(${escaped})`, 'ig'), '<mark>$1</mark>')}${end < text.length ? '…' : ''}`;
+}
+
+function initPortfolioSearch() {
+    const input = document.getElementById('portfolio-search-input');
+    const clear = document.getElementById('portfolio-search-clear');
+    if (!input) return;
+    try {
+        const saved = localStorage.getItem(SEARCH_STORAGE_KEY);
+        if (saved) {
+            currentSearchQuery = saved;
+            input.value = saved;
+        }
+    } catch (e) {}
+    const applyQuery = debounce((val) => {
+        currentSearchQuery = val.trim();
+        try { localStorage.setItem(SEARCH_STORAGE_KEY, currentSearchQuery); } catch (e) {}
+        if (alb && raw.length) renderPhotosFromData();
+    }, 250);
+    input.addEventListener('input', (e) => applyQuery(e.target.value));
+    if (clear) clear.addEventListener('click', () => {
+        input.value = '';
+        currentSearchQuery = '';
+        try { localStorage.removeItem(SEARCH_STORAGE_KEY); } catch (e) {}
+        if (alb && raw.length) renderPhotosFromData();
+    });
+}
+
 const TOKEN = 'vk1.a.tOSblOYWMeA4uLbJ9r07EnvpkA9cTBfz9uHD0aUBxQGRhjXkVh1B6ir4IGgcXnPb6n-IP4I-tNP5m_hKAivnDbn1rjQZtDRj-9-kPiK6CLO1YupE1qWL2e9GhnO9uxscgv-AhchfWy-VgYcR8V2oCeHmBX9g_LpZ-YUF2d21zO6NvGUDeyc-T6gVgvCo8HwKC3F3hQYpftnfQQ-xspyVQA';
 const OWNER = '-163936790';
 const REVIEW_TOPIC_ID = '37742383';
@@ -3764,20 +4206,36 @@ let currentSection = 'main';
 
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
-window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-    // cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
-});
-document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.card') || e.target.closest('.photo-item') || e.target.closest('.cursor-pointer')) {
-        cursorOutline.classList.add('hovered');
-    } else {
-        cursorOutline.classList.remove('hovered');
-    }
-});
+function applyMotionPreference() {
+    document.body.classList.toggle('reduced-motion', prefersReducedMotion.matches);
+    const displayState = prefersReducedMotion.matches ? 'none' : '';
+    if (cursorDot) cursorDot.style.display = displayState;
+    if (cursorOutline) cursorOutline.style.display = displayState;
+    motionAllowed = !prefersReducedMotion.matches;
+}
+
+applyMotionPreference();
+prefersReducedMotion.addEventListener('change', applyMotionPreference);
+
+if (!prefersReducedMotion.matches) {
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+        if (!motionAllowed) return;
+        if (cursorDot) {
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+        }
+    });
+    document.addEventListener('mouseover', (e) => {
+        if (!cursorOutline || !motionAllowed) return;
+        if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.card') || e.target.closest('.photo-item') || e.target.closest('.cursor-pointer')) {
+            cursorOutline.classList.add('hovered');
+        } else {
+            cursorOutline.classList.remove('hovered');
+        }
+    });
+}
 
 function api(m,p,cb){
   const s=document.createElement('script');
@@ -3793,14 +4251,21 @@ function getUrlParams() {
     photo: params.get('photo') ? parseInt(params.get('photo')) - 1 : null,
     service: params.get('service'),
     folder: params.get('folder'),
-    section: params.get('section')
+    section: params.get('section'),
+    config: params.get('config')
   };
 }
 
 function applyStateFromUrl() {
-  const {album, photo, service, folder, section} = getUrlParams();
+  const {album, photo, service, folder, section, config} = getUrlParams();
   hist = [];
   currentSection = 'main';
+
+  if (section === 'tariffs') {
+    switchTab('tariffs');
+    if (config) applyConfigPayload(config);
+    return;
+  }
 
   if (section === 'reviews') { openReviewsSection(true); return; }
   if (section === 'services') { loadServices(true); return; }
@@ -3853,11 +4318,13 @@ function startBackgroundPreload() {
 window.addEventListener('scroll', () => {
     // Progress Bar Logic
     const bar = document.getElementById('header-progress');
-    if (alb && bar) {
+    if (motionAllowed && alb && bar) {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         bar.style.width = scrollPercent + '%';
+    } else if (bar) {
+        bar.style.width = '0%';
     }
 
     const btn = document.getElementById('scroll-top');
@@ -4648,6 +5115,13 @@ function renderPhotosFromData() {
     if (activeYear) {
         filteredPhotos = filteredPhotos.filter(p => p.date && new Date(p.date*1000).getFullYear() === activeYear);
     }
+    if (currentSearchQuery) {
+        const q = currentSearchQuery.toLowerCase();
+        filteredPhotos = filteredPhotos.filter(p => {
+            const text = (p.text || '').toLowerCase();
+            return text.includes(q);
+        });
+    }
     
 
   filteredPhotos.forEach((p, index) => {
@@ -4680,12 +5154,24 @@ function renderPhotosFromData() {
 
     div.onclick = () => openModal(originalIndex);
 
+    if (currentSearchQuery) {
+      const snippet = buildMatchSnippet(p.text || '', currentSearchQuery);
+      if (snippet) {
+        const match = document.createElement('div');
+        match.className = 'photo-match';
+        match.innerHTML = snippet;
+        div.appendChild(match);
+      }
+    }
+
     columns[index % colCount].appendChild(div);
     observer.observe(div);
   });
   
   if(filteredPhotos.length === 0) {
-      r.innerHTML = '<div class="empty-album">Нет работ с таким тегом</div>';
+      const reason = currentSearchQuery ? `по запросу "${currentSearchQuery}"` : (activeTag ? 'с таким тегом' : 'в этом альбоме');
+      r.innerHTML = `<div class="empty-album">Нет работ ${reason}</div>`;
+      return;
   }
   
   startBackgroundPreload();
@@ -5199,11 +5685,13 @@ document.addEventListener('mouseout', (e) => {
 window.addEventListener('scroll', () => {
     // Progress Bar Logic
     const bar = document.getElementById('header-progress');
-    if (alb && bar) {
+    if (motionAllowed && alb && bar) {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         bar.style.width = scrollPercent + '%';
+    } else if (bar) {
+        bar.style.width = '0%';
     }
 
     const btn = document.getElementById('scroll-top');
@@ -5558,6 +6046,16 @@ window.renderPhotosFromData = function() {
       filteredPhotos = filteredPhotos.filter(p => p.date && new Date(p.date*1000).getFullYear() === activeYear);
       if (activeMonth !== null) { filteredPhotos = filteredPhotos.filter(p => p.date && new Date(p.date*1000).getMonth() === activeMonth); }
   }
+  if (currentSearchQuery) {
+      const q = currentSearchQuery.toLowerCase();
+      filteredPhotos = filteredPhotos.filter(p => ((p.text || '').toLowerCase()).includes(q));
+  }
+
+  if(filteredPhotos.length === 0) {
+      const reason = currentSearchQuery ? `по запросу "${currentSearchQuery}"` : (activeTag ? 'с таким тегом' : 'в этом альбоме');
+      r.innerHTML = `<div class="empty-album">Нет работ ${reason}</div>`;
+      return;
+  }
 
   filteredPhotos.forEach((p, index) => {
     const originalIndex = raw.findIndex(rp => rp.id === p.id);
@@ -5585,6 +6083,16 @@ window.renderPhotosFromData = function() {
     imgContainer.appendChild(refBtn);
 
     div.appendChild(imgContainer);
+
+    if (currentSearchQuery) {
+      const snippet = buildMatchSnippet(p.text || '', currentSearchQuery);
+      if (snippet) {
+        const match = document.createElement('div');
+        match.className = 'photo-match';
+        match.innerHTML = snippet;
+        div.appendChild(match);
+      }
+    }
     div.onclick = () => openAlbumById(alb, index); 
 
     let shortestCol = columns[0];
@@ -5714,7 +6222,7 @@ window.addEventListener('scroll', () => {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPercent = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
     const bar = document.getElementById('header-progress');
-    if(bar) bar.style.width = scrollPercent + '%';
+    if(bar) bar.style.width = motionAllowed ? (scrollPercent + '%') : '0%';
 });
 window.addEventListener('load', () => { 
     window.dispatchEvent(new Event('scroll')); 
@@ -5872,10 +6380,12 @@ function switchTab(tabId, btn){
 }
 
 window.addEventListener('load', function(){
-  if(window.location.hash === '#tariffs') switchTab('tariffs');
-  // initial calc
+  const { config, section } = getUrlParams();
   document.querySelectorAll('.choice-pills').forEach(updateChoiceState);
-  document.querySelectorAll('.tariff-wrapper').forEach(w => recalcPrice(w));
+  initTariffState(config);
+  initPortfolioSearch();
+  initShareButtons();
+  if(window.location.hash === '#tariffs' || section === 'tariffs') switchTab('tariffs');
 });
 
   function toggleAddons(btn) {
@@ -5955,11 +6465,12 @@ function updatePrice(el){
   if(wrapper) recalcPrice(wrapper);
 }
 
+
 function recalcPrice(wrapper){
+  if(!wrapper) return 0;
   const basePrice = parseInt(wrapper.dataset.basePrice || '0', 10);
   let total = basePrice;
 
-  // checkboxes
   wrapper.querySelectorAll('input.feature-checkbox').forEach(cb => {
     if(cb.checked) total += parseInt(cb.dataset.price || '0', 10);
     const li = cb.closest('li');
@@ -5973,7 +6484,6 @@ function recalcPrice(wrapper){
     total += parseInt(choice.dataset.price || '0', 10);
   });
 
-  // qty rows
   wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
     const unit = parseInt(li.dataset.unitPrice || '0', 10);
     const baseQty = parseInt(li.dataset.baseQty || '0', 10);
@@ -6006,60 +6516,23 @@ function recalcPrice(wrapper){
   if(total < 0) total = 0;
   const priceEl = wrapper.querySelector('.tariff-price');
   if(priceEl) priceEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
+  updateTariffState(wrapper, total);
+  return total;
 }
 
   function sendOrder(btn, tariffName){
     const wrapper = btn.closest('.tariff-wrapper');
     if(!wrapper) return;
 
-    recalcPrice(wrapper);
-
-    let lines = [];
-
-    // checked checkboxes
-    wrapper.querySelectorAll('input.feature-checkbox:checked').forEach(cb => {
-      const li = cb.closest('li');
-      const choice = li?.querySelector?.('.choice-pills input:checked');
-      const choiceVal = choice?.value?.toLowerCase() || '';
-      if (choiceVal.includes('анимир')) return;
-      const txt = (li && li.innerText) ? li.innerText.trim() : '';
-      // keep only first line before tooltip artifacts
-      const clean = txt.split('\n')[0].replace(/\s+\?\s*$/, '').trim();
-      if(clean) lines.push(clean);
-    });
-
-    // choice pills
-    wrapper.querySelectorAll('.choice-pills').forEach(group => {
-      const active = group.querySelector('input:checked');
-      if(!active) return;
-      const pill = active.closest('.choice-pill');
-      const text = pill && pill.innerText ? pill.innerText.trim() : (active.value || '');
-      const label = group.dataset.label || 'Выбор';
-      if(text) lines.push(`${label}: ${text}`);
-    });
-
-    // qty rows
-    wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
-      const cb = li.querySelector('.qty-checkbox');
-      const active = !cb || cb.checked || cb.disabled;
-      const qty = parseInt((li.querySelector('.qty-val')||{}).textContent || '0', 10);
-      if(active && qty > 0){
-        const label = li.dataset.label || (li.querySelector('.item-left')||{}).innerText || 'Позиция';
-        lines.push(label.trim() + ' — ' + qty + ' шт');
-      }
-    });
-
-    const total = (wrapper.querySelector('.tariff-price')||{}).textContent?.trim() || '';
-    const text = `Заявка на тариф: ${tariffName}\n\nСостав:\n- ${lines.join('\n- ')}\n\nИтого: ${total}`;
+    const total = recalcPrice(wrapper);
+    const lines = collectTariffLines(wrapper);
+    const text = buildTariffText(tariffName, lines, total);
 
     const modal = document.getElementById('order-modal');
     if(modal){
-      const ta = modal.querySelector('#order-text');
-      if(ta) ta.value = text;
-      const totalEl = modal.querySelector('#order-total-amount');
-      if(totalEl) totalEl.textContent = total || '—';
       const toast = modal.querySelector('#copy-toast');
       if(toast) toast.classList.remove('show');
+      updateOrderPreview(text, total);
       openOrder();
     }
   }
