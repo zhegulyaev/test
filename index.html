@@ -1300,6 +1300,9 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .choice-pill:hover .cover-icon.static { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22); }
 .choice-label { font-weight:500; color: var(--text-sec); min-width:140px; display:flex; align-items:center; gap:8px; }
 .choice-row { flex-direction:column; align-items:flex-start; gap:10px; }
+.mobile-cover-state { color: var(--text-sec); font-size: 13px; font-weight: 600; display: flex; gap: 6px; align-items: center; }
+.mobile-cover-state .state-option { opacity: 0.65; }
+.mobile-cover-state .state-option.active { opacity: 1; color: #fff; font-weight: 800; }
 
 .tariff-btn { width:100%; padding:16px; background:transparent; border:1px solid rgba(255,255,255,0.10); color:#fff; border-radius: 12px; font-weight:900; font-size:16px; cursor:pointer; transition:.3s; margin-top:auto; }
 .tariff-btn:hover { background:#fff; color:#000; border-color:#fff; }
@@ -1380,6 +1383,10 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+#order-modal:not(.has-order) .order-total-header,
+#order-modal:not(.has-order) .copy-btn {
+    display: none;
 }
 .copy-btn {
     background: none;
@@ -2849,6 +2856,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
             <span class="visually-hidden">Анимированная</span>
           </label>
         </div>
+        <div class="mobile-cover-state">
+          <span class="state-option state-static active">Статичная</span>
+          <span>/</span>
+          <span class="state-option state-animated">Анимированная</span>
+        </div>
       </div>
     </li>
 
@@ -3010,6 +3022,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
             <span class="visually-hidden">Анимированная</span>
           </label>
+        </div>
+        <div class="mobile-cover-state">
+          <span class="state-option state-static">Статичная</span>
+          <span>/</span>
+          <span class="state-option state-animated active">Анимированная</span>
         </div>
       </div>
     </li>
@@ -3187,6 +3204,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
             <span class="visually-hidden">Анимированная</span>
           </label>
+        </div>
+        <div class="mobile-cover-state">
+          <span class="state-option state-static">Статичная</span>
+          <span>/</span>
+          <span class="state-option state-animated active">Анимированная</span>
         </div>
       </div>
     </li>
@@ -3482,14 +3504,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
         <!-- Заголовок с суммой -->
         <div id="order-dynamic-header" class="order-total-header">
-            Ваш заказ: <span id="order-total-sum">0 ₽</span>
+            Ваш заказ: <span id="order-total-sum">—</span>
             <button class="copy-btn" onclick="copyOrderText()" title="Скопировать состав заказа">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             </button>
         </div>
 
         <h2 style="font-size: 16px; opacity: 0.7; margin-top: 0;">Связаться со мной</h2>
-        <p>Выберите удобный способ для связи и обсуждения проекта</p>
+        <p id="order-instructions">Выберите удобный способ для связи и обсуждения проекта</p>
         <div class="contact-list">
             <a href="https://vk.com/im?sel=-163936790" target="_blank" class="contact-link link-vk">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M15.013 19.43c-5.83 0-9.138-3.99-9.278-10.645H8.62c.1 4.88 2.25 6.944 3.955 7.37V8.785h2.75v4.209c1.683-.18 3.44-2.09 4.037-4.21h2.75a8.77 8.77 0 01-3.71 5.378 8.875 8.875 0 014.288 5.268h-3.023a5.55 5.55 0 00-4.04-3.614v3.614h-1.874z"/></svg>
@@ -3513,7 +3535,7 @@ const TOKEN = 'vk1.a.tOSblOYWMeA4uLbJ9r07EnvpkA9cTBfz9uHD0aUBxQGRhjXkVh1B6ir4IGg
 const OWNER = '-163936790';
 const REVIEW_TOPIC_ID = '37742383';
 
-let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set();
+let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set(); let lastOrderText = '';
 let reviewsLoaded = 0, reviewsTotal = 0, reviewsWrap = null, reviewsLoading = false, reviewsProfiles = [], reviewsGroups = [], reviewsObserver = null, reviewsSentinel = null, reviewsSortOrder = 'desc';
 let services = [], currentServiceId = null;
 let currentFolderId = null;
@@ -4646,11 +4668,43 @@ modalContent.addEventListener('touchend', (e) => {
 }, {passive: true});
 
 
-function openOrder(){ document.getElementById('order-modal').classList.add('open'); }
+function resetOrderModal(){
+  const modal = document.getElementById('order-modal');
+  if(!modal) return;
+  modal.classList.remove('has-order');
+  const sumEl = modal.querySelector('#order-total-sum');
+  if(sumEl) sumEl.textContent = '—';
+  const instructions = document.getElementById('order-instructions');
+  if(instructions) instructions.textContent = 'Выберите удобный способ для связи и обсуждения проекта';
+  lastOrderText = '';
+}
+
+function applyOrderDetails(total, text){
+  const modal = document.getElementById('order-modal');
+  if(!modal) return;
+  modal.classList.add('has-order');
+  const sumEl = modal.querySelector('#order-total-sum');
+  if(sumEl) sumEl.textContent = total || '—';
+  const instructions = document.getElementById('order-instructions');
+  if(instructions) instructions.innerHTML = `Скопируйте состав и отправьте мне:<br><br><textarea style="width:100%;min-width:100%;max-width:100%;height:130px;background:#111;color:#fff;border:1px solid #333;padding:10px;border-radius:8px;resize:vertical;">${text}</textarea>`;
+  lastOrderText = text;
+}
+
+function openOrder(skipReset = false){
+  const modal = document.getElementById('order-modal');
+  if(!modal) return;
+  if(!skipReset) resetOrderModal();
+  modal.classList.add('open');
+}
+
 function closeOrder(e){
-  const target = e?.target || {};
-  const closeBtn = target.classList?.contains('order-close') || target.closest?.('.order-close');
-  if(target.id==='order-modal' || closeBtn) document.getElementById('order-modal').classList.remove('open');
+  const modal = document.getElementById('order-modal');
+  if(!modal) return;
+  const target = e?.target;
+  const clickedClose = target?.classList?.contains('order-close-btn-fixed') || target?.closest?.('.order-close-btn-fixed');
+  if(!target || target.id === 'order-modal' || clickedClose){
+    modal.classList.remove('open');
+  }
 }
 
 function toggleText() {
@@ -4669,6 +4723,13 @@ function copyLink() {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
         alert('Ссылка скопирована!');
+    });
+}
+
+function copyOrderText(){
+    if(!lastOrderText) return;
+    navigator.clipboard.writeText(lastOrderText).then(() => {
+        alert('Состав заказа скопирован!');
     });
 }
 
@@ -5627,6 +5688,7 @@ window.addEventListener('load', function(){
   if(window.location.hash === '#tariffs') switchTab('tariffs');
   // initial calc
   document.querySelectorAll('.tariff-wrapper').forEach(w => recalcPrice(w));
+  document.querySelectorAll('.choice-pills[data-label="Мобильная обложка"]').forEach(group => updateMobileCoverState(group));
 });
 
   function toggleAddons(btn) {
@@ -5643,8 +5705,20 @@ window.addEventListener('load', function(){
     if(!group || !pill) return;
     group.querySelectorAll('.choice-pill').forEach(p => p.classList.remove('active'));
     pill.classList.add('active');
+    updateMobileCoverState(group);
     const wrapper = input.closest('.tariff-wrapper');
     if(wrapper) recalcPrice(wrapper);
+  }
+
+  function updateMobileCoverState(group){
+    if(!group || group.dataset.label !== 'Мобильная обложка') return;
+    const row = group.parentElement?.querySelector('.mobile-cover-state');
+    if(!row) return;
+    const isAnimated = group.querySelector('input:checked')?.value?.toLowerCase().includes('анимир');
+    const staticEl = row.querySelector('.state-static');
+    const animatedEl = row.querySelector('.state-animated');
+    if(staticEl) staticEl.classList.toggle('active', !isAnimated);
+    if(animatedEl) animatedEl.classList.toggle('active', !!isAnimated);
   }
 
 function toggleQtyState(cb){
@@ -5789,22 +5863,15 @@ function recalcPrice(wrapper){
 
     const modal = document.getElementById('order-modal');
     if(modal){
-      const h2 = modal.querySelector('h2');
-      if(h2) h2.textContent = 'Ваш заказ: ' + total;
-      const p = modal.querySelector('p');
-      if(p) p.innerHTML = `Скопируйте состав и отправьте мне:<br><br><textarea style="width:100%;min-width:100%;max-width:100%;height:130px;background:#111;color:#fff;border:1px solid #333;padding:10px;border-radius:8px;resize:vertical;">${text}</textarea>`;
-      modal.style.display = 'flex';
-      setTimeout(()=>{ modal.style.opacity = '1'; }, 10);
+      applyOrderDetails(total, text);
+      openOrder(true);
     }
   }
 
   // close modal on overlay click
   document.addEventListener('click', function(e){
     if(e.target && e.target.id === 'order-modal'){
-    const modal = document.getElementById('order-modal');
-    if(!modal) return;
-    modal.style.opacity = '0';
-    setTimeout(()=>{ modal.style.display = 'none'; }, 350);
+    closeOrder(e);
   }
 });
 </script>
