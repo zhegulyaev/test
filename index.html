@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Тарифы</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <h1>Настройка тарифов</h1>
+      <p class="page__hint">Выберите тариф, добавляйте элементы и управляйте количеством — итоговая стоимость обновляется автоматически.</p>
+    </header>
+
+    <section class="plans">
+      <article class="plan" data-plan="base">
+        <div class="plan__heading">
+          <div>
+            <div class="plan__title">Базовый</div>
+            <div class="plan__audience" title="Для небольших проектов и быстрых тестов">Для небольших проектов и быстрых тестов</div>
+          </div>
+          <span class="plan__price">8 900 ₽</span>
+        </div>
+        <div class="plan__meta">Минимальный набор. Можно включать элементы из премиум и VIP.</div>
+        <ul class="features" data-plan-features>
+          <li class="feature" data-feature="banners">
+            <div class="feature__label">
+              <span class="check"></span>
+              Баннеры для закрепленного поста и рекламы
+              <span class="feature__tooltip" title="Обе категории можно выключить или настроить по отдельности.">i</span>
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="pin" checked />
+                <span>Закреп</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="ad" checked />
+                <span>Реклама</span>
+              </label>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">3</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+            </div>
+          </li>
+          <li class="feature" data-feature="templates">
+            <div class="feature__label">
+              <span class="check"></span>
+              Шаблоны для: обложки статьи, постов, превью видео
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="article" checked />
+                <span>Обложки статьи</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="post" checked />
+                <span>Посты</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="preview" checked />
+                <span>Превью видео</span>
+              </label>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">6</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+            </div>
+          </li>
+          <li class="feature" data-feature="snippet">
+            <div class="feature__label">
+              <span class="check"></span>
+              Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">4</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+              <span class="feature__note">Выбирайте любое количество — вариации учитываются в цене.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="addons" data-addons>
+          <div class="addons__title">Добавьте элементы из премиум и VIP</div>
+          <label class="addon">
+            <input type="checkbox" data-addon="promo-banner" />
+            <span>Дополнительный рекламный баннер (кол-во настраивается ниже)</span>
+          </label>
+          <label class="addon">
+            <input type="checkbox" data-addon="vip-design" />
+            <span>VIP оформление для отдельных блоков</span>
+          </label>
+        </div>
+        <footer class="plan__footer">
+          <div class="plan__note">* Вы можете добавлять и убирать элементы оформления — стоимость пересчитается автоматически. Подсказки подскажут, как управлять количеством.</div>
+          <button class="plan__cta" type="button">Выбрать</button>
+        </footer>
+      </article>
+
+      <article class="plan plan--featured" data-plan="premium">
+        <div class="plan__heading">
+          <div>
+            <div class="plan__title">Премиум</div>
+            <div class="plan__audience" title="Для активно растущих блогов и контент-проектов">Для активно растущих блогов и контент-проектов</div>
+          </div>
+          <span class="plan__price">14 900 ₽</span>
+        </div>
+        <div class="plan__meta">Скидка 15% на год — смотри подсказку рядом с ценой.</div>
+        <div class="plan__benefit" title="Выгода при оплате за год: 2 месяца бесплатно и приоритетное обновление визуалов.">Выгода: 2 месяца бесплатно при годовой оплате</div>
+        <ul class="features" data-plan-features>
+          <li class="feature" data-feature="banners">
+            <div class="feature__label">
+              <span class="check"></span>
+              Баннеры для закрепленного поста и рекламы
+              <span class="feature__tooltip" title="Настройте, сколько нужно баннеров для закрепа и рекламы отдельно.">i</span>
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="pin" checked />
+                <span>Закреп</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="ad" checked />
+                <span>Реклама</span>
+              </label>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">5</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+            </div>
+          </li>
+          <li class="feature" data-feature="templates">
+            <div class="feature__label">
+              <span class="check"></span>
+              Шаблоны для: обложки статьи, постов, превью видео
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="article" checked />
+                <span>Обложки статьи</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="post" checked />
+                <span>Посты</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="preview" checked />
+                <span>Превью видео</span>
+              </label>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">8</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+            </div>
+          </li>
+          <li class="feature" data-feature="snippet">
+            <div class="feature__label">
+              <span class="check"></span>
+              Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">6</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+              <span class="feature__note">Любое число вариантов — мы синхронизируем стоимость.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="addons" data-addons>
+          <div class="addons__title">Добавьте ещё элементы</div>
+          <label class="addon">
+            <input type="checkbox" data-addon="extra-banner" />
+            <span>Дополнительный рекламный баннер</span>
+            <div class="quantity" data-quantity>
+              <button type="button" class="quantity__btn" data-change="-1">−</button>
+              <span class="quantity__value" aria-live="polite">1</span>
+              <button type="button" class="quantity__btn" data-change="1">+</button>
+            </div>
+          </label>
+          <label class="addon">
+            <input type="checkbox" data-addon="vip-graphics" />
+            <span>VIP графика для отдельных блоков</span>
+          </label>
+        </div>
+        <footer class="plan__footer">
+          <div class="plan__note">* Добавляйте или убирайте элементы — итоговая цена обновится с учётом скидки и выбранных количеств.</div>
+          <button class="plan__cta" type="button">Выбрать</button>
+        </footer>
+      </article>
+
+      <article class="plan" data-plan="vip">
+        <div class="plan__heading">
+          <div>
+            <div class="plan__title">VIP</div>
+            <div class="plan__audience" title="Для брендовых кампаний и постоянного потока контента">Для брендовых кампаний и постоянного потока контента</div>
+          </div>
+          <span class="plan__price">23 900 ₽</span>
+        </div>
+        <div class="plan__meta">Максимум гибкости и быстрые апдейты.</div>
+        <ul class="features" data-plan-features>
+          <li class="feature" data-feature="banners">
+            <div class="feature__label">
+              <span class="check"></span>
+              Баннеры для закрепленного поста и рекламы
+              <span class="feature__tooltip" title="Выключайте категории, которые не нужны, и меняйте количество каждого блока.">i</span>
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="pin" checked />
+                <span>Закреп</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="ad" checked />
+                <span>Реклама</span>
+              </label>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">10</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+            </div>
+          </li>
+          <li class="feature" data-feature="templates">
+            <div class="feature__label">
+              <span class="check"></span>
+              Шаблоны для: обложки статьи, постов, превью видео
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="article" checked />
+                <span>Обложки статьи</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="post" checked />
+                <span>Посты</span>
+              </label>
+              <label class="subtoggle">
+                <input type="checkbox" data-subfeature="preview" checked />
+                <span>Превью видео</span>
+              </label>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">12</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+            </div>
+          </li>
+          <li class="feature" data-feature="snippet">
+            <div class="feature__label">
+              <span class="check"></span>
+              Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек
+            </div>
+            <div class="feature__controls">
+              <div class="icon-menu" data-icon-menu aria-label="Быстрый выбор макетов">
+                <button type="button" class="icon-menu__item is-active" title="Минимальный набор"></button>
+                <button type="button" class="icon-menu__item" title="Стандартный набор"></button>
+                <button type="button" class="icon-menu__item" title="Расширенный набор"></button>
+              </div>
+              <div class="quantity" data-quantity>
+                <button type="button" class="quantity__btn" data-change="-1">−</button>
+                <span class="quantity__value" aria-live="polite">10</span>
+                <button type="button" class="quantity__btn" data-change="1">+</button>
+              </div>
+              <span class="feature__note">Неограниченное число вариантов — платите только за выбранные.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="addons" data-addons>
+          <div class="addons__title">Расширения</div>
+          <label class="addon">
+            <input type="checkbox" data-addon="extra-banner" checked />
+            <span>Дополнительный рекламный баннер</span>
+            <div class="quantity" data-quantity>
+              <button type="button" class="quantity__btn" data-change="-1">−</button>
+              <span class="quantity__value" aria-live="polite">2</span>
+              <button type="button" class="quantity__btn" data-change="1">+</button>
+            </div>
+          </label>
+          <label class="addon">
+            <input type="checkbox" data-addon="vip-graphics" checked />
+            <span>VIP графика для каждого блока</span>
+          </label>
+        </div>
+        <footer class="plan__footer">
+          <div class="plan__note">* Управляйте галочками и количеством — система подскажет, как меняется стоимость.</div>
+          <button class="plan__cta" type="button">Выбрать</button>
+        </footer>
+      </article>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
