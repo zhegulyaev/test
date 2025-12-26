@@ -1213,10 +1213,10 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .tariff-features { list-style:none; padding:0; margin:0 0 24px; flex-grow:1; text-align:left; }
 
 /* rows */
-.tariff-feature-item { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:text; text-align:left; }
+.tariff-feature-item { display:grid; grid-template-columns: auto 1fr auto; align-items:flex-start; column-gap:12px; row-gap:8px; margin-bottom:12px; font-size:14px; color: var(--text-sec); line-height:1.5; user-select:text; text-align:left; }
 .tariff-feature-item.excluded { opacity:0.5; text-decoration: line-through; }
 .tariff-feature-item.excluded .qty-control { opacity:0.5; pointer-events:none; }
-.item-left { display:flex; align-items:flex-start; gap:10px; flex-grow:1; }
+.item-left { display:grid; grid-template-columns: auto 1fr; align-items:flex-start; gap:10px; flex-grow:1; grid-column: 1 / 3; }
 .item-left > span { display:inline-flex; align-items:center; gap:6px; }
 
 /* Minimal checkbox (smaller) */
