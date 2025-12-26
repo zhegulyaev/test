@@ -1173,12 +1173,20 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .speed-badge { margin-top:18px; margin-bottom:24px; padding:14px 14px; background: rgba(240,198,116,0.10); border: 1px solid var(--gold); border-radius: 12px; color: var(--gold); font-size:13px; font-weight:800; display:flex; align-items:center; gap:12px; }
 .duration-note { display:inline-flex; color: inherit; opacity:0.7; font-weight:600; line-height:1.2; margin-left:6px; font-size:12px; letter-spacing:0.2px; }
 .count-note { opacity:0.7; font-weight:600; font-size:12px; letter-spacing:0.2px; }
-.muted-construct-note { opacity:0.65; font-weight:500; }
+.muted-construct-note { opacity:0.5; font-weight:400; color: var(--text-sec); font-size:13px; letter-spacing:0.1px; }
 .choice-pills { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
 .choice-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor:pointer; font-weight:700; color:#e5e5e8; transition: .18s ease; }
 .choice-pill:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); }
 .choice-pill.active { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.45); color:#fff; box-shadow: 0 8px 18px rgba(255,51,51,0.2); }
 .choice-pill input { display:none; }
+.choice-pill .pill-visual { display:flex; align-items:center; gap:10px; }
+.cover-icon { width:32px; height:32px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+.cover-icon::after { content:''; position:absolute; inset:0; opacity:0.08; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 55%); transition: opacity .2s ease; }
+.cover-icon.static::before { content:'▦'; font-size:15px; color:#fff; opacity:0.8; }
+.cover-icon.animated { background: linear-gradient(120deg, rgba(255,51,51,0.55), rgba(255,140,80,0.65)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 6px 16px rgba(255,68,68,0.25); }
+.cover-icon.animated::before { content:'▶'; font-size:13px; color:#fff; opacity:0.9; }
+.choice-pill:hover .cover-icon::after, .choice-pill.active .cover-icon::after { opacity:0.18; }
+.choice-pill:hover .cover-icon.static { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22); }
 .choice-label { font-weight:800; color:#fff; min-width:140px; }
 .choice-row { flex-direction:column; align-items:flex-start; gap:10px; }
 
@@ -2480,11 +2488,16 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
 
-    <li class="tariff-feature-item" data-type="addon">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон постов"  onchange="updatePrice(this)">
+    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон постов" data-min="0">
+      <div class="item-left">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить шаблоны постов">
         <span>Шаблон постов <span class="info-icon" data-tooltip="Шаблон для оформления постов (редактируемый).">?</span></span>
-      </label>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 10)">−</button>
+        <span class="qty-val">0</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 10)">+</button>
+      </div>
     </li>
 
     <li class="tariff-feature-item" data-type="addon">
@@ -2552,19 +2565,19 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill active">
             <input type="radio" name="mobile-cover-premium" value="Мобильная статичная обложка" checked onchange="handleChoiceChange(this)">
-            <span>Статичная</span>
+            <span class="pill-visual"><span class="cover-icon static"></span><span class="pill-text">Статичная</span></span>
           </label>
           <label class="choice-pill">
             <input type="radio" name="mobile-cover-premium" value="Мобильная анимированная обложка (до 15 сек)" onchange="handleChoiceChange(this)">
-            <span>Анимированная <span class="duration-note">(до 15 сек)</span></span>
+            <span class="pill-visual"><span class="cover-icon animated"></span><span class="pill-text">Анимированная <span class="duration-note">(до 15 сек)</span></span></span>
           </label>
         </div>
       </div>
     </li>
     
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="2" data-label="Варианты дизайна десктопной обложки" data-min="2">
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="2" data-label="Варианты дизайна десктопной обложки" data-min="1">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
         <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2656,11 +2669,16 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="addon">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон постов"  onchange="updatePrice(this)">
+    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон постов" data-min="0">
+      <div class="item-left">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить шаблоны постов">
         <span>Шаблон постов <span class="info-icon" data-tooltip="Шаблон для постов.">?</span></span>
-      </label>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 10)">−</button>
+        <span class="qty-val">0</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 10)">+</button>
+      </div>
     </li>
     
     <li class="tariff-feature-item" data-type="addon">
@@ -2713,9 +2731,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="3" data-label="Варианты дизайна десктопной обложки" data-min="3">
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="3" data-label="Варианты дизайна десктопной обложки" data-min="1">
       <div class="item-left">
-        <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
         <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
       </div>
       <div class="qty-control">
@@ -2731,11 +2749,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill active">
             <input type="radio" name="mobile-cover-vip" value="Мобильная статичная обложка" checked onchange="handleChoiceChange(this)">
-            <span>Статичная</span>
+            <span class="pill-visual"><span class="cover-icon static"></span><span class="pill-text">Статичная</span></span>
           </label>
           <label class="choice-pill">
             <input type="radio" name="mobile-cover-vip" value="Мобильная анимированная обложка (до 30 сек)" onchange="handleChoiceChange(this)">
-            <span>Анимированная <span class="duration-note">(до 30 сек)</span></span>
+            <span class="pill-visual"><span class="cover-icon animated"></span><span class="pill-text">Анимированная <span class="duration-note">(до 30 сек)</span></span></span>
           </label>
         </div>
       </div>
@@ -2803,11 +2821,16 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="0" value="Шаблон постов" checked onchange="updatePrice(this)">
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="0" data-base-qty="1" data-label="Шаблон постов" data-min="1">
+      <div class="item-left">
+        <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
         <span>Шаблон постов <span class="info-icon" data-tooltip="Шаблон для оформления постов.">?</span></span>
-      </label>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 10)">−</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 1, 10)">+</button>
+      </div>
     </li>
     
     <li class="tariff-feature-item" data-type="base">
