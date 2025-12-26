@@ -366,6 +366,46 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     white-space: pre-wrap;
 }
 
+.reviews-header {
+    max-width: 1440px;
+    margin: 10px auto 8px auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.reviews-header h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+}
+.reviews-toggle {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
+    color: #fff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: none;
+    transition: all 0.2s ease;
+}
+.reviews-toggle:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+    align-items: start;
+}
+
 /* SKELETONS */
 .skel {
     width: 100%;
@@ -1156,12 +1196,30 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 /* tooltip icon */
 .info-icon { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border: 1px solid rgba(255,255,255,0.18); border-radius:50%; color: rgba(255,255,255,0.6); font-size:10px; margin-left:8px; cursor:help; flex-shrink:0; position: relative; vertical-align: middle; transform: translateY(-1px); line-height:1; }
 .info-icon:hover { border-color: rgba(255,255,255,0.8); color:#fff; }
-.info-icon:hover::after { content: attr(data-tooltip); position:absolute; bottom: 120%; left:50%; transform: translateX(-50%);
-  background:#0f0f10; border:1px solid rgba(255,255,255,0.12); color:#fff;
-  padding:10px 12px; border-radius:10px; font-size:12px; white-space: pre-wrap;
-  width:240px; z-index:100; box-shadow: 0 10px 30px rgba(0,0,0,0.8); pointer-events:none; }
+.info-icon::after { display: none; }
 .tariffs-grid > :nth-child(3) .tariff-name .info-icon { border-color: rgba(0,0,0,0.30); color: rgba(0,0,0,0.65); }
 .tariffs-grid > :nth-child(3) .tariff-name .info-icon:hover { border-color:#000; color:#000; }
+
+.dynamic-tooltip {
+    position: absolute;
+    background:#0f0f10;
+    border:1px solid rgba(255,255,255,0.12);
+    color:#fff;
+    padding:10px 12px;
+    border-radius:10px;
+    font-size:12px;
+    line-height: 1.45;
+    max-width: 260px;
+    z-index: 1000;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.8);
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -6px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.dynamic-tooltip[data-placement="bottom"] {
+    transform: translate(-50%, 6px);
+}
 
 .tariff-price { font-size:34px; font-weight:900; margin: 12px 0 6px; color:#fff; letter-spacing: 0.5px; }
 .price-note { color: var(--text-sec); font-size:12px; font-weight:700; margin-bottom:18px; }
@@ -2866,7 +2924,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <div class="footer-icon vk-group-icon">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.013 19.43c-5.83 0-9.138-3.99-9.278-10.645H8.62c.1 4.88 2.25 6.944 3.955 7.37V8.785h2.75v4.209c1.683-.18 3.44-2.09 4.037-4.21h2.75a8.77 8.77 0 01-3.71 5.378 8.875 8.875 0 014.288 5.268h-3.023a5.55 5.55 0 00-4.04-3.614v3.614h-1.874z"/></svg>
     </div>
-    <div class="footer-text"><div class="footer-title">Группа VK</div><div class="footer-sub">9 650 подписчиков</div></div>
+    <div class="footer-text"><div class="footer-title">Группа VK</div><div class="footer-sub" id="vk-group-members-static">9 650 подписчиков</div></div>
   </a>
 
   <a href="https://t.me/r_zhegulyaev" target="_blank" class="footer-link" title="Telegram" rel="noopener">
@@ -3444,7 +3502,10 @@ window.renderReviews = d => {
     r.innerHTML = '';
     r.className = '';
 
-    if(!d.response || d.response.items.length === 0) {
+    const ownerId = parseInt(OWNER, 10);
+    const items = (d.response?.items || []).filter(c => c.from_id !== ownerId);
+
+    if(!d.response || items.length === 0) {
          r.innerHTML = '<div class="empty-album">Отзывов пока нет</div>';
          return;
     }
@@ -3452,8 +3513,8 @@ window.renderReviews = d => {
     const videoSection = document.createElement('div');
     videoSection.id = 'vkvideo-section';
     videoSection.style.maxWidth = '1440px';
-    videoSection.style.margin = '0 auto';
-    videoSection.style.padding = '0 20px';
+    videoSection.style.margin = '0 auto 32px auto';
+    videoSection.style.padding = '0 20px 8px 20px';
     videoSection.innerHTML = `
       <div style="display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap: wrap; margin-top: 40px; margin-bottom: 18px;">
         <h3 style="font-size: 22px; font-weight: 800; margin: 0; color: #fff;">Видеоотзывы</h3>
@@ -3506,23 +3567,25 @@ window.renderReviews = d => {
       </div>`;
     r.appendChild(videoSection);
 
+    const textReviewsHeader = document.createElement('div');
+    textReviewsHeader.className = 'reviews-header';
+    textReviewsHeader.innerHTML = '<h3>Отзывы</h3>';
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'reviews-toggle';
+    toggleBtn.textContent = revReviews === 0 ? 'Показать старые' : 'Показать новые';
+    toggleBtn.onclick = (e) => { e.stopPropagation(); revReviews = revReviews === 1 ? 0 : 1; loadReviews(); };
+    textReviewsHeader.appendChild(toggleBtn);
+    r.appendChild(textReviewsHeader);
+
     const reviewsWrap = document.createElement('div');
-    reviewsWrap.className = 'masonry-wrap';
+    reviewsWrap.className = 'reviews-grid';
     r.appendChild(reviewsWrap);
 
-    const colCount = getColCount();
-    const columns = [];
-    for(let i=0; i<colCount; i++) {
-        const col = document.createElement('div');
-        col.className = 'masonry-col';
-        reviewsWrap.appendChild(col);
-        columns.push(col);
-    }
-    
     const profiles = d.response.profiles || [];
     const groups = d.response.groups || [];
-    
-    d.response.items.forEach((c, i) => {
+
+    items.forEach((c) => {
         let user;
         if (c.from_id > 0) user = profiles.find(u => u.id === c.from_id);
         else user = groups.find(g => g.id === -c.from_id);
@@ -3560,11 +3623,11 @@ window.renderReviews = d => {
                 ${attachHTML}
             </div>
         `;
-        
-        columns[i % colCount].appendChild(card);
+
+        reviewsWrap.appendChild(card);
     });
-    
-    document.getElementById('title').innerText = `ОТЗЫВЫ · ${d.response.count}`;
+
+    document.getElementById('title').innerText = `ОТЗЫВЫ · ${items.length}`;
 }
 
 function menuShow(l,t,b=false){ document.getElementById("header-progress").style.opacity = 0;
@@ -4324,9 +4387,65 @@ function updateFooterMembers() {
   if (typeof groupInfo !== 'undefined' && groupInfo && groupInfo.members_count) {
     const el = document.getElementById('vk-group-members');
     if (el) el.textContent = groupInfo.members_count.toLocaleString('ru-RU') + ' подписчиков';
+    const elPrimary = document.getElementById('vk-group-members-static');
+    if (elPrimary) elPrimary.textContent = groupInfo.members_count.toLocaleString('ru-RU') + ' подписчиков';
   }
 }
 window.addEventListener('DOMContentLoaded', renderFooterSocials);
+
+// Smart tooltips for info icons
+const dynamicTooltip = document.createElement('div');
+dynamicTooltip.className = 'dynamic-tooltip';
+dynamicTooltip.style.visibility = 'hidden';
+document.body.appendChild(dynamicTooltip);
+
+function hideDynamicTooltip() {
+    dynamicTooltip.style.opacity = '0';
+    dynamicTooltip.style.visibility = 'hidden';
+}
+
+function showDynamicTooltip(target) {
+    const text = target?.dataset?.tooltip;
+    if (!text) return;
+    dynamicTooltip.textContent = text;
+    dynamicTooltip.dataset.placement = 'top';
+    dynamicTooltip.style.visibility = 'hidden';
+    dynamicTooltip.style.opacity = '0';
+
+    const rect = target.getBoundingClientRect();
+    const spacing = 10;
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const scrollX = window.scrollX || document.documentElement.scrollLeft;
+
+    dynamicTooltip.style.left = `${rect.left + rect.width / 2 + scrollX}px`;
+    dynamicTooltip.style.top = `${rect.top + scrollY - dynamicTooltip.offsetHeight - spacing}px`;
+
+    const needsBottom = dynamicTooltip.getBoundingClientRect().top < 8;
+    if (needsBottom) {
+        dynamicTooltip.dataset.placement = 'bottom';
+        dynamicTooltip.style.top = `${rect.bottom + scrollY + spacing}px`;
+    }
+
+    dynamicTooltip.style.visibility = 'visible';
+    requestAnimationFrame(() => {
+        dynamicTooltip.style.opacity = '1';
+    });
+}
+
+document.addEventListener('mouseover', (e) => {
+    const icon = e.target.closest('.info-icon');
+    if (!icon) {
+        if (!e.relatedTarget || !e.relatedTarget.closest('.info-icon')) hideDynamicTooltip();
+        return;
+    }
+    showDynamicTooltip(icon);
+});
+
+document.addEventListener('mouseout', (e) => {
+    if (e.target.closest('.info-icon') && (!e.relatedTarget || !e.relatedTarget.closest('.info-icon'))) {
+        hideDynamicTooltip();
+    }
+});
 
 
 window.addEventListener('scroll', () => {
