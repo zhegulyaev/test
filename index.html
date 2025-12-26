@@ -1125,9 +1125,10 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .item-left { display:flex; align-items:flex-start; gap:10px; flex-grow:1; }
 
 /* Minimal checkbox (smaller) */
-.feature-checkbox { appearance:none; width:14px; height:14px; border:1px solid rgba(255,255,255,0.28); border-radius:4px; background:transparent; cursor:pointer; position:relative; transition:.2s; flex-shrink:0; margin-top:4px; }
-.feature-checkbox:checked { border-color: rgba(255,255,255,0.75); }
-.feature-checkbox:checked::after { content:''; position:absolute; left:3px; top:1px; width:3px; height:7px; border: solid rgba(255,255,255,0.85); border-width:0 2px 2px 0; transform: rotate(45deg); }
+.feature-checkbox { appearance:none; width:12px; height:12px; border:1px solid rgba(255,255,255,0.22); border-radius:3px; background:rgba(255,255,255,0.03); cursor:pointer; position:relative; transition:.2s; flex-shrink:0; margin-top:4px; }
+.feature-checkbox:hover { border-color: rgba(255,255,255,0.45); }
+.feature-checkbox:checked { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.06); }
+.feature-checkbox:checked::after { content:''; position:absolute; left:3px; top:2px; width:2px; height:6px; border: solid rgba(255,255,255,0.82); border-width:0 2px 2px 0; transform: rotate(45deg); }
 
 /* qty control */
 .qty-control { display:flex; align-items:center; background: rgba(255,255,255,0.05); border-radius: 8px; padding:2px; gap:2px; height:28px; }
@@ -2346,7 +2347,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <div class="tariffs-grid">
     <div class="tariff-wrapper" data-base-price="3000">
       <div class="tariff-card">
-        <div class="tariff-name">Стандарт  <span class="info-icon" data-tooltip="Для старта или небольшого проекта: базовая упаковка сообщества/страницы.">?</span></div>
+        <div class="tariff-name">Стандарт  <span class="info-icon" data-tooltip="Для старта или небольшого проекта: базовая упаковка сообщества/страницы без лишних опций.">?</span></div>
         <ul class="tariff-features">
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
@@ -2383,7 +2384,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1500" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5).">?</span></span>
+        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
       </label>
     </li>
     </ul>
@@ -2412,12 +2413,23 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Баннеры для закрепа и рекламы">
       <div class="item-left">
-        <span>Баннеры для закрепа и рекламы <span class="info-icon" data-tooltip="Баннеры для закрепленного поста и рекламных размещений.">?</span></span>
+        <span>Баннеры для закрепа и рекламы <span class="info-icon" data-tooltip="Баннеры для закрепленного поста и рекламных размещений: можно убирать лишние и добавлять дополнительные под задачи.">?</span></span>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 10)">−</button>
         <span class="qty-val">0</span>
         <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 10)">+</button>
+      </div>
+    </li>
+
+    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="500" data-base-qty="0" data-label="Карточки товаров">
+      <div class="item-left">
+        <span>Карточки товаров <span class="info-icon" data-tooltip="Добавьте оформление карточек товаров как в Премиум/VIP: регулируйте количество под ассортимент.">?</span></span>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 20)">−</button>
+        <span class="qty-val">0</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 20)">+</button>
       </div>
     </li>
     
@@ -2449,11 +2461,15 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="addon">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон изображений к постам со ссылкой (сниппет)"  onchange="updatePrice(this)">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон изображения для постов со ссылкой.">?</span></span>
-      </label>
+    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек">
+      <div class="item-left">
+        <span>Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек <span class="info-icon" data-tooltip="Сколько вариантов сниппетов и обложек нужно: можно убрать или добавить любое количество.">?</span></span>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
+        <span class="qty-val">0</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
+      </div>
     </li>
     
     <li class="tariff-feature-item" data-type="addon">
@@ -2470,14 +2486,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       
 <div class="tariff-note">
   <div class="tariff-note-title"><span>*</span> Важный момент:</div>
-  <div>Используйте галочки, чтобы включать/выключать элементы, и счетчики, чтобы менять количество. Цена пересчитывается автоматически — итог можно скопировать и отправить мне.</div>
+  <div>Используйте галочки, чтобы включать/выключать элементы, и счетчики, чтобы менять количество (в том числе в блоках с несколькими позициями вроде баннеров или шаблонов). Цена пересчитывается автоматически — добавляйте или убирайте элементы, чтобы сразу видеть, как это влияет на итог, и отправляйте настроенный комплект мне.</div>
 </div>
 
     </div>
     
     <div class="tariff-wrapper" data-base-price="6000">
       <div class="tariff-card">
-        <div class="tariff-name">Премиум <div class="discount-badge">Скидка 15%</div> <span class="info-icon" data-tooltip="Для активных продаж и продвижения: больше графики, вариантов и материалов.">?</span></div>
+        <div class="tariff-name">Премиум <div class="discount-badge" title="Выгода 15% при комплексном заказе всех элементов.">Скидка 15%</div> <span class="info-icon" data-tooltip="Для активных продаж и продвижения: усиленная упаковка с доп. графикой и вариативностью.">?</span></div>
         <ul class="tariff-features">
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
@@ -2514,7 +2530,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1500" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5).">?</span></span>
+        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок "Доп. иконки меню".">?</span></span>
       </label>
     </li>
     
@@ -2591,11 +2607,15 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="addon">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон изображений к постам со ссылкой (сниппет)"  onchange="updatePrice(this)">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон изображения для ссылок.">?</span></span>
-      </label>
+    <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек">
+      <div class="item-left">
+        <span>Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек <span class="info-icon" data-tooltip="Сколько вариантов сниппетов и обложек нужно: можно убрать или добавить любое количество.">?</span></span>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
+        <span class="qty-val">0</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
+      </div>
     </li>
     
     <li class="tariff-feature-item" data-type="addon">
@@ -2614,7 +2634,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     
     <div class="tariff-wrapper" data-base-price="8000">
       <div class="tariff-card">
-        <div class="tariff-name">VIP <div class="discount-badge">Скидка 25%</div> <span class="info-icon" data-tooltip="Для масштабных запусков: максимум материалов + приоритет по срокам.">?</span></div>
+        <div class="tariff-name">VIP <div class="discount-badge" title="Выгода 25% за комплекс: максимальный пакет дешевле, чем заказывать по отдельности.">Скидка 25%</div> <span class="info-icon" data-tooltip="Для масштабных запусков и премиум-задач: максимум материалов + приоритет по срокам.">?</span></div>
         <ul class="tariff-features">
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
@@ -2644,7 +2664,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1500" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5).">?</span></span>
+        <span>Иконки меню (до 5 шт) <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок "Доп. иконки меню".">?</span></span>
       </label>
     </li>
     
@@ -2702,11 +2722,15 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
     
-    <li class="tariff-feature-item" data-type="base">
-      <label class="item-left" style="cursor:pointer;">
-        <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон изображений к постам со ссылкой (сниппет)" checked onchange="updatePrice(this)">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон изображения к постам со ссылкой (сниппет).">?</span></span>
-      </label>
+    <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек">
+      <div class="item-left">
+        <span>Шаблон изображений к постам со ссылкой (сниппет) + вариации обложек <span class="info-icon" data-tooltip="Можно добавить больше вариантов сниппетов и обложек или убрать лишние — цена сразу изменится.">?</span></span>
+      </div>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 12)">−</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn" type="button" onclick="changeQty(this, 1, 0, 12)">+</button>
+      </div>
     </li>
     
     <li class="tariff-feature-item" data-type="base">
