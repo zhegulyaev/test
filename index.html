@@ -1304,6 +1304,29 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .mobile-cover-state .state-option { opacity: 0.65; }
 .mobile-cover-state .state-option.active { opacity: 1; color: #fff; font-weight: 800; }
 
+.tariff-summary {
+    margin: 30px 0 50px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+.tariff-summary .summary-header { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.tariff-summary .summary-title { font-weight:800; font-size:18px; letter-spacing:0.3px; }
+.tariff-summary .summary-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.tariff-summary .summary-btn { padding:10px 14px; border-radius:10px; border:1px solid var(--border); background: rgba(255,255,255,0.05); color:#fff; cursor:pointer; font-weight:600; transition:0.2s; }
+.tariff-summary .summary-btn:hover { background: rgba(255,255,255,0.12); }
+.tariff-summary .summary-btn.secondary { background: transparent; color: #ff7070; border-color: rgba(255,112,112,0.4); }
+.tariff-summary .summary-body { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px; }
+.summary-tariff { padding:14px; border:1px solid var(--border); border-radius:12px; background: rgba(0,0,0,0.35); display:flex; flex-direction:column; gap:10px; }
+.summary-tariff-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.summary-tariff-name { font-weight:700; }
+.summary-tariff-price { font-weight:800; color: var(--vk); }
+.summary-tariff ul { margin:0; padding-left:18px; color: var(--text-sec); line-height:1.45; }
+.tariff-summary .summary-footer { margin-top:16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.tariff-summary .summary-total { font-weight:800; font-size:18px; }
+
 .tariff-btn { width:100%; padding:16px; background:transparent; border:1px solid rgba(255,255,255,0.10); color:#fff; border-radius: 12px; font-weight:900; font-size:16px; cursor:pointer; transition:.3s; margin-top:auto; }
 .tariff-btn:hover { background:#fff; color:#000; border-color:#fff; }
 .tariffs-grid > :nth-child(2) .tariff-btn { background: var(--red); border-color: var(--red); }
@@ -1385,9 +1408,19 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     gap: 10px;
 }
 #order-modal:not(.has-order) .order-total-header,
-#order-modal:not(.has-order) .copy-btn {
+#order-modal:not(.has-order) .copy-btn,
+#order-modal:not(.has-order) .order-text-block {
     display: none;
 }
+.order-text-block { margin: 12px 0 16px; display:flex; flex-direction:column; gap:10px; }
+.order-textarea { width:100%; min-width:100%; max-width:100%; height:140px; background:#111; color:#fff; border:1px solid #333; padding:12px; border-radius:10px; resize:vertical; box-sizing:border-box; font-family: inherit; }
+.order-actions-row { display:flex; flex-wrap:wrap; gap:10px; }
+.order-send-btn { border:none; border-radius:10px; padding:10px 14px; font-weight:700; cursor:pointer; display:inline-flex; gap:8px; align-items:center; transition:0.2s; }
+.order-send-btn.vk { background: var(--vk); color:#fff; }
+.order-send-btn.tg { background: #2b9fdb; color:#fff; }
+.order-send-btn.secondary { background: rgba(255,255,255,0.06); color:#fff; border:1px solid var(--border); }
+.order-send-btn:disabled { opacity:0.45; cursor:not-allowed; }
+.order-send-btn:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,0.25); }
 .copy-btn {
     background: none;
     border: none;
@@ -3334,7 +3367,22 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       
     </div>
     </div>
-    
+
+    <div id="tariff-summary" class="tariff-summary">
+      <div class="summary-header">
+        <div class="summary-title">Итоговая корзина по тарифам</div>
+        <div class="summary-actions">
+          <button class="summary-btn" type="button" onclick="shareTariffConfig()">Скопировать ссылку на конфигурацию</button>
+          <button class="summary-btn secondary" type="button" onclick="resetTariffSelections()">Сбросить выбор</button>
+        </div>
+      </div>
+      <div id="tariff-summary-body" class="summary-body"></div>
+      <div class="summary-footer">
+        <div class="summary-total">Итого по всем тарифам: <span id="tariff-summary-total">0 ₽</span></div>
+        <div style="color: var(--text-sec); font-size:13px;">Делитесь ссылкой или обнуляйте настройки одним кликом</div>
+      </div>
+    </div>
+
   <div class="tariff-header" style="margin-top:40px;">
     <h2 class="section-title">Этапы <span>работы</span></h2>
     <p class="section-subtitle">Как проходит работа со мной:</p>
@@ -3510,6 +3558,25 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
             </button>
         </div>
 
+        <div class="order-text-block">
+            <p style="margin:0; color: var(--text-sec); font-size:13px;">Состав заявки и итог сразу готовы к отправке</p>
+            <textarea id="order-text-area" class="order-textarea" readonly></textarea>
+            <div class="order-actions-row">
+                <button class="order-send-btn vk" type="button" onclick="sendOrderLink('vk')" disabled>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.013 19.43c-5.83 0-9.138-3.99-9.278-10.645H8.62c.1 4.88 2.25 6.944 3.955 7.37V8.785h2.75v4.209c1.683-.18 3.44-2.09 4.037-4.21h2.75a8.77 8.77 0 01-3.71 5.378 8.875 8.875 0 014.288 5.268h-3.023a5.55 5.55 0 00-4.04-3.614v3.614h-1.874z"/></svg>
+                    Отправить в VK
+                </button>
+                <button class="order-send-btn tg" type="button" onclick="sendOrderLink('tg')" disabled>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 4.6L2.9 11.9c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.7c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.6c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.7-1.4-1.4zM9 15.5l10.8-8.6c.5-.4 1-.2.6.2l-8.7 9c-.3.3-.5.6-.5 1l-.2 2.7-1.1-3.8-3.8-1.2c-.8-.2-.8-.7.2-1.1l15.4-6"/></svg>
+                    Отправить в Telegram
+                </button>
+                <button class="order-send-btn secondary" type="button" onclick="copyOrderText()" disabled>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Скопировать состав
+                </button>
+            </div>
+        </div>
+
         <h2 style="font-size: 16px; opacity: 0.7; margin-top: 0;">Связаться со мной</h2>
         <p id="order-instructions">Выберите удобный способ для связи и обсуждения проекта</p>
         <div class="contact-list">
@@ -3534,12 +3601,16 @@ let scrollBeforeModal = 0;
 const TOKEN = 'vk1.a.tOSblOYWMeA4uLbJ9r07EnvpkA9cTBfz9uHD0aUBxQGRhjXkVh1B6ir4IGgcXnPb6n-IP4I-tNP5m_hKAivnDbn1rjQZtDRj-9-kPiK6CLO1YupE1qWL2e9GhnO9uxscgv-AhchfWy-VgYcR8V2oCeHmBX9g_LpZ-YUF2d21zO6NvGUDeyc-T6gVgvCo8HwKC3F3hQYpftnfQQ-xspyVQA';
 const OWNER = '-163936790';
 const REVIEW_TOPIC_ID = '37742383';
+const TARIFF_STATE_KEY = 'tariff_config_v1';
+const TARIFF_CONFIG_PARAM = 'config';
 
-let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set(); let lastOrderText = '';
+let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set(); let lastOrderText = '', lastOrderTotal = '—';
 let reviewsLoaded = 0, reviewsTotal = 0, reviewsWrap = null, reviewsLoading = false, reviewsProfiles = [], reviewsGroups = [], reviewsObserver = null, reviewsSentinel = null, reviewsSortOrder = 'desc';
 let services = [], currentServiceId = null;
 let currentFolderId = null;
 let currentSection = 'main';
+let tariffDefaults = null;
+let restoringTariffs = false;
 
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
@@ -3558,6 +3629,18 @@ document.addEventListener('mouseover', (e) => {
     }
 });
 
+function debounce(fn, delay = 250) {
+  let t;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), delay);
+  };
+}
+
+function slugify(text) {
+  return (text || '').toLowerCase().replace(/[^a-z0-9а-яё]+/gi, '-').replace(/^-+|-+$/g, '') || 'tariff';
+}
+
 function api(m,p,cb){
   const s=document.createElement('script');
   s.src=`https://api.vk.com/method/${m}?${p}&access_token=${TOKEN}&v=5.131&callback=${cb}`;
@@ -3572,7 +3655,8 @@ function getUrlParams() {
     photo: params.get('photo') ? parseInt(params.get('photo')) - 1 : null,
     service: params.get('service'),
     folder: params.get('folder'),
-    section: params.get('section')
+    section: params.get('section'),
+    config: params.get(TARIFF_CONFIG_PARAM)
   };
 }
 
@@ -4676,24 +4760,23 @@ function resetOrderModal(){
   if(sumEl) sumEl.textContent = '—';
   const instructions = document.getElementById('order-instructions');
   if(instructions) instructions.textContent = 'Выберите удобный способ для связи и обсуждения проекта';
-  lastOrderText = '';
+  const area = document.getElementById('order-text-area');
+  if(area) area.value = '';
+  toggleOrderButtons(false);
+  if(lastOrderText){
+    setOrderPreview({ totalText: lastOrderTotal, text: lastOrderText });
+  }
 }
 
 function applyOrderDetails(total, text){
-  const modal = document.getElementById('order-modal');
-  if(!modal) return;
-  modal.classList.add('has-order');
-  const sumEl = modal.querySelector('#order-total-sum');
-  if(sumEl) sumEl.textContent = total || '—';
-  const instructions = document.getElementById('order-instructions');
-  if(instructions) instructions.innerHTML = `Скопируйте состав и отправьте мне:<br><br><textarea style="width:100%;min-width:100%;max-width:100%;height:130px;background:#111;color:#fff;border:1px solid #333;padding:10px;border-radius:8px;resize:vertical;">${text}</textarea>`;
-  lastOrderText = text;
+  setOrderPreview({ totalText: total, text });
 }
 
 function openOrder(skipReset = false){
   const modal = document.getElementById('order-modal');
   if(!modal) return;
   if(!skipReset) resetOrderModal();
+  primeOrderPreview();
   modal.classList.add('open');
 }
 
@@ -4727,10 +4810,26 @@ function copyLink() {
 }
 
 function copyOrderText(){
-    if(!lastOrderText) return;
+    if(!lastOrderText) { alert('Сначала сформируйте заявку в тарифах.'); return; }
     navigator.clipboard.writeText(lastOrderText).then(() => {
         alert('Состав заказа скопирован!');
     });
+}
+
+function sendOrderLink(channel){
+  if(!lastOrderText){
+    alert('Сначала сформируйте заявку в тарифах.');
+    return;
+  }
+  const encoded = encodeURIComponent(lastOrderText);
+  let link = '';
+  if(channel === 'tg') link = `https://t.me/share/url?text=${encoded}`;
+  else link = `https://vk.com/im?sel=${OWNER}&message=${encoded}`;
+  const win = window.open(link, '_blank');
+  if(!win || win.closed || typeof win.closed === 'undefined'){
+    copyOrderText();
+    alert('Не удалось открыть приложение. Состав скопирован — отправьте вручную.');
+  }
 }
 
 window.setComments = d => {
@@ -5686,9 +5785,12 @@ function switchTab(tabId, btn){
 
 window.addEventListener('load', function(){
   if(window.location.hash === '#tariffs') switchTab('tariffs');
-  // initial calc
+  ensureTariffKeys();
   document.querySelectorAll('.tariff-wrapper').forEach(w => recalcPrice(w));
-  document.querySelectorAll('.choice-pills[data-label="Мобильная обложка"]').forEach(group => updateMobileCoverState(group));
+  tariffDefaults = getTariffStateSnapshot();
+  const saved = getTariffStateFromQuery() || loadTariffStateFromStorage();
+  if(saved) applyTariffStateSnapshot(saved); else updateGlobalSummary();
+  primeOrderPreview(true);
 });
 
   function toggleAddons(btn) {
@@ -5760,6 +5862,56 @@ function changeQty(btn, delta, minQty, maxQty) {
   if(wrapper) recalcPrice(wrapper);
 }
 
+const persistTariffStateDebounced = debounce(() => {
+  if(restoringTariffs) return;
+  const snapshot = getTariffStateSnapshot();
+  try { localStorage.setItem(TARIFF_STATE_KEY, JSON.stringify(snapshot)); } catch(e) {}
+  updateConfigParam(snapshot, true);
+}, 350);
+
+function encodeConfig(snapshot){
+  try { return btoa(encodeURIComponent(JSON.stringify(snapshot))); } catch(e) { return ''; }
+}
+
+function decodeConfig(str){
+  try { return JSON.parse(decodeURIComponent(atob(str))); } catch(e) { return null; }
+}
+
+function updateConfigParam(snapshot, replaceOnly = false){
+  const url = new URL(window.location.href);
+  if(snapshot && Object.keys(snapshot || {}).length){
+    const encoded = encodeConfig(snapshot);
+    if(encoded) url.searchParams.set(TARIFF_CONFIG_PARAM, encoded);
+  } else {
+    url.searchParams.delete(TARIFF_CONFIG_PARAM);
+  }
+  const next = url.toString();
+  if(replaceOnly) history.replaceState(null, '', next);
+  else history.pushState(null, '', next);
+}
+
+function ensureTariffKeys(){
+  document.querySelectorAll('.tariff-wrapper').forEach((wrapper, idx) => {
+    const name = (wrapper.querySelector('.tariff-title')?.textContent || '').trim() || `Тариф ${idx+1}`;
+    const tariffId = wrapper.dataset.tariffId || slugify(name) || `tariff-${idx+1}`;
+    wrapper.dataset.tariffId = tariffId;
+    wrapper.dataset.tariffName = name;
+    wrapper.querySelectorAll('li.tariff-feature-item').forEach((li, i) => {
+      if(!li.dataset.key) li.dataset.key = `${tariffId}-item-${i}`;
+      const cb = li.querySelector('input.feature-checkbox');
+      if(cb && !cb.dataset.key) cb.dataset.key = `${tariffId}-cb-${i}`;
+    });
+    wrapper.querySelectorAll('.choice-pills').forEach((group, i) => {
+      if(!group.dataset.key) group.dataset.key = `${tariffId}-choice-${i}`;
+      updateMobileCoverState(group);
+    });
+  });
+}
+
+function getInputKey(cb){
+  return cb?.dataset?.key || cb?.closest('li')?.dataset?.key;
+}
+
 function updatePrice(el){
   const wrapper = el.closest('.tariff-wrapper');
   if(wrapper) recalcPrice(wrapper);
@@ -5816,57 +5968,218 @@ function recalcPrice(wrapper){
 
   if(total < 0) total = 0;
   const priceEl = wrapper.querySelector('.tariff-price');
-  if(priceEl) priceEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
+  if(priceEl) {
+    priceEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
+    priceEl.dataset.value = total;
+  }
+  wrapper.dataset.totalValue = total;
+  handleTariffChange(wrapper);
+  return total;
 }
 
-  function sendOrder(btn, tariffName){
-    const wrapper = btn.closest('.tariff-wrapper');
-    if(!wrapper) return;
+function collectTariffLines(wrapper){
+  let lines = [];
+  wrapper.querySelectorAll('input.feature-checkbox:checked').forEach(cb => {
+    const li = cb.closest('li');
+    const choice = li?.querySelector?.('.choice-pills input:checked');
+    const choiceVal = choice?.value?.toLowerCase() || '';
+    if (choiceVal.includes('анимир')) return;
+    const txt = (li && li.innerText) ? li.innerText.trim() : '';
+    const clean = txt.split('\n')[0].replace(/\s+\?\s*$/, '').trim();
+    if(clean) lines.push(clean);
+  });
 
-    let lines = [];
+  wrapper.querySelectorAll('.choice-pills').forEach(group => {
+    const active = group.querySelector('input:checked');
+    if(!active) return;
+    const pill = active.closest('.choice-pill');
+    const text = pill && pill.innerText ? pill.innerText.trim() : (active.value || '');
+    const label = group.dataset.label || 'Выбор';
+    if(text) lines.push(`${label}: ${text}`);
+  });
 
-    // checked checkboxes
-    wrapper.querySelectorAll('input.feature-checkbox:checked').forEach(cb => {
-      const li = cb.closest('li');
-      const choice = li?.querySelector?.('.choice-pills input:checked');
-      const choiceVal = choice?.value?.toLowerCase() || '';
-      if (choiceVal.includes('анимир')) return;
-      const txt = (li && li.innerText) ? li.innerText.trim() : '';
-      // keep only first line before tooltip artifacts
-      const clean = txt.split('\n')[0].replace(/\s+\?\s*$/, '').trim();
-      if(clean) lines.push(clean);
+  wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
+    const cb = li.querySelector('.qty-checkbox');
+    const active = !cb || cb.checked || cb.disabled;
+    const qty = parseInt((li.querySelector('.qty-val')||{}).textContent || '0', 10);
+    if(active && qty > 0){
+      const label = li.dataset.label || (li.querySelector('.item-left')||{}).innerText || 'Позиция';
+      lines.push(label.trim() + ' — ' + qty + ' шт');
+    }
+  });
+
+  return lines;
+}
+
+function buildOrderPayload(wrapper, tariffName){
+  if(!wrapper) return null;
+  const lines = collectTariffLines(wrapper);
+  const totalText = (wrapper.querySelector('.tariff-price')||{}).textContent || '';
+  const totalValue = parseInt(totalText.replace(/\D/g,'')) || 0;
+  const text = `Заявка на тариф: ${tariffName}\n\nСостав:\n- ${lines.join('\n- ')}\n\nИтого: ${totalText}`;
+  return { lines, totalText, totalValue, text, tariffName };
+}
+
+function toggleOrderButtons(enabled){
+  document.querySelectorAll('.order-send-btn').forEach(btn => {
+    btn.disabled = !enabled;
+  });
+}
+
+function setOrderPreview(payload){
+  if(!payload) return;
+  const modal = document.getElementById('order-modal');
+  if(!modal) return;
+  modal.classList.add('has-order');
+  lastOrderText = payload.text || '';
+  lastOrderTotal = payload.totalText || '—';
+  const sumEl = modal.querySelector('#order-total-sum');
+  if(sumEl) sumEl.textContent = payload.totalText || '—';
+  const area = document.getElementById('order-text-area');
+  if(area) area.value = payload.text || '';
+  const instructions = document.getElementById('order-instructions');
+  if(instructions) instructions.innerHTML = 'Отправьте заявку кнопками выше или выберите удобный мессенджер ниже.';
+  toggleOrderButtons(!!payload.text);
+}
+
+function sendOrder(btn, tariffName){
+  const wrapper = btn.closest('.tariff-wrapper');
+  if(!wrapper) return;
+  const payload = buildOrderPayload(wrapper, tariffName);
+  if(payload){
+    setOrderPreview(payload);
+    openOrder(true);
+  }
+}
+
+function getTariffTotalValue(wrapper){
+  return parseInt(wrapper?.dataset?.totalValue || '0', 10) || 0;
+}
+
+function getTariffStateSnapshot(){
+  const data = {};
+  document.querySelectorAll('.tariff-wrapper').forEach(wrapper => {
+    const id = wrapper.dataset.tariffId || wrapper.dataset.tariffName || slugify('tariff');
+    const snapshot = { checkboxes: {}, qty: {}, choices: {}, total: getTariffTotalValue(wrapper), name: wrapper.dataset.tariffName || id };
+    wrapper.querySelectorAll('input.feature-checkbox').forEach(cb => {
+      const key = getInputKey(cb);
+      if(key) snapshot.checkboxes[key] = cb.checked;
     });
-
-    // choice pills
+    wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
+      if(li.dataset.key) snapshot.qty[li.dataset.key] = parseInt((li.querySelector('.qty-val')||{}).textContent || '0', 10);
+    });
     wrapper.querySelectorAll('.choice-pills').forEach(group => {
       const active = group.querySelector('input:checked');
-      if(!active) return;
-      const pill = active.closest('.choice-pill');
-      const text = pill && pill.innerText ? pill.innerText.trim() : (active.value || '');
-      const label = group.dataset.label || 'Выбор';
-      if(text) lines.push(`${label}: ${text}`);
+      if(group.dataset.key) snapshot.choices[group.dataset.key] = active ? active.value : null;
     });
+    data[id] = snapshot;
+  });
+  return { tariffs: data };
+}
 
-    // qty rows
+function applyTariffStateSnapshot(snapshot){
+  if(!snapshot || !snapshot.tariffs) return;
+  restoringTariffs = true;
+  document.querySelectorAll('.tariff-wrapper').forEach(wrapper => {
+    const saved = snapshot.tariffs[wrapper.dataset.tariffId];
+    if(!saved) return;
+    wrapper.querySelectorAll('input.feature-checkbox').forEach(cb => {
+      const key = getInputKey(cb);
+      if(key && saved.checkboxes && key in saved.checkboxes) cb.checked = !!saved.checkboxes[key];
+    });
     wrapper.querySelectorAll('li[data-mode="qty"]').forEach(li => {
-      const cb = li.querySelector('.qty-checkbox');
-      const active = !cb || cb.checked || cb.disabled;
-      const qty = parseInt((li.querySelector('.qty-val')||{}).textContent || '0', 10);
-      if(active && qty > 0){
-        const label = li.dataset.label || (li.querySelector('.item-left')||{}).innerText || 'Позиция';
-        lines.push(label.trim() + ' — ' + qty + ' шт');
+      const key = li.dataset.key;
+      if(key && saved.qty && key in saved.qty){
+        const val = parseInt(saved.qty[key], 10);
+        const valEl = li.querySelector('.qty-val');
+        if(valEl) valEl.textContent = val;
       }
     });
+    wrapper.querySelectorAll('.choice-pills').forEach(group => {
+      const key = group.dataset.key;
+      if(!key || !saved.choices || !(key in saved.choices)) return;
+      const val = saved.choices[key];
+      const target = [...group.querySelectorAll('input[type="radio"]')].find(r => r.value === val);
+      if(target){
+        target.checked = true;
+        handleChoiceChange(target);
+      }
+    });
+    recalcPrice(wrapper);
+  });
+  restoringTariffs = false;
+  updateGlobalSummary();
+}
 
-    const total = (wrapper.querySelector('.tariff-price')||{}).textContent || '';
-    const text = `Заявка на тариф: ${tariffName}\n\nСостав:\n- ${lines.join('\n- ')}\n\nИтого: ${total}`;
+function loadTariffStateFromStorage(){
+  try { return JSON.parse(localStorage.getItem(TARIFF_STATE_KEY) || ''); } catch(e) { return null; }
+}
 
-    const modal = document.getElementById('order-modal');
-    if(modal){
-      applyOrderDetails(total, text);
-      openOrder(true);
-    }
+function getTariffStateFromQuery(){
+  const { config } = getUrlParams();
+  if(!config) return null;
+  return decodeConfig(config);
+}
+
+function handleTariffChange(wrapper){
+  updateGlobalSummary();
+  if(restoringTariffs) return;
+  persistTariffStateDebounced();
+  if(!lastOrderText) primeOrderPreview();
+}
+
+function updateGlobalSummary(){
+  const body = document.getElementById('tariff-summary-body');
+  const totalEl = document.getElementById('tariff-summary-total');
+  if(!body || !totalEl) return;
+  const fragments = [];
+  let grandTotal = 0;
+  document.querySelectorAll('.tariff-wrapper').forEach(wrapper => {
+    const tariffName = (wrapper.dataset.tariffName || wrapper.querySelector('.tariff-title')?.textContent || 'Тариф').trim();
+    const payload = buildOrderPayload(wrapper, tariffName);
+    grandTotal += payload?.totalValue || 0;
+    const items = payload?.lines?.length ? payload.lines.map(l => `<li>${l}</li>`).join('') : '<li>Опции не выбраны</li>';
+    fragments.push(`<div class="summary-tariff"><div class="summary-tariff-head"><div class="summary-tariff-name">${tariffName}</div><div class="summary-tariff-price">${payload?.totalText || '—'}</div></div><ul>${items}</ul></div>`);
+  });
+  body.innerHTML = fragments.join('');
+  totalEl.textContent = grandTotal.toLocaleString('ru-RU') + ' ₽';
+}
+
+function primeOrderPreview(force = false){
+  if(!force && lastOrderText) return;
+  const first = document.querySelector('.tariff-wrapper');
+  if(!first) return;
+  const tariffName = (first.dataset.tariffName || first.querySelector('.tariff-title')?.textContent || 'Тариф').trim();
+  const payload = buildOrderPayload(first, tariffName);
+  if(payload) setOrderPreview(payload);
+}
+
+function resetTariffSelections(){
+  const modal = document.getElementById('order-modal');
+  if(modal) modal.classList.remove('has-order');
+  lastOrderText = '';
+  lastOrderTotal = '—';
+  try { localStorage.removeItem(TARIFF_STATE_KEY); } catch(e) {}
+  updateConfigParam(null, true);
+  if(tariffDefaults){
+    applyTariffStateSnapshot(tariffDefaults);
+    primeOrderPreview(true);
   }
+}
+
+function getShareableLink(snapshot){
+  const url = new URL(window.location.href);
+  const encoded = encodeConfig(snapshot);
+  if(encoded) url.searchParams.set(TARIFF_CONFIG_PARAM, encoded);
+  return url.toString();
+}
+
+function shareTariffConfig(){
+  const snapshot = getTariffStateSnapshot();
+  const link = getShareableLink(snapshot);
+  updateConfigParam(snapshot, true);
+  navigator.clipboard.writeText(link).then(() => alert('Ссылка на конфигурацию скопирована!'));
+}
 
   // close modal on overlay click
   document.addEventListener('click', function(e){
