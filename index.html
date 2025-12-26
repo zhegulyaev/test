@@ -1298,11 +1298,10 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .cover-icon.animated::before { content:'▶'; font-size:8px; color:#fff; opacity:0.9; }
 .choice-pill:hover .cover-icon::after, .choice-pill.active .cover-icon::after { opacity:0.18; }
 .choice-pill:hover .cover-icon.static { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22); }
-.choice-label { font-weight:500; color: var(--text-sec); min-width:140px; display:flex; align-items:center; gap:8px; }
-.choice-row { flex-direction:column; align-items:flex-start; gap:10px; }
-.mobile-cover-state { color: var(--text-sec); font-size: 13px; font-weight: 600; display: flex; gap: 6px; align-items: center; }
-.mobile-cover-state .state-option { opacity: 0.65; }
-.mobile-cover-state .state-option.active { opacity: 1; color: #fff; font-weight: 800; }
+.choice-label { font-weight:500; color: var(--text-sec); min-width:140px; display:flex; align-items:flex-start; gap:8px; flex-direction:column; }
+.choice-label-row { display:flex; align-items:center; gap:8px; }
+.choice-row { flex-direction:column; align-items:flex-start; gap:12px; }
+.mobile-cover-state { color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0.2px; background: rgba(255,255,255,0.06); border-radius: 8px; padding: 6px 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
 
 .tariff-summary {
     margin: 30px 0 50px;
@@ -2874,25 +2873,23 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item choice-row" data-type="base">
       <div class="item-left">
         <div class="choice-label">
-          <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-          <span>Мобильная обложка</span>
+          <div class="choice-label-row">
+            <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
+            <span>Мобильная обложка</span>
+          </div>
+          <div class="mobile-cover-state"></div>
         </div>
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill active" title="Статичная мобильная обложка">
-            <input type="radio" name="mobile-cover-standard" value="Мобильная статичная обложка" data-price="0" checked onchange="handleChoiceChange(this)">
+            <input type="radio" name="mobile-cover-standard" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" checked onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
             <span class="visually-hidden">Статичная</span>
           </label>
           <label class="choice-pill" title="Анимированная мобильная обложка">
-            <input type="radio" name="mobile-cover-standard" value="Мобильная анимированная обложка" data-price="3500" onchange="handleChoiceChange(this)">
+            <input type="radio" name="mobile-cover-standard" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
             <span class="visually-hidden">Анимированная</span>
           </label>
-        </div>
-        <div class="mobile-cover-state">
-          <span class="state-option state-static active">Статичная</span>
-          <span>/</span>
-          <span class="state-option state-animated">Анимированная</span>
         </div>
       </div>
     </li>
@@ -3041,25 +3038,23 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item choice-row" data-type="base">
       <div class="item-left">
         <div class="choice-label">
-          <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-          <span>Мобильная обложка</span>
+          <div class="choice-label-row">
+            <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
+            <span>Мобильная обложка</span>
+          </div>
+          <div class="mobile-cover-state"></div>
         </div>
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill" title="Статичная мобильная обложка">
-            <input type="radio" name="mobile-cover-premium" value="Мобильная статичная обложка" data-price="0" onchange="handleChoiceChange(this)">
+            <input type="radio" name="mobile-cover-premium" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
             <span class="visually-hidden">Статичная</span>
           </label>
           <label class="choice-pill active" title="Анимированная мобильная обложка">
-            <input type="radio" name="mobile-cover-premium" value="Мобильная анимированная обложка" data-price="3500" checked onchange="handleChoiceChange(this)">
+            <input type="radio" name="mobile-cover-premium" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
             <span class="visually-hidden">Анимированная</span>
           </label>
-        </div>
-        <div class="mobile-cover-state">
-          <span class="state-option state-static">Статичная</span>
-          <span>/</span>
-          <span class="state-option state-animated active">Анимированная</span>
         </div>
       </div>
     </li>
@@ -3223,25 +3218,23 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item choice-row" data-type="base">
       <div class="item-left">
         <div class="choice-label">
-          <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-          <span>Мобильная обложка</span>
+          <div class="choice-label-row">
+            <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
+            <span>Мобильная обложка</span>
+          </div>
+          <div class="mobile-cover-state"></div>
         </div>
         <div class="choice-pills" data-label="Мобильная обложка">
           <label class="choice-pill" title="Статичная мобильная обложка">
-            <input type="radio" name="mobile-cover-vip" value="Мобильная статичная обложка" data-price="0" onchange="handleChoiceChange(this)">
+            <input type="radio" name="mobile-cover-vip" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
             <span class="visually-hidden">Статичная</span>
           </label>
           <label class="choice-pill active" title="Анимированная мобильная обложка">
-            <input type="radio" name="mobile-cover-vip" value="Мобильная анимированная обложка" data-price="3500" checked onchange="handleChoiceChange(this)">
+            <input type="radio" name="mobile-cover-vip" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
             <span class="visually-hidden">Анимированная</span>
           </label>
-        </div>
-        <div class="mobile-cover-state">
-          <span class="state-option state-static">Статичная</span>
-          <span>/</span>
-          <span class="state-option state-animated active">Анимированная</span>
         </div>
       </div>
     </li>
@@ -3366,21 +3359,6 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </div>
       
     </div>
-    </div>
-
-    <div id="tariff-summary" class="tariff-summary">
-      <div class="summary-header">
-        <div class="summary-title">Итоговая корзина по тарифам</div>
-        <div class="summary-actions">
-          <button class="summary-btn" type="button" onclick="shareTariffConfig()">Скопировать ссылку на конфигурацию</button>
-          <button class="summary-btn secondary" type="button" onclick="resetTariffSelections()">Сбросить выбор</button>
-        </div>
-      </div>
-      <div id="tariff-summary-body" class="summary-body"></div>
-      <div class="summary-footer">
-        <div class="summary-total">Итого по всем тарифам: <span id="tariff-summary-total">0 ₽</span></div>
-        <div style="color: var(--text-sec); font-size:13px;">Делитесь ссылкой или обнуляйте настройки одним кликом</div>
-      </div>
     </div>
 
   <div class="tariff-header" style="margin-top:40px;">
@@ -3561,20 +3539,6 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <div class="order-text-block">
             <p style="margin:0; color: var(--text-sec); font-size:13px;">Состав заявки и итог сразу готовы к отправке</p>
             <textarea id="order-text-area" class="order-textarea" readonly></textarea>
-            <div class="order-actions-row">
-                <button class="order-send-btn vk" type="button" onclick="sendOrderLink('vk')" disabled>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.013 19.43c-5.83 0-9.138-3.99-9.278-10.645H8.62c.1 4.88 2.25 6.944 3.955 7.37V8.785h2.75v4.209c1.683-.18 3.44-2.09 4.037-4.21h2.75a8.77 8.77 0 01-3.71 5.378 8.875 8.875 0 014.288 5.268h-3.023a5.55 5.55 0 00-4.04-3.614v3.614h-1.874z"/></svg>
-                    Отправить в VK
-                </button>
-                <button class="order-send-btn tg" type="button" onclick="sendOrderLink('tg')" disabled>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 4.6L2.9 11.9c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.7c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.6c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.7-1.4-1.4zM9 15.5l10.8-8.6c.5-.4 1-.2.6.2l-8.7 9c-.3.3-.5.6-.5 1l-.2 2.7-1.1-3.8-3.8-1.2c-.8-.2-.8-.7.2-1.1l15.4-6"/></svg>
-                    Отправить в Telegram
-                </button>
-                <button class="order-send-btn secondary" type="button" onclick="copyOrderText()" disabled>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    Скопировать состав
-                </button>
-            </div>
         </div>
 
         <h2 style="font-size: 16px; opacity: 0.7; margin-top: 0;">Связаться со мной</h2>
@@ -5790,6 +5754,7 @@ window.addEventListener('load', function(){
   tariffDefaults = getTariffStateSnapshot();
   const saved = getTariffStateFromQuery() || loadTariffStateFromStorage();
   if(saved) applyTariffStateSnapshot(saved); else updateGlobalSummary();
+  document.querySelectorAll('.choice-pills').forEach(updateMobileCoverState);
   primeOrderPreview(true);
 });
 
@@ -5814,13 +5779,11 @@ window.addEventListener('load', function(){
 
   function updateMobileCoverState(group){
     if(!group || group.dataset.label !== 'Мобильная обложка') return;
-    const row = group.parentElement?.querySelector('.mobile-cover-state');
+    const row = group.closest('.choice-row')?.querySelector('.mobile-cover-state');
     if(!row) return;
-    const isAnimated = group.querySelector('input:checked')?.value?.toLowerCase().includes('анимир');
-    const staticEl = row.querySelector('.state-static');
-    const animatedEl = row.querySelector('.state-animated');
-    if(staticEl) staticEl.classList.toggle('active', !isAnimated);
-    if(animatedEl) animatedEl.classList.toggle('active', !!isAnimated);
+    const selected = group.querySelector('input:checked');
+    const label = selected?.dataset.stateLabel || (selected?.value || '').split(' ').pop();
+    row.textContent = label || '';
   }
 
 function toggleQtyState(cb){
