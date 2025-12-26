@@ -369,6 +369,44 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     white-space: pre-wrap;
 }
 
+.comment-attachments {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.comment-attach-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.comment-attach-img:hover { transform: scale(1.03); opacity: 0.95; }
+
+.review-photo-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    padding: 20px;
+}
+
+.review-photo-modal.open { display: flex; }
+
+.review-photo-modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 16px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+}
+
 .reviews-header {
     max-width: 1440px;
     margin: 10px auto 8px auto;
@@ -399,20 +437,14 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     transform: translateY(-2px);
 }
 .reviews-grid {
-    column-count: 3;
-    column-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto 40px auto;
     padding: 0 20px;
-}
-
-@media (max-width: 1100px) {
-    .reviews-grid { column-count: 2; }
-}
-
-@media (max-width: 700px) {
-    .reviews-grid { column-count: 1; }
+    align-items: start;
 }
 
 /* SKELETONS */
@@ -3086,6 +3118,10 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     </div>
 </div>
 
+<div id="review-photo-modal" class="review-photo-modal" onclick="closeReviewPhoto()">
+    <img id="review-photo-modal-img" alt="" loading="lazy">
+</div>
+
 <script>
 let scrollBeforeModal = 0;
 const TOKEN = 'vk1.a.tOSblOYWMeA4uLbJ9r07EnvpkA9cTBfz9uHD0aUBxQGRhjXkVh1B6ir4IGgcXnPb6n-IP4I-tNP5m_hKAivnDbn1rjQZtDRj-9-kPiK6CLO1YupE1qWL2e9GhnO9uxscgv-AhchfWy-VgYcR8V2oCeHmBX9g_LpZ-YUF2d21zO6NvGUDeyc-T6gVgvCo8HwKC3F3hQYpftnfQQ-xspyVQA';
@@ -3617,6 +3653,24 @@ function loadReviews() { window.scrollTo(0,0); document.getElementById("header-p
     requestMoreReviews();
 }
 
+function openReviewPhoto(url) {
+    const modal = document.getElementById('review-photo-modal');
+    const img = document.getElementById('review-photo-modal-img');
+    if (!modal || !img) return;
+    img.src = url;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeReviewPhoto() {
+    const modal = document.getElementById('review-photo-modal');
+    const img = document.getElementById('review-photo-modal-img');
+    if (!modal || !img) return;
+    modal.classList.remove('open');
+    img.src = '';
+    document.body.style.overflow = '';
+}
+
 window.renderReviews = d => {
     reviewsLoading = false;
     const r = document.getElementById('area');
@@ -3631,8 +3685,14 @@ window.renderReviews = d => {
 
     if (!reviewsWrap) return;
 
-    if (!reviewsProfiles.length) reviewsProfiles = d.response.profiles || [];
-    if (!reviewsGroups.length) reviewsGroups = d.response.groups || [];
+    const mergeById = (arr, incoming) => {
+        const map = new Map(arr.map(i => [i.id, i]));
+        (incoming || []).forEach(i => map.set(i.id, i));
+        return Array.from(map.values());
+    };
+
+    reviewsProfiles = mergeById(reviewsProfiles, d.response.profiles || []);
+    reviewsGroups = mergeById(reviewsGroups, d.response.groups || []);
     reviewsTotal = reviewsTotal || d.response.count || items.length;
 
     items.forEach((c) => {
@@ -3651,7 +3711,7 @@ window.renderReviews = d => {
                 photos.forEach(ph => {
                      const size = ph.photo.sizes.sort((a,b) => b.width - a.width)[0];
                      const small = ph.photo.sizes.find(s => s.type === 'q') || size;
-                     attachHTML += `<img src="${small.url}" class="comment-attach-img" onclick="event.stopPropagation(); window.open('${size.url}', '_blank')">`;
+                     attachHTML += `<img src="${small.url}" class="comment-attach-img" onclick="event.stopPropagation(); openReviewPhoto('${size.url}')">`;
                 });
                 attachHTML += '</div>';
             }
@@ -5169,6 +5229,13 @@ function switchTab(tabId, btn){
 
   if(tabId === 'tariffs') window.location.hash = 'tariffs';
   else window.location.hash = '';
+
+  if(tabId === 'portfolio' && currentSection === 'reviews') {
+    currentSection = 'main';
+    updateUrl();
+    hist = [];
+    menuShow(menu, "ПОРТФОЛИО");
+  }
 }
 
 window.addEventListener('load', function(){
