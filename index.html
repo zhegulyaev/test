@@ -4461,6 +4461,11 @@ window.setGroup = d => {
 api('groups.getById', `group_id=dsgnjr&fields=members_count,photo_200,photo_100,photo_50,description,status`, 'setGroup');
 
 window.saveCovers = d => {
+  if (d.error) {
+    loadFallbackPortfolio('Не удалось обратиться к VK API, показываю офлайн-портфолио.');
+    return;
+  }
+
   if(d.response){
     d.response.items.forEach(a=>{
       const sizes = a.sizes || [];
@@ -5254,6 +5259,12 @@ window.addEventListener('resize', () => {
 
 window.setPhotos = d => {
   clearTimeout(apiFallbackTimer);
+
+  if (d.error) {
+    loadFallbackPortfolio('Не удалось загрузить работы из VK. Проверьте токен доступа или повторите попытку позже.');
+    return;
+  }
+
   if(!d.response) {
     document.getElementById('area').innerHTML = '<div class="empty-album">В этом альбоме пока нет работ</div>';
     return;
