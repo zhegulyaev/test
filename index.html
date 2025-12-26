@@ -2994,9 +2994,9 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
 <div id="modal" onclick="closeModal(event)">
   <div class="modal-content" id="modal-content-inner" onclick="event.stopPropagation()">
-    <div class="modal-left">
+      <div class="modal-left">
       <button class="nav nav-left" onclick="move(-1)">&#10094;</button>
-      <div class="modal-ribbon">Видеоотзывы</div>
+      <div class="modal-ribbon" id="modal-ribbon">Видеоотзывы</div>
       <div class="modal-img" id="modal-img-container" onclick="toggleZoom(event)">
         <img id="preview" class="modal-preview">
         <img id="full" class="modal-full"><div id="modal-loader" class="loader-spinner"></div>
@@ -3093,6 +3093,7 @@ const OWNER = '-163936790';
 const REVIEW_TOPIC_ID = '37742383';
 
 let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set();
+let reviewsLoaded = 0, reviewsTotal = 0, reviewsWrap = null, reviewsLoading = false, reviewsProfiles = [], reviewsGroups = [], reviewsObserver = null, reviewsSentinel = null, reviewsSortOrder = 'desc';
 let services = [], currentServiceId = null;
 let currentFolderId = null;
 let currentSection = 'main';
@@ -3375,6 +3376,7 @@ function openAlbumById(id, photoIdx = null) {
 
 function openReviewsSection(skipUrlUpdate = false) {
     currentSection = 'reviews';
+    switchTab('portfolio');
     if (!skipUrlUpdate) hist.push({l: currentMenu, t: document.getElementById('title').innerText, b: true});
     if (!skipUrlUpdate) updateUrl(null, null, null, null, 'reviews');
     loadReviews();
@@ -3492,37 +3494,41 @@ function openService(serviceId) { window.scrollTo(0,0); document.getElementById(
   r.appendChild(card);
 }
 
+function resetReviewsState() {
+    reviewsLoaded = 0;
+    reviewsTotal = 0;
+    reviewsProfiles = [];
+    reviewsGroups = [];
+    reviewsWrap = null;
+    reviewsSentinel = null;
+    reviewsLoading = false;
+    reviewsSortOrder = revReviews === 0 ? 'desc' : 'asc';
+    if (reviewsObserver) { reviewsObserver.disconnect(); reviewsObserver = null; }
+}
+
+function requestMoreReviews() {
+    if (reviewsLoading) return;
+    if (reviewsTotal && reviewsLoaded >= reviewsTotal) return;
+    reviewsLoading = true;
+    api('board.getComments', `group_id=${Math.abs(OWNER)}&topic_id=${REVIEW_TOPIC_ID}&extended=1&sort=${reviewsSortOrder}&count=20&offset=${reviewsLoaded}`, 'renderReviews');
+}
+
 function loadReviews() { window.scrollTo(0,0); document.getElementById("header-progress").style.opacity = 0;
+    resetReviewsState();
     alb = null;
     const r = document.getElementById('area');
-    r.innerHTML = '<div class="comments-loader" style="padding: 100px; text-align: center;"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#888" stroke-width="5" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/></circle></svg></div>';
-    
+    r.innerHTML = '';
+    r.className = '';
+
     document.getElementById('title').innerText = "ОТЗЫВЫ";
     document.getElementById('title').dataset.original = "ОТЗЫВЫ";
     document.getElementById('subtitle').innerText = "";
     document.getElementById('back').classList.add('active');
     document.getElementById('tags-bar').style.display = 'none';
-    
+
     document.getElementById('sort').classList.add('active');
     document.getElementById('sort').classList.toggle('active', revReviews === 1);
     document.getElementById('sort').title = revReviews === 0 ? "Сначала новые" : "Сначала старые";
-
-    const sortOrder = revReviews === 0 ? 'desc' : 'asc';
-    api('board.getComments', `group_id=${Math.abs(OWNER)}&topic_id=${REVIEW_TOPIC_ID}&extended=1&sort=${sortOrder}&count=100`, 'renderReviews');
-}
-
-window.renderReviews = d => {
-    const r = document.getElementById('area');
-    r.innerHTML = '';
-    r.className = '';
-
-    const ownerId = parseInt(OWNER, 10);
-    const items = (d.response?.items || []).filter(c => c.from_id !== ownerId);
-
-    if(!d.response || items.length === 0) {
-         r.innerHTML = '<div class="empty-album">Отзывов пока нет</div>';
-         return;
-    }
 
     const videoSection = document.createElement('div');
     videoSection.id = 'vkvideo-section';
@@ -3592,21 +3598,51 @@ window.renderReviews = d => {
     textReviewsHeader.appendChild(toggleBtn);
     r.appendChild(textReviewsHeader);
 
-    const reviewsWrap = document.createElement('div');
+    reviewsWrap = document.createElement('div');
     reviewsWrap.className = 'reviews-grid';
     r.appendChild(reviewsWrap);
 
-    const profiles = d.response.profiles || [];
-    const groups = d.response.groups || [];
+    reviewsSentinel = document.createElement('div');
+    reviewsSentinel.className = 'comments-loader';
+    reviewsSentinel.innerHTML = '<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#888" stroke-width="5" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/></circle></svg>';
+    r.appendChild(reviewsSentinel);
+
+    reviewsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) requestMoreReviews();
+        });
+    }, { rootMargin: '300px' });
+    reviewsObserver.observe(reviewsSentinel);
+
+    requestMoreReviews();
+}
+
+window.renderReviews = d => {
+    reviewsLoading = false;
+    const r = document.getElementById('area');
+    const ownerId = parseInt(OWNER, 10);
+    const items = (d.response?.items || []).filter(c => c.from_id !== ownerId);
+
+    if(!d.response || (items.length === 0 && reviewsLoaded === 0)) {
+         r.innerHTML = '<div class="empty-album">Отзывов пока нет</div>';
+         if (reviewsObserver) reviewsObserver.disconnect();
+         return;
+    }
+
+    if (!reviewsWrap) return;
+
+    if (!reviewsProfiles.length) reviewsProfiles = d.response.profiles || [];
+    if (!reviewsGroups.length) reviewsGroups = d.response.groups || [];
+    reviewsTotal = reviewsTotal || d.response.count || items.length;
 
     items.forEach((c) => {
         let user;
-        if (c.from_id > 0) user = profiles.find(u => u.id === c.from_id);
-        else user = groups.find(g => g.id === -c.from_id);
-        
+        if (c.from_id > 0) user = reviewsProfiles.find(u => u.id === c.from_id);
+        else user = reviewsGroups.find(g => g.id === -c.from_id);
+
         const photo = user?.photo_100 || 'https://vk.com/images/camera_100.png';
         const name = user?.first_name ? `${user.first_name} ${user.last_name}` : (user?.name || 'Пользователь');
-        
+
         let attachHTML = '';
         if(c.attachments) {
             const photos = c.attachments.filter(a => a.type === 'photo');
@@ -3641,8 +3677,14 @@ window.renderReviews = d => {
         reviewsWrap.appendChild(card);
     });
 
-    document.getElementById('title').innerText = `ОТЗЫВЫ · ${items.length}`;
-}
+    reviewsLoaded += items.length;
+    document.getElementById('title').innerText = `ОТЗЫВЫ · ${reviewsTotal || reviewsLoaded}`;
+
+    if (reviewsTotal && reviewsLoaded >= reviewsTotal) {
+        if (reviewsObserver) reviewsObserver.disconnect();
+        if (reviewsSentinel) reviewsSentinel.style.display = 'none';
+    }
+};
 
 function menuShow(l,t,b=false){ document.getElementById("header-progress").style.opacity = 0;
   l.sort((a, b) => {
@@ -3865,23 +3907,10 @@ function extractTags(items) {
 }
 
 function renderTags() {
-    const tags = extractTags(raw);
     const container = document.getElementById('tags-bar');
-    if (tags.length === 0) {
-        container.style.display = 'none';
-        return;
-    }
-    
-    container.style.display = 'flex';
-    container.innerHTML = `<button class="tag-chip active" onclick="filterByTag(null, this)">Все</button>`;
-    
-    tags.forEach(tag => {
-        const btn = document.createElement('button');
-        btn.className = 'tag-chip';
-        btn.innerText = tag;
-        btn.onclick = (e) => filterByTag(tag, e.target);
-        container.appendChild(btn);
-    });
+    if (!container) return;
+    container.style.display = 'none';
+    container.innerHTML = '';
 }
 
 function filterByTag(tag, btnElement) {
@@ -4054,11 +4083,17 @@ function openModal(i){
   document.getElementById('full').src = '';
   document.getElementById('full').classList.remove('loaded');
 
-  idx=i; 
+  idx=i;
   updateUrl(alb, i);
   const p=raw[idx];
 
-    
+  const ribbon = document.getElementById('modal-ribbon');
+  const titleSource = document.getElementById('title').dataset.original || 'Портфолио';
+  if (ribbon) {
+      ribbon.textContent = currentSection === 'reviews' ? 'Отзывы' : titleSource;
+  }
+
+
     const siteLink = location.origin + location.pathname + '?album=' + alb + '&photo=' + (idx + 1);
     const isRef = selectedRefs.has(siteLink);
     const refBtnText = isRef ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> В референсах' : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> В референсы';
@@ -4279,6 +4314,9 @@ function toggleRef(id, url) {
         if(btn) { btn.classList.remove('active'); btn.innerText = 'Добавить в референсы'; }
     } else {
         selectedRefs.add(url);
+        if(selectedRefs.size > 3) {
+            showToast('⚠️ Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)');
+        }
         if(btn) { btn.classList.add('active'); btn.innerText = 'В референсах (удалить)'; }
     }
     updateRefBar();
@@ -4312,15 +4350,18 @@ function toggleRef(id, url) {
     const btn = document.getElementById('ref-btn');
     if (selectedRefs.has(url)) {
         selectedRefs.delete(url);
-        if(btn) { 
-            btn.classList.remove('active'); 
-            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> В референсы'; 
+        if(btn) {
+            btn.classList.remove('active');
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> В референсы';
         }
     } else {
         selectedRefs.add(url);
-        if(btn) { 
-            btn.classList.add('active'); 
-            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> В референсах'; 
+        if(selectedRefs.size > 3) {
+            showToast('⚠️ Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)');
+        }
+        if(btn) {
+            btn.classList.add('active');
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg> В референсах';
         }
     }
     updateRefBar();
