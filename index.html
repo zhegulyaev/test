@@ -3881,12 +3881,57 @@ function startApiFallbackTimer() {
         const area = document.getElementById('area');
         if (!area || area.dataset.fallbackShown === 'true') return;
 
-        area.innerHTML = '<div class="empty-album">Не удалось загрузить работы из VK. Проверьте подключение или попробуйте позже.</div>';
-        area.dataset.fallbackShown = 'true';
-
-        const subtitle = document.getElementById('subtitle');
-        if (subtitle) subtitle.textContent = '· загрузка не удалась';
+        loadFallbackPortfolio('Не удалось загрузить работы из VK. Проверьте подключение или попробуйте позже.');
     }, API_FALLBACK_TIMEOUT);
+}
+
+const FALLBACK_PORTFOLIO = [
+    {
+        id: 101,
+        date: 1704067200,
+        text: 'Кейс: редизайн бренда для креативного агентства',
+        sizes: [
+            { type: 'x', url: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80', width: 900, height: 600 },
+            { type: 'z', url: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=90', width: 1400, height: 934 }
+        ]
+    },
+    {
+        id: 102,
+        date: 1709251200,
+        text: 'Промо-страница: запуск нового продукта',
+        sizes: [
+            { type: 'x', url: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=900&q=80', width: 900, height: 600 },
+            { type: 'z', url: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=1400&q=90', width: 1400, height: 933 }
+        ]
+    },
+    {
+        id: 103,
+        date: 1714176000,
+        text: 'Digital-витрина для локального бренда одежды',
+        sizes: [
+            { type: 'x', url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80', width: 900, height: 600 },
+            { type: 'z', url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1400&q=90', width: 1400, height: 933 }
+        ]
+    }
+];
+
+function loadFallbackPortfolio(message = '') {
+    const area = document.getElementById('area');
+    if (!area || area.dataset.fallbackShown === 'true') return;
+
+    area.dataset.fallbackShown = 'true';
+    const subtitle = document.getElementById('subtitle');
+    if (subtitle) subtitle.textContent = '· офлайн-режим';
+
+    if (message) {
+        const notice = document.createElement('div');
+        notice.className = 'empty-album';
+        notice.textContent = message;
+        area.innerHTML = '';
+        area.appendChild(notice);
+    }
+
+    setPhotos({ response: { items: FALLBACK_PORTFOLIO } });
 }
 
 function debounce(fn, delay = 250) {
@@ -4259,6 +4304,10 @@ function api(m,p,cb){
   s.src=`https://api.vk.com/method/${m}?${p}&access_token=${TOKEN}&v=5.131&callback=${cb}`;
   document.head.appendChild(s);
   s.onload=()=>s.remove();
+  s.onerror=()=>{
+    document.head.removeChild(s);
+    loadFallbackPortfolio('Не удалось обратиться к VK API, показываю офлайн-портфолио.');
+  };
 }
 
 function getUrlParams() {
