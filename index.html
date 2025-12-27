@@ -619,25 +619,64 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .modal-preview.faded{opacity:0}
 
 .modal-bottom-bar{
-    height:60px;
+    min-height:70px;
     background:rgba(20,20,20,0.8);
     display:flex;
     align-items:center;
-    padding:0 25px;
+    padding:10px 25px;
     justify-content:space-between;
     color:#888;
-    font-size:14px; 
+    font-size:14px;
     border-top: 1px solid #333;
 }
 .modal-bottom-bar .left {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
 }
 .modal-bottom-bar .right {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+.album-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+}
+.album-link:hover { text-decoration: underline; }
+.comment-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #f5f5f7;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.comment-link:hover { background: rgba(255,255,255,0.12); }
+.comment-avatar-placeholder {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2f3135 0%, #1f2023 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.comment-avatar-placeholder::after {
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #55585f;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 .vk-link-bottom{color:var(--text-sec);text-decoration:none; transition: .2s; cursor: none;}
 .vk-link-bottom:hover{color:var(--vk);}
@@ -1354,13 +1393,34 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     max-width: 260px;
     z-index: 1000;
     box-shadow: 0 12px 32px rgba(0,0,0,0.8);
-    pointer-events: none;
+    pointer-events: auto;
     opacity: 0;
     transform: translate(-50%, -6px);
     transition: opacity 0.15s ease, transform 0.15s ease;
+    isolation: isolate;
+}
+.dynamic-tooltip::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #0f0f10;
+    border-left: 1px solid rgba(255,255,255,0.12);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    transform: rotate(45deg);
+    left: 50%;
+    margin-left: -6px;
+    bottom: -6px;
 }
 .dynamic-tooltip[data-placement="bottom"] {
     transform: translate(-50%, 6px);
+}
+.dynamic-tooltip[data-placement="bottom"]::after {
+    top: -6px;
+    bottom: auto;
+    border-left: 1px solid rgba(255,255,255,0.12);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    transform: rotate(225deg);
 }
 
 .tariff-price { font-size:34px; font-weight:900; margin: 12px 0 6px; color:#fff; letter-spacing: 0.5px; }
@@ -1391,10 +1451,14 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .choice-pill:hover .cover-icon.static { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22); }
 .choice-label { font-weight:500; color: var(--text-sec); min-width:140px; display:flex; align-items:flex-start; gap:8px; flex-direction:column; }
 .choice-label-row { display:flex; align-items:center; gap:8px; }
+.choice-label-row .feature-checkbox { transform: translateY(-1px); }
+.choice-row .choice-label { width: 100%; }
+.choice-row .choice-pills { width: 100%; justify-content: flex-start; }
+.choice-row .pill-visual { margin-left: 2px; }
 .tariff-feature-item.choice-row { align-items:flex-start; }
 .choice-row { flex-direction:column; align-items:flex-start; gap:12px; }
 .choice-row .item-left { align-items:flex-start; }
-.mobile-cover-state { color: var(--text-main); font-size: 12px; font-weight: 800; letter-spacing: 0.1px; padding-left: 31px; line-height: 1.35; margin-top: -8px; display: flex; align-items: center; }
+.mobile-cover-state { color: var(--text-main); font-size: 12px; font-weight: 800; letter-spacing: 0.1px; padding-left: 31px; line-height: 1.35; margin-top: -4px; display: flex; align-items: center; }
 
 .tariff-summary {
     margin: 30px 0 50px;
@@ -1505,7 +1569,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     display: none;
 }
 .order-text-block { margin: 12px 0 16px; display:flex; flex-direction:column; gap:10px; }
-.order-textarea { width:100%; min-width:100%; max-width:100%; height:140px; background:#111; color:#fff; border:1px solid #333; padding:12px; border-radius:10px; resize:vertical; box-sizing:border-box; font-family: inherit; }
+.order-textarea { width:100%; min-width:100%; max-width:100%; height:190px; background:#111; color:#fff; border:1px solid #333; padding:14px; border-radius:10px; resize:vertical; box-sizing:border-box; font-family: inherit; }
 .order-reset-btn { align-self:flex-start; background: rgba(255,255,255,0.07); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer; transition:0.2s; display:inline-flex; gap:8px; align-items:center; }
 .order-reset-btn:hover { background: rgba(255,255,255,0.14); }
 .order-actions-row { display:flex; flex-wrap:wrap; gap:10px; }
@@ -2823,7 +2887,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .profile-avatar { transition: transform 0.3s ease; } .profile-main-link:hover .profile-avatar { transform: scale(1.05); }
 .profile-main-link:hover .profile-name { opacity: 0.7; transition: opacity 0.2s; } .hover-subs { transition: opacity 0.2s; } .hover-subs:hover { opacity: 0.7; }
 a.profile-meta { display: flex; align-items: center; justify-content: center; gap: 8px; }
-::selection { background: #e54643; color: white; } ::-moz-selection { background: #e54643; color: white; }
+::selection { background: #3b82f6; color: white; } ::-moz-selection { background: #3b82f6; color: white; }
 .iframe-container { -webkit-overflow-scrolling: touch; overflow-y: auto; }
 
 /* Исправление ширины блока количества */
@@ -3063,9 +3127,10 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
 /* 4. VIP ДИЗАЙН */
 .tariff-wrapper[data-tariff-name="VIP"] .discount-badge {
-    background: #F4E7C3 !important;
-    color: #5A4820 !important;
+    background: #fff4d6 !important;
+    color: #3d2d00 !important;
     font-weight: 800;
+    box-shadow: 0 8px 22px rgba(61,45,0,0.15);
 }
 
 
@@ -3194,7 +3259,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <div class="tariff-wrapper" data-base-price="10000">
       <div class="tariff-card">
         <div class="tariff-name">
-          <div class="tariff-title">Стандарт <span class="info-icon" data-tooltip="Для старта или небольшого проекта: базовая упаковка сообщества/страницы без лишних опций.">?</span></div>
+          <div class="tariff-title">Стандарт <span class="info-icon" data-tooltip="Для старта или небольшого проекта: базовая упаковка сообщества/страницы без лишних опций." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span></div>
         </div>
         <ul class="tariff-features">
     <li class="tariff-feature-item" data-type="base">
@@ -3368,7 +3433,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <div class="tariff-wrapper" data-base-price="20000">
       <div class="tariff-card">
         <div class="tariff-name">
-          <div class="tariff-title">Премиум <span class="info-icon" data-tooltip="Для активных продаж и продвижения: усиленная упаковка с доп. графикой и вариативностью.">?</span></div>
+          <div class="tariff-title">Премиум <span class="info-icon" data-tooltip="Для активных продаж и продвижения: усиленная упаковка с доп. графикой и вариативностью." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span></div>
           <div class="discount-badge" title="Выгода 15% при комплексном заказе всех элементов.">Скидка 15%</div>
         </div>
         <ul class="tariff-features">
@@ -3543,7 +3608,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <div class="tariff-wrapper" data-base-price="30000">
       <div class="tariff-card">
         <div class="tariff-name">
-          <div class="tariff-title">VIP <span class="info-icon" data-tooltip="Для масштабных запусков и премиум-задач: максимум материалов + приоритет по срокам.">?</span></div>
+          <div class="tariff-title">VIP <span class="info-icon" data-tooltip="Для масштабных запусков и премиум-задач: максимум материалов + приоритет по срокам." data-example="https://i.imgur.com/6N1pB8y.jpg">?</span></div>
           <div class="discount-badge" title="Выгода 25% за комплекс: максимальный пакет дешевле, чем заказывать по отдельности.">Скидка 25%</div>
         </div>
         <ul class="tariff-features">
@@ -3811,8 +3876,13 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       <div class="modal-bottom-bar">
         <div class="left">
           <span id="photo-index"></span>
+          <a id="photo-album-link" class="album-link" href="#" target="_blank" rel="noopener"></a>
         </div>
         <div class="right">
+          <a id="comment-link" class="comment-link" href="#" target="_blank" rel="noopener">
+            <span class="comment-avatar-placeholder" aria-hidden="true"></span>
+            <span>Написать комментарий</span>
+          </a>
           <a id="vk-link-orig" href="#" target="_blank" class="vk-link-bottom">Открыть в ВК</a>
 
 
@@ -3899,11 +3969,11 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <h2 style="font-size: 16px; opacity: 0.7; margin-top: 20px;">Отправить через:</h2>
         
         <div class="contact-list">
-            <a href="#" onclick="sendOrderLink('vk'); return false;" class="contact-link link-vk">
+            <a href="https://vk.com/zhegulyaev" target="_blank" rel="noopener" class="contact-link link-vk">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M15.013 19.43c-5.83 0-9.138-3.99-9.278-10.645H8.62c.1 4.88 2.25 6.944 3.955 7.37V8.785h2.75v4.209c1.683-.18 3.44-2.09 4.037-4.21h2.75a8.77 8.77 0 01-3.71 5.378 8.875 8.875 0 014.288 5.268h-3.023a5.55 5.55 0 00-4.04-3.614v3.614h-1.874z"/></svg>
                 <span>ВКонтакте</span>
             </a>
-            <a href="#" onclick="sendOrderLink('tg'); return false;" class="contact-link link-tg">
+            <a href="https://t.me/r_zhegulyaev" target="_blank" rel="noopener" class="contact-link link-tg">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.91-1.27 4.85-2.11 5.82-2.52 2.77-1.16 3.35-1.36 3.72-1.37.08 0 .27.02 .39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
                 <span>Telegram</span>
             </a>
@@ -4008,7 +4078,7 @@ function getMatchSnippet(p) {
   const start = Math.max(0, matchIndex - 30);
   const end = Math.min(source.length, matchIndex + normalized.length + 30);
   const snippet = source.slice(start, end);
-  const safe = snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const safe = (start > 0 ? '…' : '') + snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const reg = new RegExp(`(^|[^\\p{L}\\d])(${escapeRegExp(searchQuery)})($|[^\\p{L}\\d])`, 'giu');
   return safe.replace(reg, (_, p1, p2, p3) => `${p1}<mark>${p2}</mark>${p3}`);
 }
@@ -5092,7 +5162,16 @@ function openModal(i){
   const ribbon = document.getElementById('modal-ribbon');
   const titleSource = document.getElementById('title').dataset.original || 'Портфолио';
   if (ribbon) {
-      ribbon.textContent = currentSection === 'reviews' ? 'Отзывы' : titleSource;
+      ribbon.textContent = currentSection === 'reviews' ? 'Отзывы' : '';
+      ribbon.style.display = currentSection === 'reviews' ? 'block' : 'none';
+  }
+
+  const albumLink = document.getElementById('photo-album-link');
+  if (albumLink) {
+      const showAlbumLink = currentSection !== 'reviews' && !!titleSource;
+      albumLink.textContent = titleSource;
+      albumLink.href = alb ? `https://vk.com/album${OWNER}_${alb}` : '#';
+      albumLink.style.display = showAlbumLink ? 'inline-flex' : 'none';
   }
 
 
@@ -5115,7 +5194,9 @@ function openModal(i){
   
   document.getElementById('photo-index').innerText = `${idx+1} из ${raw.length}`;
   document.getElementById('vk-link-orig').href = `https://vk.com/photo${OWNER}_${p.id}`;
-  
+  const commentLink = document.getElementById('comment-link');
+  if (commentLink) commentLink.href = `https://vk.com/photo${OWNER}_${p.id}`;
+
   document.getElementById('original-link').href = photos[idx].full;
   document.getElementById('download-link').href = photos[idx].full;
 
@@ -5531,6 +5612,8 @@ dynamicTooltip.className = 'dynamic-tooltip';
 dynamicTooltip.style.visibility = 'hidden';
 document.body.appendChild(dynamicTooltip);
 let tooltipTimeout;
+dynamicTooltip.addEventListener('mouseenter', () => clearTimeout(tooltipTimeout));
+dynamicTooltip.addEventListener('mouseleave', hideDynamicTooltip);
 
 function showDynamicTooltip(target) {
     clearTimeout(tooltipTimeout);
@@ -5553,6 +5636,7 @@ function showDynamicTooltip(target) {
     dynamicTooltip.style.visibility = 'hidden';
     dynamicTooltip.style.opacity = '0';
     dynamicTooltip.style.display = 'block';
+    dynamicTooltip.style.pointerEvents = 'auto';
 
     const rect = target.getBoundingClientRect();
     const spacing = 12;
@@ -5584,6 +5668,7 @@ function hideDynamicTooltip() {
     tooltipTimeout = setTimeout(() => {
         dynamicTooltip.style.opacity = '0';
         dynamicTooltip.style.visibility = 'hidden';
+        dynamicTooltip.style.pointerEvents = 'none';
     }, 300);
 }
 
@@ -5597,7 +5682,16 @@ document.addEventListener('mouseover', (e) => {
         clearTimeout(tooltipTimeout);
         return;
     }
-    hideDynamicTooltip();
+});
+
+document.addEventListener('mouseout', (e) => {
+    const toEl = e.relatedTarget;
+    const fromTooltip = e.target.closest('.dynamic-tooltip');
+    const fromIcon = e.target.closest('.info-icon');
+    const goingInside = toEl && (toEl.closest('.dynamic-tooltip') || toEl.closest('.info-icon'));
+    if (!goingInside && (fromTooltip || fromIcon)) {
+        hideDynamicTooltip();
+    }
 });
 
 function openExampleModal(url) {
@@ -5796,7 +5890,7 @@ function attachDisabledCheckboxGuards() {
         if (!label || label.dataset.guardAttached) return;
         label.dataset.guardAttached = '1';
         label.addEventListener('click', (e) => {
-            if (input.disabled) {
+            if (input.disabled && !e.target.closest('.info-icon')) {
                 e.preventDefault();
                 showToast("Нельзя отключить стандартные элементы тарифа");
             }
