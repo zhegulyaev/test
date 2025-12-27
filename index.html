@@ -34,14 +34,14 @@ body.reduced-motion {
 
 /* HEADER PROGRESS BAR */
 #header-progress {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 3px;
     background: var(--vk);
     width: 0%;
     transition: width 0.1s linear, opacity 0.3s;
-    z-index: 102;
+    z-index: 1200;
     opacity: 0;
     pointer-events: none;
     box-shadow: 0 0 10px var(--vk);
@@ -339,15 +339,17 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
 }
-.card-title{font-size:16px;color:var(--text-main);font-weight:600; line-height: 1.3;}
+.card-title{font-size:16px;color:var(--text-main);font-weight:600; line-height: 1.3; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .card-count {
     background: rgba(255,255,255,0.1);
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 13px;
     color: var(--text-sec);
-    font-weight: 600;
+    font-weight: 700;
+    flex-shrink: 0;
 }
 
 /* MARKET ITEMS (SERVICES) */
@@ -528,14 +530,18 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     transform: translateY(-2px);
 }
 .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    column-count: 3;
+    column-gap: 20px;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto 40px auto;
     padding: 0 20px;
-    align-items: start;
+}
+@media (max-width: 1200px) {
+    .reviews-grid { column-count: 2; }
+}
+@media (max-width: 720px) {
+    .reviews-grid { column-count: 1; }
 }
 
 /* SKELETONS */
@@ -631,9 +637,10 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 }
 .modal-bottom-bar .left {
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .modal-bottom-bar .right {
     display: flex;
@@ -645,21 +652,19 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     text-decoration: none;
     font-weight: 700;
     letter-spacing: 0.1px;
-}
-.album-link:hover { text-decoration: underline; }
-.comment-link {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    color: #f5f5f7;
-    text-decoration: none;
-    font-weight: 700;
-    padding: 6px 10px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
+    gap: 8px;
+    white-space: nowrap;
 }
-.comment-link:hover { background: rgba(255,255,255,0.12); }
+.album-link:hover { text-decoration: underline; }
+.comment-link { display: none; }
+
+#photo-index {
+    color: #b5b5b5;
+    font-weight: 800;
+    white-space: nowrap;
+}
 .comment-avatar-placeholder {
     width: 28px;
     height: 28px;
@@ -1386,41 +1391,50 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     background:#0f0f10;
     border:1px solid rgba(255,255,255,0.12);
     color:#fff;
-    padding:10px 12px;
-    border-radius:10px;
+    padding:12px 14px;
+    border-radius:12px;
     font-size:12px;
-    line-height: 1.45;
+    line-height: 1.5;
     max-width: 260px;
     z-index: 1000;
     box-shadow: 0 12px 32px rgba(0,0,0,0.8);
     pointer-events: auto;
     opacity: 0;
-    transform: translate(-50%, -6px);
+    transform: translate(-50%, -10px);
     transition: opacity 0.15s ease, transform 0.15s ease;
     isolation: isolate;
 }
+.dynamic-tooltip::before,
 .dynamic-tooltip::after {
     content: '';
     position: absolute;
-    width: 12px;
-    height: 12px;
-    background: #0f0f10;
-    border-left: 1px solid rgba(255,255,255,0.12);
-    border-top: 1px solid rgba(255,255,255,0.12);
-    transform: rotate(45deg);
     left: 50%;
-    margin-left: -6px;
-    bottom: -6px;
+    transform: translateX(-50%);
+}
+.dynamic-tooltip::before {
+    bottom: -11px;
+    border: 11px solid transparent;
+    border-top-color: rgba(255,255,255,0.12);
+}
+.dynamic-tooltip::after {
+    bottom: -10px;
+    border: 10px solid transparent;
+    border-top-color: #0f0f10;
 }
 .dynamic-tooltip[data-placement="bottom"] {
-    transform: translate(-50%, 6px);
+    transform: translate(-50%, 10px);
+}
+.dynamic-tooltip[data-placement="bottom"]::before {
+    bottom: auto;
+    top: -11px;
+    border-top-color: transparent;
+    border-bottom-color: rgba(255,255,255,0.12);
 }
 .dynamic-tooltip[data-placement="bottom"]::after {
-    top: -6px;
     bottom: auto;
-    border-left: 1px solid rgba(255,255,255,0.12);
-    border-top: 1px solid rgba(255,255,255,0.12);
-    transform: rotate(225deg);
+    top: -10px;
+    border-top-color: transparent;
+    border-bottom-color: #0f0f10;
 }
 
 .tariff-price { font-size:34px; font-weight:900; margin: 12px 0 6px; color:#fff; letter-spacing: 0.5px; }
@@ -1436,12 +1450,14 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .count-note { opacity:0.7; font-weight:500; font-size:12px; letter-spacing:0.2px; }
 .muted-construct-note { opacity:0.38; font-weight:400; color: var(--text-sec); font-size:13px; letter-spacing:0.1px; }
 .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-.choice-pills { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-.choice-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor:pointer; font-weight:700; color:#e5e5e8; transition: .18s ease; user-select:text; }
+.choice-pills { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.choice-pill { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius: 12px; cursor:pointer; font-weight:700; color:#e5e5e8; transition: .18s ease; user-select:text; min-height: 44px; }
 .choice-pill:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); }
 .choice-pill.active { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.45); color:#fff; box-shadow: 0 8px 18px rgba(255,51,51,0.2); }
 .choice-pill input { display:none; }
-.choice-pill .pill-visual { display:flex; align-items:center; gap:10px; }
+.choice-pill .pill-visual { display:flex; align-items:center; justify-content:center; width: 30px; height: 30px; }
+.pill-label { font-weight: 800; letter-spacing: 0.2px; color: #fff; font-size: 13px; }
+.pill-info { width:16px; height:16px; margin-left: 2px; }
 .cover-icon { width:18px; height:18px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
 .cover-icon::after { content:''; position:absolute; inset:0; opacity:0.08; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 55%); transition: opacity .2s ease; }
 .cover-icon.static::before { content:'▦'; font-size:9px; color:#fff; opacity:0.8; }
@@ -1454,7 +1470,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .choice-label-row .feature-checkbox { transform: translateY(-1px); }
 .choice-row .choice-label { width: 100%; }
 .choice-row .choice-pills { width: 100%; justify-content: flex-start; }
-.choice-row .pill-visual { margin-left: 2px; }
+.choice-row .pill-visual { margin-left: 0; }
 .tariff-feature-item.choice-row { align-items:flex-start; }
 .choice-row { flex-direction:column; align-items:flex-start; gap:12px; }
 .choice-row .item-left { align-items:flex-start; }
@@ -1569,7 +1585,23 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     display: none;
 }
 .order-text-block { margin: 12px 0 16px; display:flex; flex-direction:column; gap:10px; }
-.order-textarea { width:100%; min-width:100%; max-width:100%; height:190px; background:#111; color:#fff; border:1px solid #333; padding:14px; border-radius:10px; resize:vertical; box-sizing:border-box; font-family: inherit; }
+.order-textarea { width:100%; min-width:100%; max-width:100%; height:230px; min-height:220px; background:#111; color:#fff; border:1px solid #333; padding:16px; border-radius:10px; resize:vertical; box-sizing:border-box; font-family: inherit; line-height: 1.5; font-size: 14px; }
+.order-hint-card {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px 14px;
+}
+.order-hint-avatar-wrap { position: relative; width: 44px; height: 44px; }
+.order-hint-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.12); background: #2c2c2e; }
+.order-hint-online { position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; background: #2ecc71; border-radius: 50%; box-shadow: 0 0 0 0 rgba(46,204,113,0.6); animation: pulse-online 1.6s infinite; border: 2px solid #111; }
+@keyframes pulse-online { 0% { box-shadow: 0 0 0 0 rgba(46,204,113,0.65); } 70% { box-shadow: 0 0 0 8px rgba(46,204,113,0); } 100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); } }
+.order-hint-title { font-weight: 800; color: #fff; margin: 0 0 2px; }
+.order-hint-text { color: #d1d1d6; font-size: 13px; line-height: 1.4; margin: 0; }
 .order-reset-btn { align-self:flex-start; background: rgba(255,255,255,0.07); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer; transition:0.2s; display:inline-flex; gap:8px; align-items:center; }
 .order-reset-btn:hover { background: rgba(255,255,255,0.14); }
 .order-actions-row { display:flex; flex-wrap:wrap; gap:10px; }
@@ -1949,14 +1981,14 @@ body{
 
 /* HEADER PROGRESS BAR */
 #header-progress {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 3px;
     background: var(--vk);
     width: 0%;
     transition: width 0.1s linear, opacity 0.3s;
-    z-index: 102;
+    z-index: 1200;
     opacity: 0;
     pointer-events: none;
     box-shadow: 0 0 10px var(--vk);
@@ -2261,6 +2293,9 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     gap: 15px;
     transition: transform 0.2s;
     cursor: none;
+    break-inside: avoid;
+    width: 100%;
+    box-sizing: border-box;
 }
 .review-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.2); background: #262629; }
 .review-avatar {
@@ -3009,20 +3044,24 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 }
 
 /* 3. НОВЫЙ ДИЗАЙН ПОИСКА И ДАТ */
+.search-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
 #portfolio-search-bar {
     background: #000;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 16px;
     padding: 10px 14px;
-    margin-bottom: 24px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+    flex: 1;
     display: none;
     align-items: center;
     gap: 14px;
-    justify-content: space-between;
 }
 
 #portfolio-search-bar.visible { display: flex; }
@@ -3071,18 +3110,23 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 
 .date-filter {
     position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 #date-toggle {
     background: #1f1f21;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px;
-    padding: 9px 14px;
+    padding: 10px 16px;
     font-size: 13px;
     color: #fff;
     cursor: pointer;
     font-weight: 700;
     min-width: 110px;
+    height: 100%;
 }
 
 #date-toggle:hover {
@@ -3137,7 +3181,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 /* 5. ТУЛТИПЫ */
 .dynamic-tooltip {
     pointer-events: auto !important;
-    padding: 16px;
+    padding: 12px 14px;
     background: #19191a;
     border: 1px solid rgba(255,255,255,0.15);
     box-shadow: 0 10px 40px rgba(0,0,0,0.8);
@@ -3147,6 +3191,35 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     max-width: 280px;
     text-align: left;
     transition: opacity 0.2s, transform 0.2s;
+}
+.dynamic-tooltip::before,
+.dynamic-tooltip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dynamic-tooltip::before {
+    bottom: -11px;
+    border: 11px solid transparent;
+    border-top-color: rgba(255,255,255,0.15);
+}
+.dynamic-tooltip::after {
+    bottom: -10px;
+    border: 10px solid transparent;
+    border-top-color: #19191a;
+}
+.dynamic-tooltip[data-placement="bottom"]::before {
+    bottom: auto;
+    top: -11px;
+    border-top-color: transparent;
+    border-bottom-color: rgba(255,255,255,0.15);
+}
+.dynamic-tooltip[data-placement="bottom"]::after {
+    bottom: auto;
+    top: -10px;
+    border-top-color: transparent;
+    border-bottom-color: #19191a;
 }
 
 .tooltip-example-link {
@@ -3190,9 +3263,8 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 }
 
 #order-text-area {
-    resize: none !important;
-    overflow-y: hidden !important;
     border-bottom-right-radius: 10px;
+    min-height: 230px;
 }
 
 .order-reset-area {
@@ -3206,6 +3278,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 </style>
 </head>
 <body><div id="modal-progress-bar"></div>
+<div id="header-progress"></div>
 
 
 
@@ -3225,7 +3298,6 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <button id="sort" class="btn" onclick="toggleChronological()" title="Сменить порядок">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="22" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg>
     </button>
-    <div id="header-progress"></div>
   </div>
   
   
@@ -3234,10 +3306,12 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <button class="tab-btn" onclick="switchTab('tariffs', this)">Тарифы & Услуги</button>
   </div>
   <div id="tab-portfolio" class="tab-content" style="display:block;">
-<div id="portfolio-search-bar" class="portfolio-search" aria-hidden="true">
-  <div class="search-input-wrapper">
-    <input id="portfolio-search" type="search" placeholder="Поиск по названию, описанию или тегам" aria-label="Поиск по работам">
-    <span id="search-clear" class="search-clear" role="button" aria-label="Очистить поиск" onclick="clearPortfolioSearch()">×</span>
+<div class="search-row">
+  <div id="portfolio-search-bar" class="portfolio-search" aria-hidden="true">
+    <div class="search-input-wrapper">
+      <input id="portfolio-search" type="search" placeholder="Поиск по названию, описанию или тегам" aria-label="Поиск по работам">
+      <span id="search-clear" class="search-clear" role="button" aria-label="Очистить поиск" onclick="clearPortfolioSearch()">×</span>
+    </div>
   </div>
   <div class="date-filter">
     <button id="date-toggle" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleDateDropdown()">Дата ▾</button>
@@ -3299,12 +3373,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
           <label class="choice-pill active" title="Статичная мобильная обложка">
             <input type="radio" name="mobile-cover-standard" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" checked onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
-            <span class="visually-hidden">Статичная</span>
+            <span class="pill-label">Статичная</span>
+            <span class="info-icon pill-info" data-tooltip="Спокойная статичная обложка для мобильной версии." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
           </label>
           <label class="choice-pill" title="Анимированная мобильная обложка">
             <input type="radio" name="mobile-cover-standard" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
-            <span class="visually-hidden">Анимированная</span>
+            <span class="pill-label">Анимированная</span>
+            <span class="info-icon pill-info" data-tooltip="Анимированная мобильная обложка с легким движением." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
           </label>
         </div>
       </div>
@@ -3464,12 +3540,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
           <label class="choice-pill" title="Статичная мобильная обложка">
             <input type="radio" name="mobile-cover-premium" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
-            <span class="visually-hidden">Статичная</span>
+            <span class="pill-label">Статичная</span>
+            <span class="info-icon pill-info" data-tooltip="Спокойная мобильная обложка без анимации." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
           </label>
           <label class="choice-pill active" title="Анимированная мобильная обложка">
             <input type="radio" name="mobile-cover-premium" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
-            <span class="visually-hidden">Анимированная</span>
+            <span class="pill-label">Анимированная</span>
+            <span class="info-icon pill-info" data-tooltip="Анимированная версия для привлечения внимания в мобильной ленте." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
           </label>
         </div>
       </div>
@@ -3644,12 +3722,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
           <label class="choice-pill" title="Статичная мобильная обложка">
             <input type="radio" name="mobile-cover-vip" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
-            <span class="visually-hidden">Статичная</span>
+            <span class="pill-label">Статичная</span>
+            <span class="info-icon pill-info" data-tooltip="Статичная версия для VIP-пакета." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
           </label>
           <label class="choice-pill active" title="Анимированная мобильная обложка">
             <input type="radio" name="mobile-cover-vip" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
             <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
-            <span class="visually-hidden">Анимированная</span>
+            <span class="pill-label">Анимированная</span>
+            <span class="info-icon pill-info" data-tooltip="Движущаяся VIP-обложка для мобильных устройств." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
           </label>
         </div>
       </div>
@@ -3873,16 +3953,12 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         <img id="full" class="modal-full"><div id="modal-loader" class="loader-spinner"></div>
       </div>
       <button class="nav nav-right" onclick="move(1)">&#10095;</button>
-      <div class="modal-bottom-bar">
-        <div class="left">
-          <span id="photo-index"></span>
+        <div class="modal-bottom-bar">
+          <div class="left">
           <a id="photo-album-link" class="album-link" href="#" target="_blank" rel="noopener"></a>
+          <span id="photo-index"></span>
         </div>
         <div class="right">
-          <a id="comment-link" class="comment-link" href="#" target="_blank" rel="noopener">
-            <span class="comment-avatar-placeholder" aria-hidden="true"></span>
-            <span>Написать комментарий</span>
-          </a>
           <a id="vk-link-orig" href="#" target="_blank" class="vk-link-bottom">Открыть в ВК</a>
 
 
@@ -3963,6 +4039,16 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
                 </button>
             </div>
             <textarea id="order-text-area" class="order-textarea" readonly></textarea>
+            <div id="order-hint-card" class="order-hint-card" aria-live="polite">
+                <div class="order-hint-avatar-wrap">
+                    <img id="order-hint-avatar" class="order-hint-avatar" src="https://vk.com/images/camera_50.png" alt="Аватар" loading="lazy">
+                    <span class="order-hint-online" aria-hidden="true"></span>
+                </div>
+                <div class="order-hint-copy">
+                    <div class="order-hint-title">На связи онлайн</div>
+                    <p class="order-hint-text">Напишите мне в удобной соцсети — отвечу быстро, предложу лучшие варианты по тарифу и бонусы за скорость.</p>
+                </div>
+            </div>
             <p style="margin:8px 0 0; color: #555; font-size:12px;">Текст заявки сформирован автоматически</p>
         </div>
 
@@ -3994,6 +4080,7 @@ const TARIFF_STATE_KEY = 'tariff_config_v1';
 const TARIFF_CONFIG_PARAM = 'config';
 
 let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set(); let lastOrderText = '', lastOrderTotal = '—'; let orderCleared = false;
+const ORDER_HINT_TEXT = 'Напишите мне в удобной соцсети — отвечу быстро, помогу подобрать наполнение и предложу бонусы за оперативность.';
 let reviewsLoaded = 0, reviewsTotal = 0, reviewsWrap = null, reviewsLoading = false, reviewsProfiles = [], reviewsGroups = [], reviewsObserver = null, reviewsSentinel = null, reviewsSortOrder = 'desc';
 let services = [], currentServiceId = null;
 let currentFolderId = null;
@@ -4078,7 +4165,10 @@ function getMatchSnippet(p) {
   const start = Math.max(0, matchIndex - 30);
   const end = Math.min(source.length, matchIndex + normalized.length + 30);
   const snippet = source.slice(start, end);
-  const safe = (start > 0 ? '…' : '') + snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const clippedStart = start > 0;
+  const clippedEnd = end < source.length;
+  const safeSnippet = snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const safe = `${clippedStart ? '…' : ''}${safeSnippet}${clippedEnd ? '…' : ''}`;
   const reg = new RegExp(`(^|[^\\p{L}\\d])(${escapeRegExp(searchQuery)})($|[^\\p{L}\\d])`, 'giu');
   return safe.replace(reg, (_, p1, p2, p3) => `${p1}<mark>${p2}</mark>${p3}`);
 }
@@ -4280,13 +4370,14 @@ function renderGroupHeader(g) {
 
 window.setGroup = d => { 
     if(d.response) {
-        groupInfo = d.response[0]; 
+        groupInfo = d.response[0];
         renderGroupHeader(groupInfo);
     updateFooterMembers();
 
         const avatarUrl = groupInfo.photo_200 || groupInfo.photo_100 || groupInfo.photo_50 || 'https://vk.com/images/camera_200.png';
         document.getElementById('bubble-avatar').src = avatarUrl;
         document.getElementById('header-avatar').src = avatarUrl;
+        updateOrderHintAvatar();
     }
 };
 api('groups.getById', `group_id=dsgnjr&fields=members_count,photo_200,photo_100,photo_50,description,status`, 'setGroup');
@@ -5294,15 +5385,16 @@ function clearOrderPreview(dropState = true){
   if(instructions) instructions.textContent = 'Выберите удобный способ для связи и обсуждения проекта';
   const area = document.getElementById('order-text-area');
   if(area) {
-    area.value = '';
+    area.value = ORDER_HINT_TEXT;
     autosizeOrderArea();
   }
+  setOrderHintVisible(true);
   if(dropState){
     lastOrderText = '';
     lastOrderTotal = '—';
     orderCleared = true;
   } else {
-    orderCleared = !lastOrderText;
+    orderCleared = false;
   }
   toggleOrderButtons(false);
 }
@@ -5323,6 +5415,7 @@ function openOrder(skipReset = false){
   if(!modal) return;
   if(!skipReset) resetOrderModal();
   primeOrderPreview();
+  updateOrderHintAvatar();
   modal.classList.add('open');
 }
 
@@ -6656,6 +6749,7 @@ function setOrderPreview(payload){
   }
   const instructions = document.getElementById('order-instructions');
   if(instructions) instructions.innerHTML = 'Отправьте заявку кнопками выше или выберите удобный мессенджер ниже.';
+  setOrderHintVisible(false);
   toggleOrderButtons(!!payload.text);
 }
 
@@ -6664,6 +6758,19 @@ function autosizeOrderArea() {
   if(!area) return;
   area.style.height = 'auto';
   area.style.height = area.scrollHeight + 'px';
+}
+
+function setOrderHintVisible(show) {
+  const card = document.getElementById('order-hint-card');
+  if(!card) return;
+  card.style.display = show ? 'flex' : 'none';
+}
+
+function updateOrderHintAvatar() {
+  const avatar = document.getElementById('order-hint-avatar');
+  if(!avatar) return;
+  const src = groupInfo?.photo_100 || groupInfo?.photo_50 || avatar.src;
+  avatar.src = src;
 }
 
 function sendOrder(btn, tariffName){
