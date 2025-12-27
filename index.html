@@ -2907,28 +2907,27 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 .tariff-feature-item .item-left {
     display: grid;
     grid-template-columns: 24px 1fr;
-    gap: 12px;
+    gap: 10px;
     align-items: start;
 }
 
 .feature-checkbox {
-    margin-top: 3px;
-    width: 20px;
-    height: 20px;
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
 }
 
 .feature-text-wrapper {
-    display: inline;
-    line-height: 1.5;
-    position: relative;
+    display: inline-block;
+    line-height: 1.4;
+    vertical-align: top;
 }
 
 .tariff-feature-item .info-icon {
     display: inline-flex;
     vertical-align: middle;
     margin-left: 6px;
-    position: relative;
-    top: -1px;
+    margin-top: -2px;
 }
 
 /* 2. КНОПКА ВК */
@@ -2945,28 +2944,37 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     transform: translateY(0);
 }
 
-/* 3. НОВЫЙ ДИЗАЙН ПОИСКА */
+/* 3. НОВЫЙ ДИЗАЙН ПОИСКА И ДАТ */
 #portfolio-search-bar {
     background: #000;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 16px;
-    padding: 8px 16px;
+    padding: 10px 14px;
     margin-bottom: 24px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    max-width: 800px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     display: none;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
+    justify-content: space-between;
 }
 
 #portfolio-search-bar.visible { display: flex; }
 
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+}
+
 #portfolio-search {
     font-size: 15px;
     font-weight: 500;
-    padding: 10px;
+    padding: 10px 36px 10px 10px;
     flex: 1;
     background: transparent;
     border: none;
@@ -2974,56 +2982,92 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     outline: none;
 }
 
-#portfolio-search-bar button {
+.search-clear {
+    position: absolute;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.search-clear.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.date-filter {
+    position: relative;
+}
+
+#date-toggle {
     background: #1f1f21;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px;
-    padding: 8px 16px;
+    padding: 9px 14px;
     font-size: 13px;
-    color: #9fa0a5;
+    color: #fff;
     cursor: pointer;
     font-weight: 700;
-}
-#portfolio-search-bar button:hover {
-    background: #333;
-    color: #fff;
+    min-width: 110px;
 }
 
-/* 4. НОВЫЙ ДИЗАЙН ФИЛЬТРА ПО ГОДАМ */
-#years-bar {
-    background: rgba(255,255,255,0.03);
-    padding: 6px;
-    border-radius: 50px;
-    display: inline-flex;
-    gap: 0;
-    margin: 0 auto 30px auto;
-    border: 1px solid rgba(255,255,255,0.05);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+#date-toggle:hover {
+    background: #333;
 }
+
+#years-bar {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    background: #0f0f10;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 160px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 40;
+}
+
+#years-bar.open { display: flex; }
 
 .year-chip {
     background: transparent;
-    border: none;
-    color: #777;
-    font-weight: 600;
-    padding: 8px 18px;
-    border-radius: 40px;
-    font-size: 14px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #ddd;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: left;
+    transition: all 0.2s;
 }
-
-.year-chip:hover {
-    color: #fff;
-    background: rgba(255,255,255,0.05);
-}
-
+.year-chip:hover { background: rgba(255,255,255,0.06); color: #fff; }
 .year-chip.active {
-    background: #fff;
-    color: #000;
-    box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+    background: rgba(0,119,255,0.15);
+    border-color: rgba(0,119,255,0.45);
+    color: #fff;
 }
+
+/* 4. VIP ДИЗАЙН */
+.tariff-wrapper[data-tariff-name="VIP"] .discount-badge {
+    background: #F4E7C3 !important;
+    color: #5A4820 !important;
+    font-weight: 800;
+}
+
 
 /* 5. ТУЛТИПЫ */
 .dynamic-tooltip {
@@ -3062,7 +3106,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 /* 6. КНОПКА СБРОСА ЗАЯВКИ */
 .order-reset-area {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-bottom: 10px;
 }
 .order-reset-btn-new {
@@ -3078,6 +3122,16 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+#order-text-area {
+    resize: none !important;
+    overflow-y: hidden !important;
+    border-bottom-right-radius: 10px;
+}
+
+.order-reset-area {
+    width: 100%;
 }
 .order-reset-btn-new:hover {
     background: rgba(255,50,50,0.1);
@@ -3116,11 +3170,15 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
   </div>
   <div id="tab-portfolio" class="tab-content" style="display:block;">
 <div id="portfolio-search-bar" class="portfolio-search" aria-hidden="true">
-  <input id="portfolio-search" type="search" placeholder="Поиск по названию, описанию или тегам" aria-label="Поиск по работам">
-  <button type="button" onclick="clearPortfolioSearch()">Очистить</button>
+  <div class="search-input-wrapper">
+    <input id="portfolio-search" type="search" placeholder="Поиск по названию, описанию или тегам" aria-label="Поиск по работам">
+    <span id="search-clear" class="search-clear" role="button" aria-label="Очистить поиск" onclick="clearPortfolioSearch()">×</span>
+  </div>
+  <div class="date-filter">
+    <button id="date-toggle" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleDateDropdown()">Дата ▾</button>
+    <div id="years-bar" aria-hidden="true"></div>
+  </div>
 </div>
-<div id="years-bar"></div>
-<div id="months-bar"></div>
 <div id="tags-bar" class="tags-container" style="display:none;"></div>
   
   <div id="area">Загрузка...</div>
@@ -3643,7 +3701,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         
         <div class="speed-badge">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <div>Высокая скорость выполнения проекта: Вы вне очереди <span class="info-icon" data-tooltip="Приоритетное выполнение: ваш проект идёт без очереди, сроки максимально сжатые." data-example="https://i.imgur.com/G3gTi5V.jpg">?</span></div>
+        <div>Высокая скорость выполнения проекта: Вы вне очереди <span class="info-icon" data-tooltip="Приоритетное выполнение: ваш проект идёт без очереди, сроки максимально сжатые.">?</span></div>
         </div>
         
         <div class="tariff-price">30 000 ₽</div>
@@ -3875,6 +3933,7 @@ let restoringTariffs = false;
 const SEARCH_KEY = 'portfolio_search_query_v1';
 let searchQuery = '';
 let searchInput = null;
+let searchClearBtn = null;
 
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
@@ -3974,14 +4033,22 @@ function toggleSearchBar(visible) {
   if (searchInput) searchInput.disabled = !visible;
 }
 
+function updateSearchClearVisibility() {
+  if (!searchClearBtn || !searchInput) return;
+  const hasText = !!searchInput.value.trim();
+  searchClearBtn.classList.toggle('visible', hasText);
+}
+
 function handleSearchChange(value) {
   searchQuery = value.trim();
   persistSearchQuery(searchQuery);
+  updateSearchClearVisibility();
   if (alb) renderPhotosFromData();
 }
 
 function initPortfolioSearch() {
   searchInput = document.getElementById('portfolio-search');
+  searchClearBtn = document.getElementById('search-clear');
   if (!searchInput) return;
   restoreSearchQuery();
   searchQuery = '';
@@ -3989,6 +4056,7 @@ function initPortfolioSearch() {
   const debounced = debounce(v => handleSearchChange(v), 250);
   searchInput.addEventListener('input', (e) => debounced(e.target.value));
   searchInput.addEventListener('keydown', (e) => { if (e.key === 'Escape') clearPortfolioSearch(); });
+  updateSearchClearVisibility();
 }
 
 function clearPortfolioSearch() {
@@ -5144,7 +5212,10 @@ function clearOrderPreview(dropState = true){
   const instructions = document.getElementById('order-instructions');
   if(instructions) instructions.textContent = 'Выберите удобный способ для связи и обсуждения проекта';
   const area = document.getElementById('order-text-area');
-  if(area) area.value = '';
+  if(area) {
+    area.value = '';
+    autosizeOrderArea();
+  }
   if(dropState){
     lastOrderText = '';
     lastOrderTotal = '—';
@@ -5205,11 +5276,11 @@ function copyLink() {
 
 function copyOrderText(){
     if(!lastOrderText) { 
-        showToast('⚠️ Сначала выберите услуги в тарифах'); 
+        showToast('Сначала выберите услуги в тарифах'); 
         return; 
     }
     navigator.clipboard.writeText(lastOrderText).then(() => {
-        showToast('✅ Состав заказа скопирован!');
+        showToast('Состав заказа скопирован!');
     });
 }
 
@@ -5317,7 +5388,7 @@ function toggleRef(id, url) {
     } else {
         selectedRefs.add(url);
         if(selectedRefs.size > 3) {
-            showToast('⚠️ Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)');
+            showToast('Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)');
         }
         if(btn) { btn.classList.add('active'); btn.innerText = 'В референсах (удалить)'; }
     }
@@ -5337,6 +5408,10 @@ function clearRefs() {
 
 
 function showToast(msg) {
+    if (typeof window.showToast === 'function') {
+        window.showToast(msg);
+        return;
+    }
     let t = document.getElementById('toast');
     if(!t) {
         t = document.createElement('div');
@@ -5359,7 +5434,7 @@ function toggleRef(id, url) {
     } else {
         selectedRefs.add(url);
         if(selectedRefs.size > 3) {
-            showToast('⚠️ Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)');
+            showToast('Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)');
         }
         if(btn) {
             btn.classList.add('active');
@@ -5509,7 +5584,7 @@ function hideDynamicTooltip() {
     tooltipTimeout = setTimeout(() => {
         dynamicTooltip.style.opacity = '0';
         dynamicTooltip.style.visibility = 'hidden';
-    }, 200);
+    }, 300);
 }
 
 document.addEventListener('mouseover', (e) => {
@@ -5565,36 +5640,8 @@ const REF_KEY = 'refs_v5';
 const REF_TIME = 'refs_time_v5';
 
 // --- YEAR FILTER LOGIC ---
-function renderYears() {
-    const years = new Set();
-    raw.forEach(p => {
-        if(p.date) {
-            const y = new Date(p.date * 1000).getFullYear();
-            years.add(y);
-        }
-    });
-    const sortedYears = Array.from(years).sort((a,b) => b - a);
-
-    const container = document.getElementById('years-bar');
-    if(sortedYears.length < 2) { 
-        container.style.display = 'none'; 
-        return; 
-    }
-
-    container.style.display = 'flex';
-    container.innerHTML = `<button class="year-chip ${activeYear===null?'active':''}" onclick="filterByYear(null, this)">Все года</button>`;
-
-    sortedYears.forEach(y => {
-        container.innerHTML += `<button class="year-chip ${activeYear===y?'active':''}" onclick="filterByYear(${y}, this)">${y}</button>`;
-    });
-}
-
-function filterByYear(year, btn) {
-    activeYear = year;
-    document.querySelectorAll('.year-chip').forEach(b => b.classList.remove('active'));
-    if(btn) btn.classList.add('active');
-    renderPhotosFromData(); // Re-render grid
-}
+function renderYears() { renderDateFilters(); }
+function filterByYear(year) { setYear(year); }
 
 // --- SCROLL ---
 const indicator = document.getElementById('scroll-indicator');
@@ -5723,10 +5770,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const n = document.querySelector('.navbar');
     if(i && n) i.onclick = () => n.classList.toggle('active');
     initPortfolioSearch();
+    attachDisabledCheckboxGuards();
 });
 </script>
 
-<div id="toast-notification">⚠️ Лучше выбрать 2-3 примера, этого достаточно</div>
+<div id="toast-notification">Лучше выбрать 2-3 примера, этого достаточно</div>
        <div id="verified-tooltip" style="display:none; position:absolute; background:#19191a; border:1px solid rgba(255,255,255,0.1); padding:16px; border-radius:12px; width:260px; box-shadow:0 10px 40px rgba(0,0,0,0.8); z-index:10060; text-align:left; pointer-events:none;">
             <div style="font-weight:600; color:#fff; margin-bottom:6px; font-size:14px;">Верифицированное сообщество</div>
             <div style="color:#9fa0a5; font-size:13px; line-height:1.4;">Это официальное сообщество известной персоны или организации.</div>
@@ -5741,6 +5789,20 @@ var globalReviewsCount = 0;
 const MY_OWNER_ID = '163936790'; 
 const MY_TOPIC_ID = '37742383';
 const monthNamesList = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+
+function attachDisabledCheckboxGuards() {
+    document.querySelectorAll('.feature-checkbox:disabled').forEach(input => {
+        const label = input.closest('label') || input.closest('.item-left');
+        if (!label || label.dataset.guardAttached) return;
+        label.dataset.guardAttached = '1';
+        label.addEventListener('click', (e) => {
+            if (input.disabled) {
+                e.preventDefault();
+                showToast("Нельзя отключить стандартные элементы тарифа");
+            }
+        });
+    });
+}
 
 // 1. CURSOR
 (function() {
@@ -5951,48 +6013,61 @@ window.renderPhotosFromData = function() {
 // 5. REST OF LOGIC
 function renderDateFilters() {
     const years = new Set();
-    const monthsInYear = {};
     raw.forEach(p => {
-        if(p.date) {
+        if (p.date) {
             const d = new Date(p.date * 1000);
-            const y = d.getFullYear();
-            const m = d.getMonth();
-            years.add(y);
-            if(!monthsInYear[y]) monthsInYear[y] = new Set();
-            monthsInYear[y].add(m);
+            years.add(d.getFullYear());
         }
     });
 
-    const sortedYears = Array.from(years).sort((a,b) => b - a);
-    const yContainer = document.getElementById('years-bar');
-    const mContainer = document.getElementById('months-bar');
-    if(!yContainer) return;
+    const sortedYears = Array.from(years).sort((a, b) => b - a);
+    const menu = document.getElementById('years-bar');
+    const toggle = document.getElementById('date-toggle');
+    if (!menu || !toggle) return;
 
-    if(sortedYears.length < 2) {
-        yContainer.style.display = 'none';
-        if(mContainer) mContainer.style.display = 'none';
+    if (sortedYears.length < 2) {
+        toggle.style.display = 'none';
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
         return;
     }
 
-    yContainer.style.display = 'flex';
-    yContainer.innerHTML = `<button class="year-chip ${activeYear===null?'active':''}" onclick="setYear(null)">Все</button>` + 
-        sortedYears.map(y => `<button class="year-chip ${activeYear===y?'active':''}" onclick="setYear(${y})">${y}</button>`).join('');
-
-    if(mContainer) {
-        if(activeYear && monthsInYear[activeYear]) {
-            const sortedMonths = Array.from(monthsInYear[activeYear]).sort((a,b) => a - b);
-            mContainer.style.display = 'flex';
-            mContainer.innerHTML = `<button class="month-chip ${activeMonth===null?'active':''}" onclick="setMonth(null)">Весь год</button>` + 
-                sortedMonths.map(m => `<button class="month-chip ${activeMonth===m?'active':''}" onclick="setMonth(${m})">${monthNamesList[m]}</button>`).join('');
-        } else {
-            mContainer.style.display = 'none';
-        }
-    }
+    toggle.style.display = 'inline-flex';
+    menu.innerHTML = `<button class="year-chip ${activeYear===null?'active':''}" onclick="setYear(null, true)">Все года</button>`;
+    sortedYears.forEach(y => {
+        menu.innerHTML += `<button class="year-chip ${activeYear===y?'active':''}" onclick="setYear(${y}, true)">${y}</button>`;
+    });
+    toggle.textContent = activeYear ? `Дата: ${activeYear}` : 'Дата ▾';
+    const isOpen = menu.classList.contains('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
 }
 
-window.setYear = function(y) { activeYear = y; activeMonth = null; renderDateFilters(); renderPhotosFromData(); };
+function toggleDateDropdown(force) {
+    const menu = document.getElementById('years-bar');
+    const toggle = document.getElementById('date-toggle');
+    if (!menu || !toggle) return;
+    const willOpen = force === undefined ? !menu.classList.contains('open') : !!force;
+    menu.classList.toggle('open', willOpen);
+    toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    menu.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+    if (willOpen) renderDateFilters();
+}
+
+window.setYear = function(y, closeDropdown = false) {
+    activeYear = y;
+    activeMonth = null;
+    if (closeDropdown) toggleDateDropdown(false);
+    renderDateFilters();
+    renderPhotosFromData();
+};
 window.setMonth = function(m) { activeMonth = m; renderDateFilters(); renderPhotosFromData(); };
-window.renderYears = function() { renderDateFilters(); }; 
+window.renderYears = function() { renderDateFilters(); };
+
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.date-filter')) toggleDateDropdown(false);
+});
 
 window.toggleRefBtn = function(url, btn) {
     if(selectedRefs.has(url)) {
@@ -6000,7 +6075,7 @@ window.toggleRefBtn = function(url, btn) {
     } else {
         selectedRefs.add(url);
         if(selectedRefs.size > 3) {
-            showToast("⚠️ Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)");
+            showToast("Лучше выбрать 2-3 примера, этого достаточно (но можно и больше)");
         }
     }
     updateRefBar();
@@ -6045,16 +6120,15 @@ window.updateRefBar = function() {
 window.copyRefLinks = function() {
     const links = [...selectedRefs];
     const text = "Мне понравились вот эти примеры:\n\n" + links.join('\n');
-    navigator.clipboard.writeText(text).then(() => { showToast("✅ Ссылки скопированы!"); }).catch(err => { showToast("❌ Ошибка копирования"); });
+    navigator.clipboard.writeText(text).then(() => { showToast("Ссылки скопированы!"); }).catch(err => { showToast("Ошибка копирования"); });
 };
 
 window.showToast = function(msg) {
     const t = document.getElementById('toast-notification');
-    if(t) {
-        t.innerText = msg;
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 3500);
-    }
+    if (!t) return;
+    t.innerHTML = `<span>${msg}</span>`;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
 }
 
 document.addEventListener('keydown', (e) => {
@@ -6294,11 +6368,15 @@ function changeQty(btn, delta, minQty, maxQty) {
     minQty = parseInt(li.dataset.min || String(minQty), 10);
     maxQty = parseInt(li.dataset.max || String(maxQty), 10);
   }
-  let v = parseInt(valEl.textContent || '0', 10);
-  v += delta;
-  if(v < minQty) v = minQty;
-  if(maxQty >= 0 && v > maxQty) v = maxQty;
-  valEl.textContent = v;
+  const currentVal = parseInt(valEl.textContent || '0', 10);
+  const newVal = currentVal + delta;
+  if(newVal < minQty) {
+    showToast("Нельзя уменьшить ниже минимума");
+    return;
+  }
+  let clamped = newVal;
+  if(maxQty >= 0 && clamped > maxQty) clamped = maxQty;
+  valEl.textContent = clamped;
   const wrapper = btn.closest('.tariff-wrapper');
   if(wrapper) recalcPrice(wrapper);
 }
@@ -6478,10 +6556,20 @@ function setOrderPreview(payload){
   const sumEl = modal.querySelector('#order-total-sum');
   if(sumEl) sumEl.textContent = payload.totalText || '—';
   const area = document.getElementById('order-text-area');
-  if(area) area.value = payload.text || '';
+  if(area) {
+    area.value = payload.text || '';
+    autosizeOrderArea();
+  }
   const instructions = document.getElementById('order-instructions');
   if(instructions) instructions.innerHTML = 'Отправьте заявку кнопками выше или выберите удобный мессенджер ниже.';
   toggleOrderButtons(!!payload.text);
+}
+
+function autosizeOrderArea() {
+  const area = document.getElementById('order-text-area');
+  if(!area) return;
+  area.style.height = 'auto';
+  area.style.height = area.scrollHeight + 'px';
 }
 
 function sendOrder(btn, tariffName){
