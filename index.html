@@ -1282,7 +1282,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .section-title { font-size:32px; font-weight:800; margin:0 0 10px; color:#fff; }
 .section-subtitle { color: var(--text-sec); margin:0; font-size:16px; }
 
-.tariffs-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:30px; max-width:1200px; margin:0 auto 80px; padding:0 20px; align-items:flex-start; }
+.tariffs-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap:30px; max-width:1340px; margin:0 auto 80px; padding:0 20px; align-items:flex-start; }
 
 .tariff-wrapper { display:flex; flex-direction:column; gap:30px; }
 .tariff-card { background:#1f1f21; border:1px solid rgba(255,255,255,0.05); border-radius:24px; padding:40px 30px; display:flex; flex-direction:column; transition:.3s; text-align:left; }
@@ -3639,7 +3639,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
             <p style="margin:0; color: var(--text-sec); font-size:13px;">Состав заявки и итог сразу готовы к отправке</p>
             <button class="order-reset-btn" type="button" onclick="clearOrderSelection()">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h6m6 0h6M9 6a3 3 0 0 1 6 0m-9 0 1 14h10l1-14"/><path d="m10 11 4 4m0-4-4 4"/></svg>
-                Очистить выбор
+                Сбросить заявку
             </button>
             <textarea id="order-text-area" class="order-textarea" readonly></textarea>
         </div>
@@ -3671,7 +3671,7 @@ const REVIEW_TOPIC_ID = '37742383';
 const TARIFF_STATE_KEY = 'tariff_config_v1';
 const TARIFF_CONFIG_PARAM = 'config';
 
-let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set(); let lastOrderText = '', lastOrderTotal = '—';
+let photos = [], raw = [], idx = 0, hist = [], covers = {}, alb = null, rev = 0, revReviews = 0, albumCounts = {}, groupInfo = null, currentMenu = [], totalWorks = 0; let selectedRefs = new Set(); let lastOrderText = '', lastOrderTotal = '—'; let orderCleared = false;
 let reviewsLoaded = 0, reviewsTotal = 0, reviewsWrap = null, reviewsLoading = false, reviewsProfiles = [], reviewsGroups = [], reviewsObserver = null, reviewsSentinel = null, reviewsSortOrder = 'desc';
 let services = [], currentServiceId = null;
 let currentFolderId = null;
@@ -4941,7 +4941,7 @@ modalContent.addEventListener('touchend', (e) => {
 }, {passive: true});
 
 
-function resetOrderModal(){
+function clearOrderPreview(dropState = true){
   const modal = document.getElementById('order-modal');
   if(!modal) return;
   modal.classList.remove('has-order');
@@ -4951,8 +4951,19 @@ function resetOrderModal(){
   if(instructions) instructions.textContent = 'Выберите удобный способ для связи и обсуждения проекта';
   const area = document.getElementById('order-text-area');
   if(area) area.value = '';
+  if(dropState){
+    lastOrderText = '';
+    lastOrderTotal = '—';
+    orderCleared = true;
+  } else {
+    orderCleared = !lastOrderText;
+  }
   toggleOrderButtons(false);
-  if(lastOrderText){
+}
+
+function resetOrderModal(preserveLast = true){
+  clearOrderPreview(!preserveLast);
+  if(preserveLast && lastOrderText){
     setOrderPreview({ totalText: lastOrderTotal, text: lastOrderText });
   }
 }
@@ -6236,6 +6247,7 @@ function setOrderPreview(payload){
   modal.classList.add('has-order');
   lastOrderText = payload.text || '';
   lastOrderTotal = payload.totalText || '—';
+  orderCleared = false;
   const sumEl = modal.querySelector('#order-total-sum');
   if(sumEl) sumEl.textContent = payload.totalText || '—';
   const area = document.getElementById('order-text-area');
@@ -6349,7 +6361,7 @@ function updateGlobalSummary(){
 }
 
 function primeOrderPreview(force = false){
-  if(!force && lastOrderText) return;
+  if(!force && (lastOrderText || orderCleared)) return;
   const first = document.querySelector('.tariff-wrapper');
   if(!first) return;
   const tariffName = (first.dataset.tariffName || first.querySelector('.tariff-title')?.textContent || 'Тариф').trim();
@@ -6357,21 +6369,21 @@ function primeOrderPreview(force = false){
   if(payload) setOrderPreview(payload);
 }
 
-function resetTariffSelections(){
-  const modal = document.getElementById('order-modal');
-  if(modal) modal.classList.remove('has-order');
-  lastOrderText = '';
-  lastOrderTotal = '—';
+function resetTariffSelections(skipPreview = false){
+  clearOrderPreview();
   try { localStorage.removeItem(TARIFF_STATE_KEY); } catch(e) {}
   updateConfigParam(null, true);
   if(tariffDefaults){
     applyTariffStateSnapshot(tariffDefaults);
-    primeOrderPreview(true);
+    updateGlobalSummary();
+    if(!skipPreview) primeOrderPreview(true);
+  } else {
+    updateGlobalSummary();
   }
 }
 
 function clearOrderSelection(){
-  resetTariffSelections();
+  resetTariffSelections(true);
   const modal = document.getElementById('order-modal');
   if(modal) modal.scrollTop = 0;
 }
