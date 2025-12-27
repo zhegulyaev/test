@@ -1456,6 +1456,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .choice-pill.active { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.45); color:#fff; box-shadow: 0 8px 18px rgba(255,51,51,0.2); }
 .choice-pill input { display:none; }
 .choice-pill .pill-visual { display:flex; align-items:center; justify-content:center; width: 30px; height: 30px; }
+.choice-pills[data-label="Мобильная обложка"] .pill-label { display: none; }
 .pill-label { font-weight: 800; letter-spacing: 0.2px; color: #fff; font-size: 13px; }
 .pill-info { width:16px; height:16px; margin-left: 2px; }
 .cover-icon { width:18px; height:18px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
@@ -1473,7 +1474,7 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .choice-row .pill-visual { margin-left: 0; }
 .tariff-feature-item.choice-row { align-items:flex-start; }
 .choice-row { flex-direction:column; align-items:flex-start; gap:12px; }
-.choice-row .item-left { align-items:flex-start; }
+.choice-row .item-left { display:flex; flex-direction:column; align-items:flex-start; gap:10px; width:100%; }
 .mobile-cover-state { color: var(--text-main); font-size: 12px; font-weight: 800; letter-spacing: 0.1px; padding-left: 31px; line-height: 1.35; margin-top: -4px; display: flex; align-items: center; }
 
 .tariff-summary {
