@@ -2901,6 +2901,190 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 }
 
 </style>
+<style>
+/* --- PATCHED STYLES --- */
+/* 1. ВЫРАВНИВАНИЕ ТЕКСТА В ТАРИФАХ */
+.tariff-feature-item .item-left {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.feature-checkbox {
+    margin-top: 3px;
+    width: 20px;
+    height: 20px;
+}
+
+.feature-text-wrapper {
+    display: inline;
+    line-height: 1.5;
+    position: relative;
+}
+
+.tariff-feature-item .info-icon {
+    display: inline-flex;
+    vertical-align: middle;
+    margin-left: 6px;
+    position: relative;
+    top: -1px;
+}
+
+/* 2. КНОПКА ВК */
+.contact-link.link-vk {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    line-height: 1;
+}
+.contact-link.link-vk svg {
+    margin: 0;
+    display: block;
+    transform: translateY(0);
+}
+
+/* 3. НОВЫЙ ДИЗАЙН ПОИСКА */
+#portfolio-search-bar {
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
+#portfolio-search-bar.visible { display: flex; }
+
+#portfolio-search {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px;
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+}
+
+#portfolio-search-bar button {
+    background: #1f1f21;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #9fa0a5;
+    cursor: pointer;
+    font-weight: 700;
+}
+#portfolio-search-bar button:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* 4. НОВЫЙ ДИЗАЙН ФИЛЬТРА ПО ГОДАМ */
+#years-bar {
+    background: rgba(255,255,255,0.03);
+    padding: 6px;
+    border-radius: 50px;
+    display: inline-flex;
+    gap: 0;
+    margin: 0 auto 30px auto;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.year-chip {
+    background: transparent;
+    border: none;
+    color: #777;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 40px;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.year-chip:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.05);
+}
+
+.year-chip.active {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+}
+
+/* 5. ТУЛТИПЫ */
+.dynamic-tooltip {
+    pointer-events: auto !important;
+    padding: 16px;
+    background: #19191a;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 280px;
+    text-align: left;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.tooltip-example-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    color: #0077FF;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 12px;
+    background: rgba(0, 119, 255, 0.1);
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: .2s;
+    cursor: pointer;
+}
+.tooltip-example-link:hover {
+    background: rgba(0, 119, 255, 0.2);
+}
+
+/* 6. КНОПКА СБРОСА ЗАЯВКИ */
+.order-reset-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.order-reset-btn-new {
+    background: transparent;
+    color: #555;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.order-reset-btn-new:hover {
+    background: rgba(255,50,50,0.1);
+    color: #ff3333;
+}
+.order-reset-btn { display: none; }
+</style>
 </head>
 <body><div id="modal-progress-bar"></div>
 
@@ -2958,14 +3142,24 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Аватар" checked disabled>
-        <span>Аватар <span class="info-icon" data-tooltip="Изображение профиля/сообщества: логотип или фото.">?</span></span>
+        <div class="feature-text-wrapper">
+            Аватар
+            <span class="info-icon" 
+                  data-tooltip="Изображение профиля/сообщества: логотип или фото."
+                  data-example="https://sun9-33.userapi.com/impg/c858432/v858432367/1460c9/s-K0wK1Yv0c.jpg?size=1280x1280&quality=95&sign=e54e47a95724816c8438183182877e8a">?</span>
+        </div>
       </label>
     </li>
 
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Десктопная обложка" checked disabled>
-        <span>Десктопная обложка <span class="info-icon" data-tooltip="Шапка для ПК версии сообщества.">?</span></span>
+        <div class="feature-text-wrapper">
+            Десктопная обложка
+            <span class="info-icon" 
+                  data-tooltip="Шапка для ПК версии сообщества."
+                  data-example="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=80">?</span>
+        </div>
       </label>
     </li>
 
@@ -2996,7 +3190,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="1" data-label="Варианты дизайна десктопной обложки" data-min="1">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
-        <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
+        <div class="feature-text-wrapper">Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор." data-example="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 6)">−</button>
@@ -3008,7 +3202,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
+        <div class="feature-text-wrapper">Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\"." data-example="https://i.imgur.com/0Z7Yl9S.png">?</span></div>
       </label>
     </li>
     </ul>
@@ -3016,7 +3210,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="300" data-base-qty="0" data-label="Доп. иконки меню" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить доп. иконки">
-        <span>Доп. иконки меню <span class="info-icon" data-tooltip="Дополнительные иконки сверх 5 (макс. +3, итого до 8).">?</span></span>
+        <div class="feature-text-wrapper">Доп. иконки меню <span class="info-icon" data-tooltip="Дополнительные иконки сверх 5 (макс. +3, итого до 8)." data-example="https://i.imgur.com/0Z7Yl9S.png">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 3)">−</button>
@@ -3028,7 +3222,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Баннер для закрепа" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить баннер для закрепа">
-        <span>Баннер для закрепа <span class="info-icon" data-tooltip="Креатив для закрепленного поста.">?</span></span>
+        <div class="feature-text-wrapper">Баннер для закрепа <span class="info-icon" data-tooltip="Креатив для закрепленного поста." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 10)">−</button>
@@ -3040,7 +3234,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Баннеры для рекламы" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить баннеры для рекламы">
-        <span>Баннеры для рекламы <span class="info-icon" data-tooltip="Отдельные баннеры под рекламные размещения.">?</span></span>
+        <div class="feature-text-wrapper">Баннеры для рекламы <span class="info-icon" data-tooltip="Отдельные баннеры под рекламные размещения." data-example="https://i.imgur.com/2w9Y9wq.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 10)">−</button>
@@ -3052,7 +3246,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="500" data-base-qty="0" data-label="Карточки товаров" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить карточки товаров">
-        <span>Карточки товаров <span class="info-icon" data-tooltip="Добавьте оформление карточек товаров как в Премиум/VIP: регулируйте количество под ассортимент.">?</span></span>
+        <div class="feature-text-wrapper">Карточки товаров <span class="info-icon" data-tooltip="Добавьте оформление карточек товаров как в Премиум/VIP: регулируйте количество под ассортимент." data-example="https://i.imgur.com/9t6QqkB.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 20)">−</button>
@@ -3064,14 +3258,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон обложки статьи"  onchange="updatePrice(this)">
-        <span>Шаблон обложки статьи <span class="info-icon" data-tooltip="Шаблон для лонгридов/статей (редактируемый).">?</span></span>
+        <div class="feature-text-wrapper">Шаблон обложки статьи <span class="info-icon" data-tooltip="Шаблон для лонгридов/статей (редактируемый)." data-example="https://i.imgur.com/1w7E4pF.jpg">?</span></div>
       </label>
     </li>
 
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон постов" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить шаблоны постов">
-        <span>Шаблон постов <span class="info-icon" data-tooltip="Шаблон для оформления постов (редактируемый).">?</span></span>
+        <div class="feature-text-wrapper">Шаблон постов <span class="info-icon" data-tooltip="Шаблон для оформления постов (редактируемый)." data-example="https://i.imgur.com/DoV1PqC.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 10)">−</button>
@@ -3083,21 +3277,21 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон превью видео"  onchange="updatePrice(this)">
-        <span>Шаблон превью видео <span class="info-icon" data-tooltip="Шаблон обложки для видео.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон превью видео <span class="info-icon" data-tooltip="Шаблон обложки для видео." data-example="https://i.imgur.com/6N1pB8y.jpg">?</span></div>
       </label>
     </li>
 
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон изображений к постам со ссылкой (сниппет)" onchange="updatePrice(this)">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон для постов со ссылкой без привязки к количеству.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон для постов со ссылкой без привязки к количеству." data-example="https://i.imgur.com/8bLZXnV.jpg">?</span></div>
       </label>
     </li>
 
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1500" value="Обложка для подписной страницы Senler рассылок"  onchange="updatePrice(this)">
-        <span>Обложка для подписной страницы Senler рассылок <span class="info-icon" data-tooltip="Обложка для страницы подписки Senler.">?</span></span>
+        <div class="feature-text-wrapper">Обложка для подписной страницы Senler рассылок <span class="info-icon" data-tooltip="Обложка для страницы подписки Senler." data-example="https://i.imgur.com/7N2xF8E.jpg">?</span></div>
       </label>
     </li>
     </ul></div>
@@ -3123,14 +3317,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Аватар" checked disabled>
-        <span>Аватар <span class="info-icon" data-tooltip="Изображение профиля/сообщества: логотип или фото.">?</span></span>
+        <div class="feature-text-wrapper">Аватар <span class="info-icon" data-tooltip="Изображение профиля/сообщества: логотип или фото." data-example="https://sun9-33.userapi.com/impg/c858432/v858432367/1460c9/s-K0wK1Yv0c.jpg?size=1280x1280&quality=95&sign=e54e47a95724816c8438183182877e8a">?</span></div>
       </label>
     </li>
-    
+
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Десктопная обложка" checked disabled>
-        <span>Десктопная обложка <span class="info-icon" data-tooltip="Шапка для ПК версии сообщества.">?</span></span>
+        <div class="feature-text-wrapper">Десктопная обложка <span class="info-icon" data-tooltip="Шапка для ПК версии сообщества." data-example="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=80">?</span></div>
       </label>
     </li>
     
@@ -3161,7 +3355,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="2" data-label="Варианты дизайна десктопной обложки" data-min="1">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
-        <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
+        <div class="feature-text-wrapper">Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор." data-example="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 6)">−</button>
@@ -3173,14 +3367,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
+        <div class="feature-text-wrapper">Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\"." data-example="https://i.imgur.com/0Z7Yl9S.png">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="700" data-base-qty="3" data-label="Плитки виджета" data-min="3">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
-        <span>Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить).">?</span></span>
+        <div class="feature-text-wrapper">Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить)." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 3, 12)">−</button>
@@ -3192,7 +3386,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="500" data-base-qty="5" data-label="Карточки товаров" data-min="5">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
-        <span>Карточки товаров <span class="info-icon" data-tooltip="Оформление карточек товаров (можно уменьшить/увеличить).">?</span></span>
+        <div class="feature-text-wrapper">Карточки товаров <span class="info-icon" data-tooltip="Оформление карточек товаров (можно уменьшить/увеличить)." data-example="https://i.imgur.com/9t6QqkB.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 20)">−</button>
@@ -3204,7 +3398,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Баннер для закрепа" data-min="1">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
-        <span>Баннер для закрепа <span class="info-icon" data-tooltip="Креатив под закрепленный пост, входит в пакет.">?</span></span>
+        <div class="feature-text-wrapper">Баннер для закрепа <span class="info-icon" data-tooltip="Креатив под закрепленный пост, входит в пакет." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 10)">−</button>
@@ -3216,7 +3410,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Баннеры для рекламы" data-min="1">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
-        <span>Баннеры для рекламы <span class="info-icon" data-tooltip="Готовые баннеры для рекламных размещений.">?</span></span>
+        <div class="feature-text-wrapper">Баннеры для рекламы <span class="info-icon" data-tooltip="Готовые баннеры для рекламных размещений." data-example="https://i.imgur.com/2w9Y9wq.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 10)">−</button>
@@ -3229,7 +3423,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="300" data-base-qty="0" data-label="Доп. иконки меню" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить доп. иконки">
-        <span>Доп. иконки меню <span class="info-icon" data-tooltip="Дополнительные иконки сверх 5 (макс. +3, итого до 8).">?</span></span>
+        <div class="feature-text-wrapper">Доп. иконки меню <span class="info-icon" data-tooltip="Дополнительные иконки сверх 5 (макс. +3, итого до 8)." data-example="https://i.imgur.com/0Z7Yl9S.png">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 3)">−</button>
@@ -3241,14 +3435,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон обложки статьи"  onchange="updatePrice(this)">
-        <span>Шаблон обложки статьи <span class="info-icon" data-tooltip="Шаблон для статей/лонгридов.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон обложки статьи <span class="info-icon" data-tooltip="Шаблон для статей/лонгридов." data-example="https://i.imgur.com/1w7E4pF.jpg">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="1000" data-base-qty="0" data-label="Шаблон постов" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить шаблоны постов">
-        <span>Шаблон постов <span class="info-icon" data-tooltip="Шаблон для постов.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон постов <span class="info-icon" data-tooltip="Шаблон для постов." data-example="https://i.imgur.com/DoV1PqC.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 10)">−</button>
@@ -3260,21 +3454,21 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон превью видео"  onchange="updatePrice(this)">
-        <span>Шаблон превью видео <span class="info-icon" data-tooltip="Шаблон превью для видео.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон превью видео <span class="info-icon" data-tooltip="Шаблон превью для видео." data-example="https://i.imgur.com/6N1pB8y.jpg">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1000" value="Шаблон изображений к постам со ссылкой (сниппет)" onchange="updatePrice(this)">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон для постов со ссылкой без подсчета количества.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Шаблон для постов со ссылкой без подсчета количества." data-example="https://i.imgur.com/8bLZXnV.jpg">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="addon">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="1500" value="Обложка для подписной страницы Senler рассылок"  onchange="updatePrice(this)">
-        <span>Обложка для подписной страницы Senler рассылок <span class="info-icon" data-tooltip="Обложка для страницы подписки Senler.">?</span></span>
+        <div class="feature-text-wrapper">Обложка для подписной страницы Senler рассылок <span class="info-icon" data-tooltip="Обложка для страницы подписки Senler." data-example="https://i.imgur.com/7N2xF8E.jpg">?</span></div>
       </label>
     </li>
     </ul></div>
@@ -3298,14 +3492,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Аватар" checked disabled>
-        <span>Аватар <span class="info-icon" data-tooltip="Изображение профиля/сообщества: логотип или фото.">?</span></span>
+        <div class="feature-text-wrapper">Аватар <span class="info-icon" data-tooltip="Изображение профиля/сообщества: логотип или фото." data-example="https://sun9-33.userapi.com/impg/c858432/v858432367/1460c9/s-K0wK1Yv0c.jpg?size=1280x1280&quality=95&sign=e54e47a95724816c8438183182877e8a">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="2000" data-base-qty="3" data-label="Варианты дизайна десктопной обложки" data-min="1">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked disabled aria-label="Обязательная позиция">
-        <span>Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор.">?</span></span>
+        <div class="feature-text-wrapper">Варианты дизайна десктопной обложки <span class="info-icon" data-tooltip="Сколько концепций десктопной обложки подготовить на выбор." data-example="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 10)">−</button>
@@ -3341,14 +3535,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Иконки меню (до 5 шт)" checked onchange="updatePrice(this)">
-        <span>Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\".">?</span></span>
+        <div class="feature-text-wrapper">Иконки меню <span class="count-note">(до 5 шт)</span> <span class="info-icon" data-tooltip="Набор иконок для пунктов меню (до 5) с возможностью добавить больше через блок \"Доп. иконки меню\"." data-example="https://i.imgur.com/0Z7Yl9S.png">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="700" data-base-qty="3" data-label="Плитки виджета" data-min="3">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
-        <span>Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить).">?</span></span>
+        <div class="feature-text-wrapper">Плитки виджета <span class="info-icon" data-tooltip="Плитки для виджетов (минимум 3, можно увеличить)." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 3, 20)">−</button>
@@ -3360,7 +3554,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="500" data-base-qty="5" data-label="Карточки товаров" data-min="5">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked onchange="toggleQtyState(this)" aria-label="Обязательная позиция">
-        <span>Карточки товаров <span class="info-icon" data-tooltip="Оформление карточек товаров (до 5 в базе).">?</span></span>
+        <div class="feature-text-wrapper">Карточки товаров <span class="info-icon" data-tooltip="Оформление карточек товаров (до 5 в базе)." data-example="https://i.imgur.com/9t6QqkB.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 30)">−</button>
@@ -3372,7 +3566,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="1" data-label="Баннер для закрепа" data-min="1">
       <div class="item-left">
           <input type="checkbox" class="feature-checkbox qty-checkbox" checked aria-label="Обязательная позиция">
-        <span>Баннер для закрепа <span class="info-icon" data-tooltip="Креатив под закрепленный пост, входит в пакет.">?</span></span>
+        <div class="feature-text-wrapper">Баннер для закрепа <span class="info-icon" data-tooltip="Креатив под закрепленный пост, входит в пакет." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 20)">−</button>
@@ -3384,7 +3578,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="1000" data-base-qty="2" data-label="Баннеры для рекламы" data-min="2">
       <div class="item-left">
           <input type="checkbox" class="feature-checkbox qty-checkbox" checked aria-label="Обязательная позиция">
-        <span>Баннеры для рекламы <span class="info-icon" data-tooltip="Готовые баннеры для рекламных размещений.">?</span></span>
+        <div class="feature-text-wrapper">Баннеры для рекламы <span class="info-icon" data-tooltip="Готовые баннеры для рекламных размещений." data-example="https://i.imgur.com/2w9Y9wq.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 2, 20)">−</button>
@@ -3396,14 +3590,14 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Шаблон обложки статьи" checked onchange="updatePrice(this)">
-        <span>Шаблон обложки статьи <span class="info-icon" data-tooltip="Шаблон для статей/лонгридов.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон обложки статьи <span class="info-icon" data-tooltip="Шаблон для статей/лонгридов." data-example="https://i.imgur.com/1w7E4pF.jpg">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base" data-mode="qty" data-unit-price="0" data-base-qty="1" data-label="Шаблон постов" data-min="1">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" checked aria-label="Обязательная позиция">
-        <span>Шаблон постов <span class="info-icon" data-tooltip="Шаблон для оформления постов.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон постов <span class="info-icon" data-tooltip="Шаблон для оформления постов." data-example="https://i.imgur.com/DoV1PqC.jpg">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 1, 10)">−</button>
@@ -3415,21 +3609,21 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Шаблон превью видео" checked onchange="updatePrice(this)">
-        <span>Шаблон превью видео <span class="info-icon" data-tooltip="Шаблон для превью видеоматериалов.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон превью видео <span class="info-icon" data-tooltip="Шаблон для превью видеоматериалов." data-example="https://i.imgur.com/6N1pB8y.jpg">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Шаблон изображений к постам со ссылкой (сниппет)" checked onchange="updatePrice(this)">
-        <span>Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Сниппет включён в комплект, без учета количества вариантов.">?</span></span>
+        <div class="feature-text-wrapper">Шаблон изображений к постам со ссылкой (сниппет) <span class="info-icon" data-tooltip="Сниппет включён в комплект, без учета количества вариантов." data-example="https://i.imgur.com/8bLZXnV.jpg">?</span></div>
       </label>
     </li>
     
     <li class="tariff-feature-item" data-type="base">
       <label class="item-left" style="cursor:pointer;">
         <input type="checkbox" class="feature-checkbox" data-price="0" value="Обложка для подписной страницы Senler рассылок" checked onchange="updatePrice(this)">
-        <span>Обложка для подписной страницы Senler рассылок <span class="info-icon" data-tooltip="Обложка для страницы подписки Senler.">?</span></span>
+        <div class="feature-text-wrapper">Обложка для подписной страницы Senler рассылок <span class="info-icon" data-tooltip="Обложка для страницы подписки Senler." data-example="https://i.imgur.com/7N2xF8E.jpg">?</span></div>
       </label>
     </li>
     </ul>
@@ -3437,7 +3631,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <li class="tariff-feature-item" data-type="addon" data-mode="qty" data-unit-price="300" data-base-qty="0" data-label="Доп. иконки меню" data-min="0">
       <div class="item-left">
         <input type="checkbox" class="feature-checkbox qty-checkbox" onchange="toggleQtyState(this)" aria-label="Добавить доп. иконки">
-        <span>Доп. иконки меню <span class="info-icon" data-tooltip="Дополнительные иконки сверх 5 (макс. +3, итого до 8).">?</span></span>
+        <div class="feature-text-wrapper">Доп. иконки меню <span class="info-icon" data-tooltip="Дополнительные иконки сверх 5 (макс. +3, итого до 8)." data-example="https://i.imgur.com/0Z7Yl9S.png">?</span></div>
       </div>
       <div class="qty-control">
         <button class="qty-btn" type="button" onclick="changeQty(this, -1, 0, 3)">−</button>
@@ -3449,7 +3643,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
         
         <div class="speed-badge">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <div>Высокая скорость выполнения проекта: Вы вне очереди <span class="info-icon" data-tooltip="Приоритетное выполнение: ваш проект идёт без очереди, сроки максимально сжатые.">?</span></div>
+          <div>Высокая скорость выполнения проекта: Вы вне очереди <span class="info-icon" data-tooltip="Приоритетное выполнение: ваш проект идёт без очереди, сроки максимально сжатые." data-example="https://i.imgur.com/G3gTi5V.jpg">?</span></div>
         </div>
         
         <div class="tariff-price">30 000 ₽</div>
@@ -3621,39 +3815,39 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
 </div>
 
 <div id="order-modal" onclick="closeOrder(event)">
-    <div class="order-choice" style="position: relative; overflow: visible;">
-        <!-- Вынесенная кнопка закрыть -->
+    <div class="order-choice">
         <button class="order-close-btn-fixed" type="button" onclick="closeOrder(event)">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
 
-        <!-- Заголовок с суммой -->
         <div id="order-dynamic-header" class="order-total-header">
             Ваш заказ: <span id="order-total-sum">—</span>
-            <button class="copy-btn" onclick="copyOrderText()" title="Скопировать состав заказа">
+            <button class="copy-btn" onclick="copyOrderText()" title="Скопировать">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             </button>
         </div>
 
         <div class="order-text-block">
-            <p style="margin:0; color: var(--text-sec); font-size:13px;">Состав заявки и итог сразу готовы к отправке</p>
-            <button class="order-reset-btn" type="button" onclick="clearOrderSelection()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h6m6 0h6M9 6a3 3 0 0 1 6 0m-9 0 1 14h10l1-14"/><path d="m10 11 4 4m0-4-4 4"/></svg>
-                Сбросить заявку
-            </button>
+            <div class="order-reset-area">
+                <button class="order-reset-btn-new" type="button" onclick="clearOrderSelection()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    Очистить форму
+                </button>
+            </div>
             <textarea id="order-text-area" class="order-textarea" readonly></textarea>
+            <p style="margin:8px 0 0; color: #555; font-size:12px;">Текст заявки сформирован автоматически</p>
         </div>
 
-        <h2 style="font-size: 16px; opacity: 0.7; margin-top: 0;">Связаться со мной</h2>
-        <p id="order-instructions">Выберите удобный способ для связи и обсуждения проекта</p>
+        <h2 style="font-size: 16px; opacity: 0.7; margin-top: 20px;">Отправить через:</h2>
+        
         <div class="contact-list">
-            <a href="https://vk.com/im?sel=-163936790" target="_blank" class="contact-link link-vk">
+            <a href="#" onclick="sendOrderLink('vk'); return false;" class="contact-link link-vk">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M15.013 19.43c-5.83 0-9.138-3.99-9.278-10.645H8.62c.1 4.88 2.25 6.944 3.955 7.37V8.785h2.75v4.209c1.683-.18 3.44-2.09 4.037-4.21h2.75a8.77 8.77 0 01-3.71 5.378 8.875 8.875 0 014.288 5.268h-3.023a5.55 5.55 0 00-4.04-3.614v3.614h-1.874z"/></svg>
-                ВКонтакте
+                <span>ВКонтакте</span>
             </a>
-            <a href="https://t.me/zhegulyaev" target="_blank" class="contact-link link-tg">
+            <a href="#" onclick="sendOrderLink('tg'); return false;" class="contact-link link-tg">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.91-1.27 4.85-2.11 5.82-2.52 2.77-1.16 3.35-1.36 3.72-1.37.08 0 .27.02 .39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-                Telegram
+                <span>Telegram</span>
             </a>
         </div>
     </div>
@@ -5010,9 +5204,12 @@ function copyLink() {
 }
 
 function copyOrderText(){
-    if(!lastOrderText) { alert('Сначала сформируйте заявку в тарифах.'); return; }
+    if(!lastOrderText) { 
+        showToast('⚠️ Сначала выберите услуги в тарифах'); 
+        return; 
+    }
     navigator.clipboard.writeText(lastOrderText).then(() => {
-        alert('Состав заказа скопирован!');
+        showToast('✅ Состав заказа скопирован!');
     });
 }
 
@@ -5258,54 +5455,84 @@ const dynamicTooltip = document.createElement('div');
 dynamicTooltip.className = 'dynamic-tooltip';
 dynamicTooltip.style.visibility = 'hidden';
 document.body.appendChild(dynamicTooltip);
-
-function hideDynamicTooltip() {
-    dynamicTooltip.style.opacity = '0';
-    dynamicTooltip.style.visibility = 'hidden';
-}
+let tooltipTimeout;
 
 function showDynamicTooltip(target) {
+    clearTimeout(tooltipTimeout);
+    
     const text = target?.dataset?.tooltip;
-    if (!text) return;
-    dynamicTooltip.textContent = text;
+    const exampleUrl = target?.dataset?.example;
+    
+    if (!text && !exampleUrl) return;
+
+    let html = `<div>${text || ''}</div>`;
+    if (exampleUrl) {
+        html += `<div class="tooltip-example-link" onclick="openExampleModal('${exampleUrl}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Посмотреть пример
+                 </div>`;
+    }
+    
+    dynamicTooltip.innerHTML = html;
     dynamicTooltip.dataset.placement = 'top';
     dynamicTooltip.style.visibility = 'hidden';
     dynamicTooltip.style.opacity = '0';
+    dynamicTooltip.style.display = 'block';
 
     const rect = target.getBoundingClientRect();
-    const spacing = 10;
+    const spacing = 12;
     const scrollY = window.scrollY || document.documentElement.scrollTop;
-    const scrollX = window.scrollX || document.documentElement.scrollLeft;
-
-    dynamicTooltip.style.left = `${rect.left + rect.width / 2 + scrollX}px`;
-    dynamicTooltip.style.top = `${rect.top + scrollY - dynamicTooltip.offsetHeight - spacing}px`;
-
-    const needsBottom = dynamicTooltip.getBoundingClientRect().top < 8;
-    if (needsBottom) {
+    
+    dynamicTooltip.style.left = `${rect.left + rect.width / 2}px`; 
+    dynamicTooltip.style.transform = 'translate(-50%, -10px)';
+    
+    let topPos = rect.top + scrollY - dynamicTooltip.offsetHeight - spacing;
+    
+    if (rect.top - dynamicTooltip.offsetHeight - spacing < 0) {
+        topPos = rect.bottom + scrollY + spacing;
         dynamicTooltip.dataset.placement = 'bottom';
-        dynamicTooltip.style.top = `${rect.bottom + scrollY + spacing}px`;
+        dynamicTooltip.style.transform = 'translate(-50%, 10px)';
     }
-
+    
+    dynamicTooltip.style.top = `${topPos}px`;
+    
     dynamicTooltip.style.visibility = 'visible';
     requestAnimationFrame(() => {
         dynamicTooltip.style.opacity = '1';
+        dynamicTooltip.style.transform = dynamicTooltip.dataset.placement === 'bottom' 
+            ? 'translate(-50%, 0)' 
+            : 'translate(-50%, 0)';
     });
+}
+
+function hideDynamicTooltip() {
+    tooltipTimeout = setTimeout(() => {
+        dynamicTooltip.style.opacity = '0';
+        dynamicTooltip.style.visibility = 'hidden';
+    }, 200);
 }
 
 document.addEventListener('mouseover', (e) => {
     const icon = e.target.closest('.info-icon');
-    if (!icon) {
-        if (!e.relatedTarget || !e.relatedTarget.closest('.info-icon')) hideDynamicTooltip();
+    if (icon) {
+        showDynamicTooltip(icon);
         return;
     }
-    showDynamicTooltip(icon);
+    if (e.target.closest('.dynamic-tooltip')) {
+        clearTimeout(tooltipTimeout);
+        return;
+    }
+    hideDynamicTooltip();
 });
 
-document.addEventListener('mouseout', (e) => {
-    if (e.target.closest('.info-icon') && (!e.relatedTarget || !e.relatedTarget.closest('.info-icon'))) {
-        hideDynamicTooltip();
-    }
-});
+function openExampleModal(url) {
+    const modal = document.getElementById('review-photo-modal');
+    const img = document.getElementById('review-photo-modal-img');
+    if (!modal || !img) return;
+    img.src = url;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
 
 
 window.addEventListener('scroll', () => {
