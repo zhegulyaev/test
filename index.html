@@ -1450,21 +1450,50 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .count-note { opacity:0.7; font-weight:500; font-size:12px; letter-spacing:0.2px; }
 .muted-construct-note { opacity:0.38; font-weight:400; color: var(--text-sec); font-size:13px; letter-spacing:0.1px; }
 .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-.choice-pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-start; }
-.choice-pill { display: flex; align-items: center; padding: 6px 10px; height: auto; min-width: 0; border-radius: 8px; background: rgba(255, 255, 255, 0.05); transition: all 0.2s ease; cursor: pointer; font-weight: 700; color: #e5e5e8; user-select: text; gap: 6px; border: 1px solid rgba(255, 255, 255, 0.08); }
-.choice-pill:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); }
-.choice-pill.active { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.45); color:#fff; box-shadow: 0 8px 18px rgba(255,51,51,0.2); }
+.choice-pills {
+    display: flex;
+    gap: 6px;
+    padding-left: 28px; /* Смещение, чтобы кнопки были под текстом, а не под чекбоксом */
+}
+.choice-pill {
+    display: flex;
+    align-items: center;
+    padding: 2px 8px; /* Минимальные отступы */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.choice-pill.active {
+    background: rgba(0, 119, 255, 0.15);
+    border-color: var(--vk);
+}
 .choice-pill input { display:none; }
 .choice-pill .pill-visual { display:flex; align-items:center; justify-content:center; width: 38px; height: 38px; }
-.choice-pills[data-label="Мобильная обложка"] .pill-label { display: none; }
-.choice-pills[data-label="Мобильная обложка"] { gap: 12px; }
-.choice-pills[data-label="Мобильная обложка"] .choice-pill { position: relative; padding: 12px; min-width: 86px; justify-content: center; gap: 0; }
-.choice-pills[data-label="Мобильная обложка"] .pill-visual { width: 46px; height: 46px; }
-.choice-pills[data-label="Мобильная обложка"] .cover-icon { width: 36px; height: 36px; border-radius: 12px; font-size: 12px; }
-.choice-pills[data-label="Мобильная обложка"] .pill-info { position: absolute; top: -10px; right: -10px; width: 22px; height: 22px; margin: 0; border-radius: 50%; background: rgba(20, 20, 20, 0.65); border: 1px solid rgba(255,255,255,0.18); display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 6px 14px rgba(0,0,0,0.5); }
-.pill-label { font-weight: 800; letter-spacing: 0.2px; color: #fff; font-size: 13px; line-height: 1.2; white-space: nowrap; }
-.pill-info { width:16px; height:16px; margin-left: 4px; font-size: 12px; }
-.cover-icon { width:16px; height:16px; margin-right: 6px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+.pill-label {
+    font-size: 12px;
+    font-weight: 600; /* Жирнее, как вы просили */
+    color: var(--text-main);
+}
+.pill-info {
+    font-size: 11px;
+    margin-left: 4px;
+    opacity: 0.6;
+}
+.cover-icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    border-radius:8px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background: rgba(255,255,255,0.06);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
 .cover-icon::after { content:''; position:absolute; inset:0; opacity:0.08; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 55%); transition: opacity .2s ease; }
 .cover-icon.static::before { content:'▦'; font-size:14px; color:#fff; opacity:0.8; }
 .cover-icon.animated { background: linear-gradient(120deg, rgba(255,51,51,0.55), rgba(255,140,80,0.65)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 6px 16px rgba(255,68,68,0.25); }
@@ -1483,9 +1512,17 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .mobile-cover-state { color: var(--text-main); font-size: 12px; font-weight: 800; letter-spacing: 0.1px; padding-left: 0; line-height: 1.35; margin-top: 0; display: flex; align-items: center; }
 
 /* Контейнер для мобильной обложки */
-.mobile-cover-header { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-.mobile-cover-titles { display: flex; flex-direction: column; gap: 2px; }
-.mobile-cover-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
+.mobile-cover-header { width: 100%; }
+.mobile-cover-titles {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px; /* Отступ до кнопок */
+}
+.mobile-cover-title span {
+    font-size: 15px; /* Как у остальных пунктов */
+    color: var(--text-main);
+}
 .mobile-cover-subtitle { font-size: 13px; color: var(--text-sec); }
 .mobile-cover-icons { display: flex; gap: 8px; align-items: center; }
 .status-icon { width: 24px; height: 24px; fill: var(--text-sec); opacity: 0.8; }
@@ -3358,33 +3395,30 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
 
-    <li class="tariff-feature-item choice-row" data-type="base">
+    <li class="tariff-feature-item choice-row" data-type="base" data-key="стандарт-item-2">
       <div class="item-left">
         <div class="mobile-cover-header">
           <div class="mobile-cover-titles">
+            <input type="checkbox" class="feature-checkbox" checked disabled>
             <div class="mobile-cover-title">
-              <div class="choice-label-row">
-                <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-                <span>Мобильная обложка</span>
-              </div>
+              <span>Мобильная обложка</span>
             </div>
-            <div class="mobile-cover-subtitle mobile-cover-state"></div>
           </div>
-          <div class="mobile-cover-icons">
-            <div class="choice-pills" data-label="Мобильная обложка">
-              <label class="choice-pill active" title="Статичная мобильная обложка">
-                <input type="radio" name="mobile-cover-standard" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" checked onchange="handleChoiceChange(this)">
-                <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
-                <span class="pill-label">Статичная</span>
-                <span class="info-icon pill-info" data-tooltip="Спокойная статичная обложка для мобильной версии." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
-              </label>
-              <label class="choice-pill" title="Анимированная мобильная обложка">
-                <input type="radio" name="mobile-cover-standard" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" onchange="handleChoiceChange(this)">
-                <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
-                <span class="pill-label">Анимированная</span>
-                <span class="info-icon pill-info" data-tooltip="Анимированная мобильная обложка с легким движением." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
-              </label>
-            </div>
+          
+          <div class="choice-pills" data-label="Мобильная обложка" data-key="стандарт-choice-0">
+            <label class="choice-pill active" title="Статичная">
+              <input type="radio" name="mobile-cover-standard" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" checked onchange="handleChoiceChange(this)" style="display:none;">
+              <span class="pill-visual"><span class="cover-icon static"></span></span>
+              <span class="pill-label">Статичная</span>
+              <span class="info-icon pill-info" data-tooltip="Спокойная статичная обложка.">?</span>
+            </label>
+
+            <label class="choice-pill" title="Анимированная">
+              <input type="radio" name="mobile-cover-standard" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" onchange="handleChoiceChange(this)" style="display:none;">
+              <span class="pill-visual"><span class="cover-icon animated"></span></span>
+              <span class="pill-label">Анимированная</span>
+              <span class="info-icon pill-info" data-tooltip="Анимированная обложка (+3500 ₽)">?</span>
+            </label>
           </div>
         </div>
       </div>
