@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Роман Жегуляев — Услуги</title>
+<title>Роман Жегуляев — Портфолио</title>
 <link rel="icon" href="https://sun9-67.userapi.com/impg/c857220/v857220001/1c3b0d/1oM1v1rZ0qU.jpg?size=200x200&quality=96&sign=example-favicon" type="image/jpeg">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -1450,97 +1450,22 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .count-note { opacity:0.7; font-weight:500; font-size:12px; letter-spacing:0.2px; }
 .muted-construct-note { opacity:0.38; font-weight:400; color: var(--text-sec); font-size:13px; letter-spacing:0.1px; }
 .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-.choice-pills {
-    display: flex;
-    gap: 8px;
-    margin-top: 4px;
-    padding-left: 28px; /* Выравнивание под текст после чекбокса */
-}
-
-.choice-pill {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;  /* Фиксированная ширина */
-    height: 32px; /* Фиксированная высота */
-    padding: 0;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-}
-
-.choice-pill.active {
-    background: rgba(0, 119, 255, 0.2);
-    border-color: var(--vk);
-    box-shadow: 0 0 10px rgba(0, 119, 255, 0.2);
-}
-
-.choice-pill input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.choice-pill .pill-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-
-.pill-info {
-    position: absolute;
-    right: -6px;
-    bottom: -6px;
-    font-size: 11px;
-    opacity: 0.7;
-}
-
-.cover-icon {
-    width: 18px;
-    height: 18px;
-    opacity: 0.7;
-    border-radius: 6px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    background: rgba(255,255,255,0.06);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
-}
-
+.choice-pills { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.choice-pill { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius: 12px; cursor:pointer; font-weight:700; color:#e5e5e8; transition: .18s ease; user-select:text; min-height: 44px; }
+.choice-pill:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.18); }
+.choice-pill.active { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.45); color:#fff; box-shadow: 0 8px 18px rgba(255,51,51,0.2); }
+.choice-pill input { display:none; }
+.choice-pill .pill-visual { display:flex; align-items:center; justify-content:center; width: 38px; height: 38px; }
+.choice-pills[data-label="Мобильная обложка"] .pill-label { display: none; }
+.pill-label { font-weight: 800; letter-spacing: 0.2px; color: #fff; font-size: 13px; }
+.pill-info { width:16px; height:16px; margin-left: 2px; }
+.cover-icon { width:24px; height:24px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
 .cover-icon::after { content:''; position:absolute; inset:0; opacity:0.08; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 55%); transition: opacity .2s ease; }
 .cover-icon.static::before { content:'▦'; font-size:14px; color:#fff; opacity:0.8; }
 .cover-icon.animated { background: linear-gradient(120deg, rgba(255,51,51,0.55), rgba(255,140,80,0.65)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 6px 16px rgba(255,68,68,0.25); }
 .cover-icon.animated::before { content:'▶'; font-size:14px; color:#fff; opacity:0.9; }
 .choice-pill:hover .cover-icon::after, .choice-pill.active .cover-icon::after { opacity:0.18; }
 .choice-pill:hover .cover-icon.static { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22); }
-
-.choice-pill.active .cover-icon {
-    opacity: 1;
-}
-
-.mobile-cover-titles {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-}
-
-.mobile-cover-state {
-    font-size: 13px;
-    font-weight: 700; /* Жирный текст состояния */
-    color: var(--vk);
-    margin-left: 28px;
-    margin-top: 2px;
-}
-
 .choice-label { font-weight:500; color: var(--text-sec); min-width:140px; display:flex; align-items:flex-start; gap:8px; flex-direction:column; }
 .choice-label-row { display:flex; align-items:center; gap:8px; }
 .choice-label-row .feature-checkbox { transform: translateY(-1px); }
@@ -1550,10 +1475,12 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
 .tariff-feature-item.choice-row { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .choice-row { flex-direction:row; align-items:center; gap:16px; }
 .choice-row .item-left { display:flex; flex-direction:column; align-items:flex-start; gap:8px; min-width:220px; }
+.mobile-cover-state { color: var(--text-main); font-size: 12px; font-weight: 800; letter-spacing: 0.1px; padding-left: 0; line-height: 1.35; margin-top: 0; display: flex; align-items: center; }
 
 /* Контейнер для мобильной обложки */
-.mobile-cover-header { width: 100%; }
-.mobile-cover-title span { font-size: 15px; color: var(--text-main); }
+.mobile-cover-header { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+.mobile-cover-titles { display: flex; flex-direction: column; gap: 2px; }
+.mobile-cover-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
 .mobile-cover-subtitle { font-size: 13px; color: var(--text-sec); }
 .mobile-cover-icons { display: flex; gap: 8px; align-items: center; }
 .status-icon { width: 24px; height: 24px; fill: var(--text-sec); opacity: 0.8; }
@@ -1562,10 +1489,6 @@ h1{font-size:18px;font-weight:700;margin:0;flex:1;text-align:center;color:var(--
     .tariff-feature-item.choice-row { align-items:flex-start; }
     .choice-row { flex-direction:column; align-items:flex-start; }
     .choice-row .choice-pills { width:100%; flex-wrap:wrap; }
-}
-
-@media (max-width: 480px) {
-    .choice-pill { padding: 0; }
 }
 
 .tariff-summary {
@@ -3380,16 +3303,43 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
   <div id="profile-header" class="profile-header"></div>
 
   <div class="header">
+    <button id="back" class="btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="22" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
     <div>
-      <h1 id="title">ТАРИФЫ & УСЛУГИ</h1>
+      <h1 id="title">ПОРТФОЛИО</h1>
       <div id="subtitle" class="subtitle"></div>
     </div>
+    <button id="sort" class="btn" onclick="toggleChronological()" title="Сменить порядок">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="22" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg>
+    </button>
   </div>
+  
+  
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('portfolio', this)">Портфолио</button>
+    <button class="tab-btn" onclick="switchTab('tariffs', this)">Тарифы & Услуги</button>
+  </div>
+  <div id="tab-portfolio" class="tab-content" style="display:block;">
+<div class="search-row">
+  <div id="portfolio-search-bar" class="portfolio-search" aria-hidden="true">
+    <div class="search-input-wrapper">
+      <input id="portfolio-search" type="search" placeholder="Поиск по названию, описанию или тегам" aria-label="Поиск по работам">
+      <span id="search-clear" class="search-clear" role="button" aria-label="Очистить поиск" onclick="clearPortfolioSearch()">×</span>
+    </div>
+  </div>
+  <div class="date-filter">
+    <button id="date-toggle" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleDateDropdown()">Дата ▾</button>
+    <div id="years-bar" aria-hidden="true"></div>
+  </div>
+</div>
+<div id="tags-bar" class="tags-container" style="display:none;"></div>
+  
+  <div id="area">Загрузка...</div>
 
-  <div id="tags-bar" style="display:none;"></div>
-  <div id="area" style="display:none;"></div>
-
-  <div class="tab-content" id="tab-tariffs" style="display:block;">
+<!-- VK VIDEO EMBEDS -->
+  </div>
+  <div id="tab-tariffs" class="tab-content" style="display:none;">
     <div class="tariff-header">
       <h2 class="section-title">Перейдем <span>к тарифам</span></h2>
       <p class="section-subtitle">Для Вас я подготовил 3 тарифа, выберите необходимый</p>
@@ -3425,28 +3375,33 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       </label>
     </li>
 
-    <li class="tariff-feature-item choice-row" data-type="base" data-key="стандарт-item-2">
+    <li class="tariff-feature-item choice-row" data-type="base">
       <div class="item-left">
         <div class="mobile-cover-header">
           <div class="mobile-cover-titles">
-            <input type="checkbox" class="feature-checkbox" checked disabled>
-            <span>Мобильная обложка</span>
+            <div class="mobile-cover-title">
+              <div class="choice-label-row">
+                <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
+                <span>Мобильная обложка</span>
+              </div>
+            </div>
+            <div class="mobile-cover-subtitle mobile-cover-state"></div>
           </div>
-          
-          <div class="mobile-cover-subtitle mobile-cover-state">Статичная</div>
-
-          <div class="choice-pills" data-label="Мобильная обложка" data-key="стандарт-choice-0">
-            <label class="choice-pill active" title="Статичная">
-              <input type="radio" name="mobile-cover-standard" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" checked onchange="handleChoiceChange(this)">
-              <span class="pill-visual"><span class="cover-icon static"></span></span>
-              <span class="info-icon pill-info" data-tooltip="Статичная обложка">?</span>
-            </label>
-
-            <label class="choice-pill" title="Анимированная">
-              <input type="radio" name="mobile-cover-standard" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" onchange="handleChoiceChange(this)">
-              <span class="pill-visual"><span class="cover-icon animated"></span></span>
-              <span class="info-icon pill-info" data-tooltip="Анимированная обложка (+3500 ₽)">?</span>
-            </label>
+          <div class="mobile-cover-icons">
+            <div class="choice-pills" data-label="Мобильная обложка">
+              <label class="choice-pill active" title="Статичная мобильная обложка">
+                <input type="radio" name="mobile-cover-standard" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" checked onchange="handleChoiceChange(this)">
+                <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
+                <span class="pill-label">Статичная</span>
+                <span class="info-icon pill-info" data-tooltip="Спокойная статичная обложка для мобильной версии." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
+              </label>
+              <label class="choice-pill" title="Анимированная мобильная обложка">
+                <input type="radio" name="mobile-cover-standard" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" onchange="handleChoiceChange(this)">
+                <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
+                <span class="pill-label">Анимированная</span>
+                <span class="info-icon pill-info" data-tooltip="Анимированная мобильная обложка с легким движением." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -3597,21 +3552,29 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       <div class="item-left">
         <div class="mobile-cover-header">
           <div class="mobile-cover-titles">
-            <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-            <span>Мобильная обложка</span>
+            <div class="mobile-cover-title">
+              <div class="choice-label-row">
+                <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
+                <span>Мобильная обложка</span>
+              </div>
+            </div>
+            <div class="mobile-cover-subtitle mobile-cover-state"></div>
           </div>
-          <div class="mobile-cover-subtitle mobile-cover-state">Анимированная</div>
-          <div class="choice-pills" data-label="Мобильная обложка">
-            <label class="choice-pill" title="Статичная мобильная обложка">
-              <input type="radio" name="mobile-cover-premium" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
-              <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
-              <span class="info-icon pill-info" data-tooltip="Спокойная мобильная обложка без анимации." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
-            </label>
-            <label class="choice-pill active" title="Анимированная мобильная обложка">
-              <input type="radio" name="mobile-cover-premium" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
-              <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
-              <span class="info-icon pill-info" data-tooltip="Анимированная версия для привлечения внимания в мобильной ленте." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
-            </label>
+          <div class="mobile-cover-icons">
+            <div class="choice-pills" data-label="Мобильная обложка">
+              <label class="choice-pill" title="Статичная мобильная обложка">
+                <input type="radio" name="mobile-cover-premium" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
+                <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
+                <span class="pill-label">Статичная</span>
+                <span class="info-icon pill-info" data-tooltip="Спокойная мобильная обложка без анимации." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
+              </label>
+              <label class="choice-pill active" title="Анимированная мобильная обложка">
+                <input type="radio" name="mobile-cover-premium" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
+                <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
+                <span class="pill-label">Анимированная</span>
+                <span class="info-icon pill-info" data-tooltip="Анимированная версия для привлечения внимания в мобильной ленте." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -3777,21 +3740,29 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
       <div class="item-left">
         <div class="mobile-cover-header">
           <div class="mobile-cover-titles">
-            <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
-            <span>Мобильная обложка</span>
+            <div class="mobile-cover-title">
+              <div class="choice-label-row">
+                <input type="checkbox" class="feature-checkbox" checked disabled aria-label="Мобильная обложка включена по умолчанию">
+                <span>Мобильная обложка</span>
+              </div>
+            </div>
+            <div class="mobile-cover-subtitle mobile-cover-state"></div>
           </div>
-          <div class="mobile-cover-subtitle mobile-cover-state">Анимированная</div>
-          <div class="choice-pills" data-label="Мобильная обложка">
-            <label class="choice-pill" title="Статичная мобильная обложка">
-              <input type="radio" name="mobile-cover-vip" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
-              <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
-              <span class="info-icon pill-info" data-tooltip="Статичная версия для VIP-пакета." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
-            </label>
-            <label class="choice-pill active" title="Анимированная мобильная обложка">
-              <input type="radio" name="mobile-cover-vip" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
-              <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
-              <span class="info-icon pill-info" data-tooltip="Движущаяся VIP-обложка для мобильных устройств." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
-            </label>
+          <div class="mobile-cover-icons">
+            <div class="choice-pills" data-label="Мобильная обложка">
+              <label class="choice-pill" title="Статичная мобильная обложка">
+                <input type="radio" name="mobile-cover-vip" value="Мобильная статичная обложка" data-state-label="Статичная" data-price="0" onchange="handleChoiceChange(this)">
+                <span class="pill-visual"><span class="cover-icon static" aria-hidden="true"></span></span>
+                <span class="pill-label">Статичная</span>
+                <span class="info-icon pill-info" data-tooltip="Статичная версия для VIP-пакета." data-example="https://i.imgur.com/1Q9Z1ZV.jpg">?</span>
+              </label>
+              <label class="choice-pill active" title="Анимированная мобильная обложка">
+                <input type="radio" name="mobile-cover-vip" value="Мобильная анимированная обложка" data-state-label="Анимированная" data-price="3500" checked onchange="handleChoiceChange(this)">
+                <span class="pill-visual"><span class="cover-icon animated" aria-hidden="true"></span></span>
+                <span class="pill-label">Анимированная</span>
+                <span class="info-icon pill-info" data-tooltip="Движущаяся VIP-обложка для мобильных устройств." data-example="https://i.imgur.com/FN0l0wn.jpg">?</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -3972,7 +3943,7 @@ a.profile-meta { display: flex; align-items: center; justify-content: center; ga
     <div class="footer-icon be-icon">
       <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8.2 12.1c.6-.4 1-1.1 1-1.9 0-1.6-1.1-2.7-3.2-2.7H2v12h4c2.5 0 4-1.3 4-3.4 0-1.4-.7-2.4-1.8-3zM4.4 7.4h1.4c1 0 1.5.4 1.5 1.2 0 .9-.5 1.3-1.5 1.3H4.4V7.4zm1.6 9.2H4.4v-3h1.6c1.2 0 1.8.5 1.8 1.5 0 1-.6 1.5-1.8 1.5zM14 9h6V7h-6v2zm3.1 10.8c2.3 0 3.8-1.2 4.2-3h-2c-.2.7-.9 1.2-2 1.2-1.4 0-2.3-1-2.4-2.4h6.5v-.8c0-2.8-1.6-4.8-4.3-4.8-2.7 0-4.4 2-4.4 4.9 0 3 1.7 4.9 4.4 4.9zm0-7.9c1.2 0 2 .7 2.1 1.9h-4.3c.2-1.2 1-1.9 2.2-1.9z"/></svg>
     </div>
-    <div class="footer-text"><div class="footer-title">Behance</div><div class="footer-sub">Услуги</div></div>
+    <div class="footer-text"><div class="footer-title">Behance</div><div class="footer-sub">Портфолио</div></div>
   </a>
 
   <a href="https://ru.pinterest.com/zhegulyaev/" target="_blank" class="footer-link" title="Pinterest" rel="noopener">
@@ -4310,9 +4281,17 @@ function getUrlParams() {
 }
 
 function applyStateFromUrl() {
-  const { config } = getUrlParams();
-  const snapshot = config ? decodeConfig(config) : null;
-  if (snapshot) applyTariffStateSnapshot(snapshot);
+  const {album, photo, service, folder, section} = getUrlParams();
+  hist = [];
+  currentSection = 'main';
+
+  if (section === 'reviews') { openReviewsSection(true); return; }
+  if (section === 'services') { loadServices(true); return; }
+
+  menuShow(menu, "ПОРТФОЛИО");
+  if (folder) openFolderById(folder);
+  if (album) openAlbumById(album, photo);
+  if (service) openService(service);
 }
 
 
@@ -4408,6 +4387,14 @@ function renderGroupHeader(g) {
         <span>Подписаться</span>
     </a>
 
+    <!-- Reviews (Gray, Blue Badge) -->
+    <div onclick="openReviewsSection()" class="btn-secondary-styled">
+        <div class="review-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+            <div class="review-badge" id="reviews-badge-count">458</div>
+        </div>
+        <span>Отзывы</span>
+    </div>
 </div>
 
         </div>
@@ -4457,6 +4444,14 @@ window.saveCustomCovers = d => {
      if(typeof currentMenu !== 'undefined') menuShow(currentMenu, document.getElementById('title').innerText);
   }
 };
+window.saveReviewsCount = d => {
+    if(d.response && d.response.items && d.response.items.length > 0) {
+        albumCounts['reviews'] = d.response.items[0].comments;
+    }
+    document.getElementById('subtitle').innerText = `· ${totalWorks} работ${totalWorks % 10 === 1 && totalWorks % 100 !== 11 ? 'а' : 'ы'}`;
+    applyStateFromUrl();
+};
+
 const menu=[
   {title:"Оформление соцсетей",isFolder:true,id:"folder_social",items:[
     {title:"Оформление сообществ",id:"270856221"},
@@ -4469,6 +4464,7 @@ const menu=[
   {title:"Постеры",id:"309328278"},
   {title:"Дизайн Wildberries",id:"284187693"},
   {title:"Музыкальные обложки",id:"279127223"},
+  {title:"Отзывы клиентов",id:"reviews_link", special: true},
   {title:"Клиенты", id:"services_link", type: "clients", special: true}
 ];
 
@@ -4490,7 +4486,7 @@ function openFolderById(folderId) {
 
   hist = [];
   let currentList = menu;
-  let currentTitle = "УСЛУГИ";
+  let currentTitle = "ПОРТФОЛИО";
 
   for (const folder of found.path) {
     hist.push({l: currentList, t: currentTitle, b: true});
@@ -4506,7 +4502,7 @@ function openAlbumById(id, photoIdx = null) {
 
   hist = [];
   let currentList = menu;
-  let currentTitle = "УСЛУГИ";
+  let currentTitle = "ПОРТФОЛИО";
 
   if (found.path) {
     for (const folder of found.path) {
@@ -4530,7 +4526,14 @@ function openAlbumById(id, photoIdx = null) {
   }
 }
 
-function openReviewsSection() { return; }
+function openReviewsSection(skipUrlUpdate = false) {
+    currentSection = 'reviews';
+    switchTab('portfolio');
+    if (!skipUrlUpdate) hist.push({l: currentMenu, t: document.getElementById('title').innerText, b: true});
+    if (!skipUrlUpdate) updateUrl(null, null, null, null, 'reviews');
+    toggleSearchBar(false);
+    loadReviews();
+}
 
 function loadServices(skipUrlUpdate = false) { window.scrollTo(0,0); document.getElementById("header-progress").style.opacity = 0;
     currentSection = 'services';
@@ -4544,12 +4547,9 @@ function loadServices(skipUrlUpdate = false) { window.scrollTo(0,0); document.ge
     document.getElementById('title').innerText = "УСЛУГИ";
     document.getElementById('title').dataset.original = "УСЛУГИ";
     document.getElementById('subtitle').innerText = "";
-    const backBtn = document.getElementById('back');
-    if (backBtn) backBtn.classList.add('active');
-    const sortBtn = document.getElementById('sort');
-    if (sortBtn) sortBtn.classList.remove('active');
-    const tagsBar = document.getElementById('tags-bar');
-    if (tagsBar) tagsBar.style.display = 'none';
+    document.getElementById('back').classList.add('active');
+    document.getElementById('sort').classList.remove('active');
+    document.getElementById('tags-bar').style.display = 'none';
     toggleSearchBar(false);
 
     api('market.get', `owner_id=${OWNER}&count=200&extended=1`, 'renderServicesList');
@@ -4628,8 +4628,7 @@ function openService(serviceId) { window.scrollTo(0,0); document.getElementById(
 
   document.getElementById('title').innerText = service.title;
   document.getElementById('title').dataset.original = service.title;
-  const backBtn = document.getElementById('back');
-  if (backBtn) backBtn.classList.add('active');
+  document.getElementById('back').classList.add('active');
 
   const thumb = service.thumb_photo || 'https://vk.com/images/camera_200.png';
 
@@ -4649,11 +4648,128 @@ function openService(serviceId) { window.scrollTo(0,0); document.getElementById(
   r.appendChild(card);
 }
 
-function resetReviewsState() {}
+function resetReviewsState() {
+    reviewsLoaded = 0;
+    reviewsTotal = 0;
+    reviewsProfiles = [];
+    reviewsGroups = [];
+    reviewsWrap = null;
+    reviewsSentinel = null;
+    reviewsLoading = false;
+    reviewsSortOrder = revReviews === 0 ? 'desc' : 'asc';
+    if (reviewsObserver) { reviewsObserver.disconnect(); reviewsObserver = null; }
+}
 
-function requestMoreReviews() { return; }
+function requestMoreReviews() {
+    if (reviewsLoading) return;
+    if (reviewsTotal && reviewsLoaded >= reviewsTotal) return;
+    reviewsLoading = true;
+    api('board.getComments', `group_id=${Math.abs(OWNER)}&topic_id=${REVIEW_TOPIC_ID}&extended=1&sort=${reviewsSortOrder}&count=20&offset=${reviewsLoaded}`, 'renderReviews');
+}
 
-function loadReviews() { return; }
+function loadReviews() { window.scrollTo(0,0); document.getElementById("header-progress").style.opacity = 0;
+    resetReviewsState();
+    alb = null;
+    const r = document.getElementById('area');
+    r.innerHTML = '';
+    r.className = '';
+
+    document.getElementById('title').innerText = "ОТЗЫВЫ";
+    document.getElementById('title').dataset.original = "ОТЗЫВЫ";
+    document.getElementById('subtitle').innerText = "";
+    document.getElementById('back').classList.add('active');
+    document.getElementById('tags-bar').style.display = 'none';
+
+    document.getElementById('sort').classList.add('active');
+    document.getElementById('sort').classList.toggle('active', revReviews === 1);
+    document.getElementById('sort').title = revReviews === 0 ? "Сначала новые" : "Сначала старые";
+
+    const videoSection = document.createElement('div');
+    videoSection.id = 'vkvideo-section';
+    videoSection.style.maxWidth = '1440px';
+    videoSection.style.margin = '0 auto 32px auto';
+    videoSection.style.padding = '0 20px 8px 20px';
+    videoSection.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap: wrap; margin-top: 40px; margin-bottom: 18px;">
+        <h3 style="font-size: 22px; font-weight: 800; margin: 0; color: #fff;">Видеоотзывы</h3>
+        <a href="https://vkvideo.ru/@dsgnjr" target="_blank" rel="noopener" style="text-decoration:none; color: #0077FF; font-weight: 500; font-size: 15px; margin-left: 12px;">Показать все</a>
+      </div>
+      <div class="vkvideo-grid">
+        <div class="vkvideo-item">
+          <div class="vkvideo-embed">
+            <iframe src="https://vkvideo.ru/video_ext.php?oid=-163936790&id=456239087&hash=7eac5b11bacb4c63&hd=3" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="vkvideo-item">
+          <div class="vkvideo-embed">
+            <iframe src="https://vkvideo.ru/video_ext.php?oid=-163936790&id=456239072&hash=f516e69802be7f48&hd=3" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="vkvideo-item">
+          <div class="vkvideo-embed">
+            <iframe src="https://vkvideo.ru/video_ext.php?oid=-163936790&id=456239128&hash=11744cfc1023d4b4&hd=3" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="vkvideo-item">
+          <div class="vkvideo-embed">
+            <iframe src="https://vkvideo.ru/video_ext.php?oid=-163936790&id=456239127&hash=ec339c4e38aa37ac&hd=3" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="vkvideo-item">
+          <div class="vkvideo-embed">
+            <iframe src="https://vkvideo.ru/video_ext.php?oid=-163936790&id=456239114&hash=782d00be1546dcf9&hd=3" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="vkvideo-item">
+          <div class="vkvideo-embed">
+            <iframe src="https://vkvideo.ru/video_ext.php?oid=-163936790&id=456239102&hash=e3269a09a1e824a9&hd=3" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="vkvideo-item">
+          <div class="vkvideo-embed">
+            <iframe src="https://vkvideo.ru/video_ext.php?oid=-163936790&id=456239107&hash=dccb24e21f730322&hd=3" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="vkvideo-item">
+          <a class="vkvideo-placeholder" href="https://vkvideo.ru/@dsgnjr" target="_blank" rel="noopener">
+            <div class="vkvideo-placeholder-inner">
+              <div class="vkvideo-placeholder-title">Добавить 8-е видео</div>
+              <div class="vkvideo-placeholder-sub">Пришли ссылку video_ext.php</div>
+            </div>
+          </a>
+        </div>
+      </div>`;
+    r.appendChild(videoSection);
+
+    const textReviewsHeader = document.createElement('div');
+    textReviewsHeader.className = 'reviews-header';
+    textReviewsHeader.innerHTML = '<h3>Отзывы</h3>';
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'reviews-toggle';
+    toggleBtn.textContent = revReviews === 0 ? 'Показать старые' : 'Показать новые';
+    toggleBtn.onclick = (e) => { e.stopPropagation(); revReviews = revReviews === 1 ? 0 : 1; loadReviews(); };
+    textReviewsHeader.appendChild(toggleBtn);
+    r.appendChild(textReviewsHeader);
+
+    reviewsWrap = document.createElement('div');
+    reviewsWrap.className = 'reviews-grid';
+    r.appendChild(reviewsWrap);
+
+    reviewsSentinel = document.createElement('div');
+    reviewsSentinel.className = 'comments-loader';
+    reviewsSentinel.innerHTML = '<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#888" stroke-width="5" stroke-dasharray="31.4 31.4" transform="rotate(-90 25 25)"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/></circle></svg>';
+    r.appendChild(reviewsSentinel);
+
+    reviewsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) requestMoreReviews();
+        });
+    }, { rootMargin: '300px' });
+    reviewsObserver.observe(reviewsSentinel);
+
+    requestMoreReviews();
+}
 
 function openReviewPhoto(url) {
     const modal = document.getElementById('review-photo-modal');
@@ -4673,7 +4789,80 @@ function closeReviewPhoto() {
     document.body.style.overflow = '';
 }
 
-window.renderReviews = () => {}
+window.renderReviews = d => {
+    reviewsLoading = false;
+    const r = document.getElementById('area');
+    const ownerId = parseInt(OWNER, 10);
+    const items = (d.response?.items || []).filter(c => c.from_id !== ownerId);
+
+    if(!d.response || (items.length === 0 && reviewsLoaded === 0)) {
+         r.innerHTML = '<div class="empty-album">Отзывов пока нет</div>';
+         if (reviewsObserver) reviewsObserver.disconnect();
+         return;
+    }
+
+    if (!reviewsWrap) return;
+
+    const mergeById = (arr, incoming) => {
+        const map = new Map(arr.map(i => [i.id, i]));
+        (incoming || []).forEach(i => map.set(i.id, i));
+        return Array.from(map.values());
+    };
+
+    reviewsProfiles = mergeById(reviewsProfiles, d.response.profiles || []);
+    reviewsGroups = mergeById(reviewsGroups, d.response.groups || []);
+    reviewsTotal = reviewsTotal || d.response.count || items.length;
+
+    items.forEach((c) => {
+        let user;
+        if (c.from_id > 0) user = reviewsProfiles.find(u => u.id === c.from_id);
+        else user = reviewsGroups.find(g => g.id === -c.from_id);
+
+        const photo = user?.photo_100 || 'https://vk.com/images/camera_100.png';
+        const name = user?.first_name ? `${user.first_name} ${user.last_name}` : (user?.name || 'Пользователь');
+
+        let attachHTML = '';
+        if(c.attachments) {
+            const photos = c.attachments.filter(a => a.type === 'photo');
+            if(photos.length > 0) {
+                attachHTML = '<div class="comment-attachments">';
+                photos.forEach(ph => {
+                     const size = ph.photo.sizes.sort((a,b) => b.width - a.width)[0];
+                     const small = ph.photo.sizes.find(s => s.type === 'q') || size;
+                     attachHTML += `<img src="${small.url}" class="comment-attach-img" onclick="event.stopPropagation(); openReviewPhoto('${size.url}')">`;
+                });
+                attachHTML += '</div>';
+            }
+        }
+
+        const vkLink = `https://vk.com/topic${OWNER}_${REVIEW_TOPIC_ID}?post=${c.id}`;
+
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        card.onclick = () => window.open(vkLink, '_blank');
+        card.innerHTML = `
+            <img class="review-avatar" src="${photo}">
+            <div class="review-content">
+                <div class="review-header">
+                    <span class="review-name">${name}</span>
+                    <span class="review-date">${new Date(c.date*1000).toLocaleDateString('ru-RU')}</span>
+                </div>
+                <div class="review-text">${c.text}</div>
+                ${attachHTML}
+            </div>
+        `;
+
+        reviewsWrap.appendChild(card);
+    });
+
+    reviewsLoaded += items.length;
+    document.getElementById('title').innerText = `ОТЗЫВЫ · ${reviewsTotal || reviewsLoaded}`;
+
+    if (reviewsTotal && reviewsLoaded >= reviewsTotal) {
+        if (reviewsObserver) reviewsObserver.disconnect();
+        if (reviewsSentinel) reviewsSentinel.style.display = 'none';
+    }
+};
 
 function menuShow(l,t,b=false){ document.getElementById("header-progress").style.opacity = 0;
   l.sort((a, b) => {
@@ -4696,22 +4885,17 @@ function menuShow(l,t,b=false){ document.getElementById("header-progress").style
   currentFolderId = null;
   currentSection = 'main';
   const r=document.getElementById('area');
-  r.innerHTML='';
+  r.innerHTML=''; 
   r.className='grid';
   document.getElementById('title').innerText=t;
   document.getElementById('title').dataset.original = t;
   document.getElementById('subtitle').innerText = b ? '' : `· ${totalWorks} работ${totalWorks % 10 === 1 && totalWorks % 100 !== 11 ? 'а' : 'ы'}`;
-  const backBtn = document.getElementById('back');
-  if (backBtn) backBtn.classList.toggle('active',b);
-  const tagsBar = document.getElementById('tags-bar');
-  if (tagsBar) tagsBar.style.display = 'none';
+  document.getElementById('back').classList.toggle('active',b);
+  document.getElementById('tags-bar').style.display = 'none';
   toggleSearchBar(false);
   
-  const sortBtn = document.getElementById('sort');
-  if (sortBtn) {
-    sortBtn.classList.add('active');
-    sortBtn.classList.toggle('active', rev === 0);
-  }
+  document.getElementById('sort').classList.add('active');
+  document.getElementById('sort').classList.toggle('active', rev === 0);
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -4833,10 +5017,9 @@ function toggleChronological() {
   }
   if (currentTitle === "УСЛУГИ") return;
 
-  if(!alb) return;
+  if(!alb) return; 
   rev = rev === 1 ? 0 : 1;
-  const sortBtn = document.getElementById('sort');
-  if (sortBtn) sortBtn.classList.toggle('active', rev === 0);
+  document.getElementById('sort').classList.toggle('active', rev === 0);
   
   loadAlb(alb, currentTitle || "Альбом");
 }
@@ -4849,19 +5032,14 @@ function loadAlb(id,t){ window.scrollTo(0,0); document.getElementById("header-pr
   r.innerHTML='';
   r.className='masonry-wrap';
   document.getElementById('title').innerText=t;
-  document.getElementById('title').dataset.original = t;
+  document.getElementById('title').dataset.original = t; 
   document.getElementById('subtitle').innerText = '';
-  const backBtn = document.getElementById('back');
-  if (backBtn) backBtn.classList.add('active');
-  const sortBtn = document.getElementById('sort');
-  if (sortBtn) {
-    sortBtn.classList.add('active');
-    sortBtn.classList.toggle('active', rev === 0);
-    sortBtn.title = "Сменить порядок";
-  }
+  document.getElementById('back').classList.add('active');
+  document.getElementById('sort').classList.add('active');
+  document.getElementById('sort').classList.toggle('active', rev === 0);
+  document.getElementById('sort').title = "Сменить порядок";
 
-  const tagsBar = document.getElementById('tags-bar');
-  if (tagsBar) tagsBar.style.display = 'none';
+  document.getElementById('tags-bar').style.display = 'none';
   activeTag = null; activeYear = null;
   toggleSearchBar(true);
   if (searchInput) searchInput.value = searchQuery;
@@ -5106,10 +5284,10 @@ function openModal(i){
   const p=raw[idx];
 
   const ribbon = document.getElementById('modal-ribbon');
-  const titleSource = document.getElementById('title').dataset.original || 'Услуги';
+  const titleSource = document.getElementById('title').dataset.original || 'Портфолио';
   if (ribbon) {
-      ribbon.textContent = '';
-      ribbon.style.display = 'none';
+      ribbon.textContent = currentSection === 'reviews' ? 'Отзывы' : '';
+      ribbon.style.display = currentSection === 'reviews' ? 'block' : 'none';
   }
 
   const albumLink = document.getElementById('photo-album-link');
@@ -5133,7 +5311,7 @@ function openModal(i){
 
   document.getElementById('modal').classList.add('open');
   
-  document.title = `Работа #${idx+1} - Роман Жегуляев — Услуги`;
+  document.title = `Работа #${idx+1} - Роман Жегуляев — Портфолио`;
 
   preview.classList.remove('fading');
   preview.src = photos[idx].mid;
@@ -5385,7 +5563,7 @@ function closeModal(e){
   if (e && e.target !== document.getElementById('modal') && e.target.closest && !e.target.closest('.close-in-modal')) return;
   document.getElementById('modal').classList.remove('open'); 
   document.getElementById('order-modal').classList.remove('open');
-  document.title = 'Роман Жегуляев — Услуги';
+  document.title = 'Роман Жегуляев — Портфолио';
   document.getElementById('modal-content-inner').style.transform = '';
   updateUrl(alb, null, currentServiceId, currentFolderId, currentSection === 'main' ? null : currentSection);
   document.body.style.overflow = ''; document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = ''; window.scrollTo(0, scrollBeforeModal); 
@@ -5406,6 +5584,8 @@ document.addEventListener('keydown', e => {
         if (e.key === 'ArrowLeft') move(-1);
     }
 });
+
+api('photos.getAlbums',`owner_id=${OWNER}&need_covers=1`,'saveCovers');
 
 function toggleRef(id, url) {
     const btn = document.getElementById('ref-btn');
@@ -5530,7 +5710,7 @@ function renderFooterSocials() {
       <div class="footer-icon be-icon">
         <svg viewBox="0 0 16 16"><path fill="currentColor" d="M4.654 3c.461 0 .887.035 1.278.14.39.07.711.216.996.391s.497.426.641.747c.14.32.216.711.216 1.137 0 .496-.106.922-.356 1.242-.215.32-.566.606-.997.817.606.176 1.067.496 1.348.922s.461.957.461 1.563c0 .496-.105.922-.285 1.278a2.3 2.3 0 0 1-.782.887c-.32.215-.711.39-1.137.496a5.3 5.3 0 0 1-1.278.176L0 12.803V3zm-.285 3.978c.39 0 .71-.105.957-.285.246-.18.355-.497.355-.887 0-.216-.035-.426-.105-.567a1 1 0 0 0-.32-.355 1.8 1.8 0 0 0-.461-.176c-.176-.035-.356-.035-.567-.035H2.17v2.31c0-.005 2.2-.005 2.2-.005zm.105 4.193c.215 0 .426-.035.606-.07.176-.035.356-.106.496-.216s.25-.215.356-.39c.07-.176.14-.391.14-.641 0-.496-.14-.852-.426-1.102-.285-.215-.676-.32-1.137-.32H2.17v2.734h2.305zm6.858-.035q.428.427 1.278.426c.39 0 .746-.106 1.032-.286q.426-.32.53-.64h1.74c-.286.851-.712 1.457-1.278 1.848-.566.355-1.243.566-2.06.566a4.1 4.1 0 0 1-1.527-.285 2.8 2.8 0 0 1-1.137-.782 2.85 2.85 0 0 1-.712-1.172c-.175-.461-.25-.957-.25-1.528 0-.531.07-1.032.25-1.493.18-.46.426-.852.747-1.207.32-.32.711-.606 1.137-.782a4 4 0 0 1 1.493-.285c.606 0 1.137.105 1.598.355.46.25.817.532 1.102.958.285.39.496.851.641 1.348.07.496.105.996.07 1.563h-5.15c0 .58.21 1.11.496 1.396m2.24-3.732c-.25-.25-.642-.391-1.103-.391-.32 0-.566.07-.781.176s-.356.25-.496.39a.96.96 0 0 0-.25.497c-.036.175-.07.32-.07.46h3.196c-.07-.526-.25-.882-.497-1.132zm-3.127-3.728h3.978v.957h-3.978z"/></svg>
       </div>
-      <div class="footer-text"><div class="footer-title">Behance</div><div class="footer-sub">Услуги</div></div>
+      <div class="footer-text"><div class="footer-title">Behance</div><div class="footer-sub">Портфолио</div></div>
     </a>
     <a href="https://ru.pinterest.com/zhegulyaev/" target="_blank" class="footer-link" title="Pinterest">
       <div class="footer-icon pin-icon">
@@ -5896,7 +6076,7 @@ window.renderGroupHeader = function(g) {
     // Count color: Grey (#999)
     const countText = globalReviewsCount > 0 ? `<span style="color:#888; font-weight:400; margin-left:4px;"> · ${globalReviewsCount} отзывов</span>` : '';
     const rating = `
-    <div id="header-rating" style="display:flex; align-items:center; gap:6px; margin-top:8px; margin-bottom:12px;">
+    <div id="header-rating" onclick="openReviewsSection()" style="display:flex; align-items:center; gap:6px; margin-top:8px; margin-bottom:12px; cursor:pointer;">
         <div style="display:flex; gap:2px; color:#FFA000;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -5940,6 +6120,14 @@ window.renderGroupHeader = function(g) {
         <span>Подписаться</span>
     </a>
 
+    <!-- Reviews (Gray, Blue Badge) -->
+    <div onclick="openReviewsSection()" class="btn-secondary-styled">
+        <div class="review-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+            <div class="review-badge" id="reviews-badge-count">458</div>
+        </div>
+        <span>Отзывы</span>
+    </div>
 </div>
 
         </div>
@@ -6327,7 +6515,7 @@ function switchTab(tabId, btn){
     currentSection = 'main';
     updateUrl();
     hist = [];
-    menuShow(menu, "УСЛУГИ");
+    menuShow(menu, "ПОРТФОЛИО");
   }
 }
 
