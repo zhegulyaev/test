@@ -1,3 +1,4 @@
+// Positions and toggles the verified badge tooltip based on viewport and target element placement.
 (function() {
     const getTooltip = () => document.getElementById('verified-tooltip');
     function updatePosition(target) {

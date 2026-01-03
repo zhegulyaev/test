@@ -1,3 +1,5 @@
+// Enhanced UI behaviors: custom cursor, review count fetch, header rendering overrides,
+// and the masonry photo grid with search, tag, and date filters.
 // --- v68 FULL LOGIC ---
 
 var activeMonth = null;

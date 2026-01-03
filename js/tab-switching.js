@@ -1,3 +1,4 @@
+// Switches between portfolio and tariffs tabs while keeping button state in sync.
 function switchTab(tabId, btn){
   const p = document.getElementById('tab-portfolio');
   const t = document.getElementById('tab-tariffs');
