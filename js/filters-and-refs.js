@@ -1,3 +1,5 @@
+// UI helpers for year filtering, scroll shortcuts, subscription toggles,
+// and reference collection persistence across browsing sessions.
 // --- GLOBALS ---
 let activeYear = null;
 let lastScrollPos = 0;

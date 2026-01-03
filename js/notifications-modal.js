@@ -1,3 +1,5 @@
+// Builds and displays the notifications modal with global alerts,
+// referral bonuses, and promo banner entries.
 function showNotificationModal() {
     const modal = document.getElementById('notificationModal');
     const content = document.getElementById('notificationContent');

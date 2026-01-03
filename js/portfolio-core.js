@@ -1,3 +1,7 @@
+/**
+ * Core portfolio logic and VK data handling.
+ * Manages album fetching, search helpers, modal navigation, tariff persistence, and general UI utilities.
+ */
 let scrollBeforeModal = 0;
 const TOKEN = 'vk1.a.RMLdkgtqMrzlMwcs19POQ9F1OBSGNYwgxzPbh6MYmM56hmPwX65syhrqyAYNl7jXHuo-2oqpyGbCApRNVrK_ysiLlCFohaeBoDgK5F5-jygSwPOThzU0BayxCSqOgYGEBa3GV6NgWEHA-CP8Esl1W1qi6YaL7-mfr3ID3s7NOT_ilv6UNTRm6LPFJCb2WfeNG0tZCCtodrExiFk4JosIAw';
 const OWNER = '-163936790';
